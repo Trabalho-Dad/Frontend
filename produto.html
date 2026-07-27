@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astra Store - Detalhes do Produto</title>
+  
+  <link rel="stylesheet" href="css/base/reset.css">
+  <link rel="stylesheet" href="css/base/variables.css">
+  <link rel="stylesheet" href="css/base/global.css">
+  <link rel="stylesheet" href="css/components/header.css">
+  <link rel="stylesheet" href="css/components/card.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  
+  <link rel="stylesheet" href="css/pages/product.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">astra</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Início</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="sobre.html">Sobre nós</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" title="Buscar">🔍</button>
+        <a href="favoritos.html" class="icon-btn" title="Favoritos">🤍</a>
+        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho">
+          🛒 <span id="cart-count" class="badge">0</span>
+        </a>
+        <a href="login.html" class="btn-login">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="product-details-container">
+    
+    <div class="breadcrumb">
+      <a href="catalogo.html">Catálogo</a> / <span id="breadcrumb-category">Colecionável</span> / <span id="breadcrumb-title">Carregando...</span>
+    </div>
+
+    <section class="product-main">
+      
+      <div class="gallery-container">
+        <div class="main-image-box">
+          <img id="main-product-img" src="assets/images/placeholder.png" alt="Imagem do Produto">
+        </div>
+        <div id="thumbnails-row" class="thumbnails-row">
+          </div>
+      </div>
+
+      <div class="product-info-box">
+        <span id="product-category" class="card-category">CATEGORIA</span>
+        <h1 id="product-title">Nome do Produto</h1>
+        <p id="product-character" class="product-character">Personagem: <span>-</span></p>
+
+        <div class="product-price-large">
+          <span id="product-price">R$ 0,00</span>
+        </div>
+
+        <div class="quantity-selector">
+          <label for="quantity">Quantidade:</label>
+          <div class="qty-controls">
+            <button type="button" id="qty-minus">-</button>
+            <input type="number" id="quantity" value="1" min="1" readonly>
+            <button type="button" id="qty-plus">+</button>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="btn-add-cart" class="btn-add-cart">Adicionar ao Carrinho</button>
+          <button id="btn-buy-now" class="btn-buy-now">Comprar Agora</button>
+        </div>
+
+        <div class="shipping-box">
+          <h3>Calcular Frete e Prazo</h3>
+          <div class="shipping-input-group">
+            <input type="text" id="shipping-cep" placeholder="Digite seu CEP" maxlength="9">
+            <button type="button" id="btn-calc-shipping">Calcular</button>
+          </div>
+          <div id="shipping-result" class="shipping-result"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="product-description-section">
+      <h2>Descrição do Colecionável</h2>
+      <div id="product-description" class="description-content">
+        <p>Carregando especificações do produto...</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo">
+          <span class="logo-icon"></span>
+          <span class="logo-text">astra</span>
+        </a>
+        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e envio protegido.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Loja</h4>
+          <a href="catalogo.html">Catálogo</a>
+          <a href="#">Exclusivos</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/pages/product.js"></script>
+</body>
+</html>
