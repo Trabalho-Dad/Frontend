@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astra - Catálogo</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base/reset.css">
+  <link rel="stylesheet" href="css/base/variables.css">
+  <link rel="stylesheet" href="css/base/global.css">
+  <link rel="stylesheet" href="css/components/header.css">
+  <link rel="stylesheet" href="css/components/card.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  
+  <link rel="stylesheet" href="css/pages/catalog.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
+        <span class="logo-text">astra</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html">Início</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
+        <a href="sobre.html">Sobre nós</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
+        <a href="favoritos.html" class="icon-btn" title="Favoritos"><img src="./assets/icons/favorito.svg" alt="favorito">
+        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho">
+          🛒 <span id="cart-count" class="badge">0</span>
+        </a>
+        <a href="login.html" class="btn-login">Entrar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="catalog-container">
+    
+    <header class="catalog-header">
+      <span class="breadcrumb">C A T A L O G O </span>
+      <h1 class="catalog-title">Toda a Coleção <span class="texto-roxo">astra</span></h1>
+    </header>
+
+    <div class="catalog-content">
+      
+      <aside class="filters-sidebar">
+        <div class="filter-box">
+          <h2>Filtros</h2>
+          
+          <div class="filter-group">
+            <h3 id="categoria">CATEGORIA</h3>
+            <div id="categories-list" class="tags-container">
+              <button class="tag-btn active" data-category="">Todos</button>
+              <button class="tag-btn" data-category="Astronauta">Astronauta</button>
+              <button class="tag-btn" data-category="Cowboy">Cowboy</button>
+              <button class="tag-btn" data-category="Esportes">Esportes</button>
+              <button class="tag-btn" data-category="Empresas">Empresas</button>
+              <button class="tag-btn" data-category="Copa">Copa</button>
+              <button class="tag-btn" data-category="Personagens">Personagens</button>
+              <button class="tag-btn" data-category="Tech">Tech</button>
+              <button class="tag-btn" data-category="Originais">Originais</button>
+              <button class="tag-btn" data-category="Dia dos Namorados">Dia dos namorados</button>
+            </div>
+          </div>
+
+          <button id="clear-filters-btn" class="btn-clear-filters">Limpar Filtro</button>
+        </div>
+      </aside>
+
+      <section class="products-section">
+        <div id="catalog-grid" class="catalog-grid">
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo">
+          <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
+          <span class="logo-text">astra</span>
+        </a>
+        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e drops semanais.</p>
+        <div class="social-links">
+          <a href="#" class="social-logo" title="WhatsApp"><img src="./assets/icons/whatsapp.svg" alt="whatsapp"></a>
+          <a href="#" class="social-logo" title="Instagram"><img src="./assets/icons/instagram.svg" alt="instagram"></a>
+          <a href="#" class="social-logo" title="E-mail"><img src="./assets/icons/gmail.svg" alt="gmail"></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Loja</h4>
+          <a href="catalogo.html">Catálogo</a>
+          <a href="#">Lançamentos</a>
+          <a href="#">Exclusivos</a>
+          <a href="#">Mais Vendidos</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ajuda</h4>
+          <a href="#">Entregas</a>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">FAQ</a>
+          <a href="#">Suporte</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/pages/catalog.js"></script>
+</body>
+</html>
