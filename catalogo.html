@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astra - Catálogo</title>
   
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/variables.css">
   <link rel="stylesheet" href="css/base/global.css">
@@ -19,7 +21,7 @@
   <header class="navbar">
     <div class="nav-container">
       <a href="index.html" class="brand-logo">
-        <span class="logo-icon"></span>
+        <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
         <span class="logo-text">astra</span>
       </a>
 
@@ -30,8 +32,8 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="icon-btn" id="search-btn" title="Buscar">🔍</button>
-        <a href="favoritos.html" class="icon-btn" title="Favoritos">🤍</a>
+        <button class="icon-btn" id="search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
+        <a href="favoritos.html" class="icon-btn" title="Favoritos"><img src="./assets/icons/favorito.svg" alt="favorito">
         <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho">
           🛒 <span id="cart-count" class="badge">0</span>
         </a>
@@ -43,9 +45,8 @@
   <main class="catalog-container">
     
     <header class="catalog-header">
-      <span class="breadcrumb">Geral / Coleção</span>
-      <h1 class="catalog-title">Toda a Coleção <span>astra</span></h1>
-      <p id="products-count" class="products-count">Carregando produtos...</p>
+      <span class="breadcrumb">C A T A L O G O </span>
+      <h1 class="catalog-title">Toda a Coleção <span class="texto-roxo">astra</span></h1>
     </header>
 
     <div class="catalog-content">
@@ -55,7 +56,7 @@
           <h2>Filtros</h2>
           
           <div class="filter-group">
-            <h3>CATEGORIA</h3>
+            <h3 id="categoria">CATEGORIA</h3>
             <div id="categories-list" class="tags-container">
               <button class="tag-btn active" data-category="">Todos</button>
               <button class="tag-btn" data-category="Astronauta">Astronauta</button>
@@ -76,7 +77,7 @@
 
       <section class="products-section">
         <div id="catalog-grid" class="catalog-grid">
-          </div>
+        </div>
       </section>
 
     </div>
@@ -86,14 +87,14 @@
     <div class="footer-container">
       <div class="footer-brand">
         <a href="index.html" class="brand-logo">
-          <span class="logo-icon"></span>
+          <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
           <span class="logo-text">astra</span>
         </a>
         <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e drops semanais.</p>
         <div class="social-links">
-          <a href="#"></a>
-          <a href="#"></a>
-          <a href="#"></a>
+          <a href="#" class="social-logo" title="WhatsApp"><img src="./assets/icons/whatsapp.svg" alt="whatsapp"></a>
+          <a href="#" class="social-logo" title="Instagram"><img src="./assets/icons/instagram.svg" alt="instagram"></a>
+          <a href="#" class="social-logo" title="E-mail"><img src="./assets/icons/gmail.svg" alt="gmail"></a>
         </div>
       </div>
 
