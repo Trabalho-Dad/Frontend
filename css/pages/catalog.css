@@ -1,0 +1,226 @@
+.catalog-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: var(--space-10) 20px var(--space-20) 20px;
+  }
+  
+  .catalog-header {
+    margin-bottom: var(--space-8);
+    margin-top: var(--space-8);
+    margin-left: 30px;
+  }
+  
+  .breadcrumb {
+    font-size: 12px;
+    color:  #9CA3AF;
+    margin-bottom: var(--space-2);
+    display: block;
+  }
+  
+  .catalog-title {
+    font-size: 2.2rem;
+    font-weight: var(--font-weight-bold);
+    color: #FFFFFF;
+    margin: 0 0 var(--space-1) 0;
+  }
+
+  .texto-roxo{
+    background: linear-gradient(90deg, #d3b4f5 0%, #834fbe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  
+  .catalog-title span {
+    color: var(--purple-light);
+  }
+  
+  .products-count {
+    font-size: var(--font-size-base);
+    color: var(--text-muted);
+  }
+
+  .products-section{
+    margin-left: 5rem;
+  }
+  
+  .catalog-content {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+  
+  #categoria{
+    color: #9CA3AF;
+    font-size: 10px;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-5);
+  }
+  .filters-sidebar {
+    position: sticky;
+    top: 100px;
+    background-color: #7742AE66;
+    border-radius: 20px;
+    margin-left: 30px;
+  }
+  
+  .filter-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .filter-box h2 {
+    font-size: var(--font-size-lg);
+    color: #FFFFFF;
+    margin-bottom: var(--space-5);
+  }
+  
+  .filter-group h3 {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: var(--space-3);
+  }
+  
+  .tags-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+  
+  .tag-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 6px; 
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tag-btn[data-category="Dia dos Namorados"] {
+    grid-column: span 3; 
+  }
+  
+  .tag-btn:hover {
+    background: rgba(124, 58, 237, 0.2);
+    color: #FFFFFF;
+    border-color: var(--purple-primary);
+  }
+  
+  .tag-btn.active {
+    background: linear-gradient(135deg, #834fbe, #6b21a8);
+    color: #FFFFFF;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  
+  .btn-clear-filters {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #a0a0a0;
+    border: none;
+    padding: 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .btn-clear-filters:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+  }
+  
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+.figure-card {
+  background-color: #1a162b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  margin-bottom: 30px;
+}
+
+.figure-card:hover {
+  transform: translateY(-4px);
+  border-color: #834fbe;
+}
+
+.card-image-wrapper {
+  background-color: #f3f4f6; 
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1; 
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.card-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.card-category {
+  font-size: 0.7rem;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.card-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+  
+  @media (max-width: 850px) {
+    .catalog-content {
+      grid-template-columns: 1fr;
+    }
+  
+    .filters-sidebar {
+      position: static;
+    }
+  }
