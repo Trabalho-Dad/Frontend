@@ -7,18 +7,246 @@
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/variables.css">
   <link rel="stylesheet" href="css/base/global.css">
+  <link rel="stylesheet" href="css/components/header.css">
+  <link rel="stylesheet" href="css/components/footer.css">
   <link rel="stylesheet" href="css/components/card.css">
   <link rel="stylesheet" href="css/pages/home.css">
 </head>
 <body>
 
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
+        <span class="logo-text">astra</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="active">Início</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="sobre.html">Sobre nós</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
+        <a href="favoritos.html" class="icon-btn" title="Favoritos"><img src="./assets/icons/favorito.svg" alt="favoritos"></a>
+        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg" alt="carrinho"> <span id="cart-count" class="badge">0</span>
+        </a>
+        <a href="login.html" class="btn-login">Entrar</a>
+      </div>
+    </div>
+  </header>
+
   <main>
-    <section class="catalog-section">
-      <h2>Destaques</h2>
-      <div id="products-grid" class="products-grid">
+
+    <section class="hero-section">
+      <div class="container">
+        <button class="hero-search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
+
+        <div class="hero-content">
+          <h1>Qual será o <span class="texto-roxo-claro">próximo da</span> <span class="texto-roxo">sua coleção?</span></h1>
+          <p>Os últimos lançamentos e mais aguardados, incluindo peças que representam quem você é.</p>
+          <div class="hero-actions">
+            <a href="catalogo.html" class="btn-hero">Explorar catálogo</a>
+            <a href="catalogo.html" class="btn-hero-outline">Ver exclusivos</a>
+          </div>
         </div>
+      </div>
     </section>
+
+    <section class="home-highlights">
+      <div class="container">
+        <header class="section-header">
+          <span class="breadcrumb">COLEÇÃO DE DESTAQUE</span>
+          <h2 class="section-title">Os mais cobiçados <span class="texto-roxo">desta semana</span></h2>
+        </header>
+
+        <div class="highlights-grid">
+
+          <article class="figure-card">
+            <div class="card-image-wrapper">
+              <button class="card-fav-btn" title="Favoritar"><img src="./assets/icons/favorito.svg" alt="favoritos"></button>
+              <img class="card-img" src="./assets/images/nanda-copa-boneco.png" alt="Nanda Jogadora">
+            </div>
+            <div class="card-info">
+              <span class="card-category">Copa</span>
+              <h3 class="card-title">Nanda Jogadora</h3>
+              <div class="card-footer">
+                <span class="card-price">R$ 149,90</span>
+                <button class="btn-buy"><img src="./assets/icons/comprar.svg" alt="comprar"> Comprar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="figure-card">
+            <div class="card-image-wrapper">
+              <button class="card-fav-btn" title="Favoritar"><img src="./assets/icons/favorito.svg" alt="favoritos"></button>
+              <img class="card-img" src="./assets/images/nanda-copa-boneco.png" alt="Cowboy Vintage">
+            </div>
+            <div class="card-info">
+              <span class="card-category">Copa</span>
+              <h3 class="card-title">Nanda Jogadora</h3>
+              <div class="card-footer">
+                <span class="card-price">R$ 149,90</span>
+                <button class="btn-buy"><img src="./assets/icons/comprar.svg" alt="comprar"> Comprar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="figure-card">
+            <div class="card-image-wrapper">
+              <button class="card-fav-btn" title="Favoritar"><img src="./assets/icons/favorito.svg" alt="favoritos"></button>
+              <img class="card-img" src="./assets/images/nanda-copa-boneco.png" alt="Tech Future">
+            </div>
+            <div class="card-info">
+              <span class="card-category">Copa</span>
+              <h3 class="card-title">Nanda Jogadora</h3>
+              <div class="card-footer">
+                <span class="card-price">R$ 149,90</span>
+                <button class="btn-buy"><img src="./assets/icons/comprar.svg" alt="comprar"> Comprar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="figure-card">
+            <div class="card-image-wrapper">
+              <button class="card-fav-btn" title="Favoritar"><img src="./assets/icons/favorito.svg" alt="favoritos"></button>
+              <img class="card-img" src="./assets/images/nanda-copa-boneco.png" alt="Player Edition">
+            </div>
+            <div class="card-info">
+              <span class="card-category">Copa</span>
+              <h3 class="card-title">Nanda Jogadora</h3>
+              <div class="card-footer">
+                <span class="card-price">R$ 149,90</span>
+                <button class="btn-buy"><img src="./assets/icons/comprar.svg" alt="comprar"> Comprar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="figure-card">
+            <div class="card-image-wrapper">
+              <button class="card-fav-btn" title="Favoritar"><img src="./assets/icons/favorito.svg" alt="favoritos"></button>
+              <img class="card-img" src="./assets/images/nanda-copa-boneco.png" alt="Nanda Torcedora">
+            </div>
+            <div class="card-info">
+              <span class="card-category">Copa</span>
+              <h3 class="card-title">Nanda Jogadora</h3>
+              <div class="card-footer">
+                <span class="card-price">R$ 149,90</span>
+                <button class="btn-buy"><img src="./assets/icons/comprar.svg" alt="comprar"> Comprar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="figure-card">
+            <div class="card-image-wrapper">
+              <button class="card-fav-btn" title="Favoritar"><img src="./assets/icons/favorito.svg" alt="favoritos"></button>
+              <img class="card-img" src="./assets/images/nanda-copa-boneco.png" alt="Astronauta Deluxe">
+            </div>
+            <div class="card-info">
+              <span class="card-category">Copa</span>
+              <h3 class="card-title">Nanda Jogadora</h3>
+              <div class="card-footer">
+                <span class="card-price">R$ 149,90</span>
+                <button class="btn-buy"><img src="./assets/icons/comprar.svg" alt="comprar"> Comprar</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+   <section class="reviews-section">
+      <div class="container">
+        <header class="section-header center">
+          <h2 class="section-title">+5000 colecionadores <span class="texto-roxo">satisfeitos</span></h2>
+        </header>
+
+        <div class="reviews-grid">
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">
+              "A qualidade das figuras é impressionante! Os detalhes do acabamento superaram muito as minhas expectativas."
+            </p>
+            <div class="review-author">
+              <div class="author-avatar">F</div>
+              <div class="author-info">
+                <span class="author-name">Fernanda Nagata</span>
+                <span class="author-tag">Dia dos namorados</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">
+              "Chegou super rápido e muito bem protegido. Já é a minha terceira peça da Astra e com certeza não vai ser a última!"
+            </p>
+            <div class="review-author">
+              <div class="author-avatar">A</div>
+              <div class="author-info">
+                <span class="author-name">Ana Blefari</span>
+                <span class="author-tag">Copa</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">
+              "Design incrível e exclusivo. É difícil encontrar peças com esse nível de originalidade no mercado nacional."
+            </p>
+            <div class="review-author">
+              <div class="author-avatar">P</div>
+              <div class="author-info">
+                <span class="author-name">Pedro Casarini</span>
+                <span class="author-tag">Esporte</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo">
+          <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
+          <span class="logo-text">astra</span>
+        </a>
+        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e drops semanais.</p>
+        <div class="social-links">
+          <a href="#" class="social-logo" title="WhatsApp"><img src="./assets/icons/whatsapp.svg" alt="whatsapp"></a>
+          <a href="#" class="social-logo" title="Instagram"><img src="./assets/icons/instagram.svg" alt="instagram"></a>
+          <a href="#" class="social-logo" title="E-mail"><img src="./assets/icons/gmail.svg" alt="gmail"></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Loja</h4>
+          <a href="catalogo.html">Catálogo</a>
+          <a href="#">Lançamentos</a>
+          <a href="#">Exclusivos</a>
+          <a href="#">Mais Vendidos</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ajuda</h4>
+          <a href="#">Entregas</a>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">FAQ</a>
+          <a href="#">Suporte</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="js/pages/home.js"></script>
 </body>
