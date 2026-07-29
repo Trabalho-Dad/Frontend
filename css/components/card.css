@@ -5,6 +5,7 @@
     padding: var(--space-4);
     display: flex;
     flex-direction: column;
+    height: 100%;  
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
   }
@@ -12,7 +13,7 @@
   .figure-card:hover {
     transform: translateY(-4px);
     border-color: var(--purple-primary);
-    box-shadow: 0 8px 24px var(--purple-glow);
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
   }
   
   .card-image-wrapper {
@@ -52,7 +53,11 @@
     font-weight: var(--font-weight-semibold);
     color: #FFFFFF;
     margin-bottom: var(--space-3);
-    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.6em;
   }
   
   .card-footer {
@@ -65,5 +70,10 @@
   .card-price {
     font-size: 1.1rem;
     font-weight: var(--font-weight-bold);
-    color: #FFFFFF;
+    background: linear-gradient(to  left, #D3AFF9, #8D35EC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
   }
+
+  /* background: linear-gradient(to bottom left, #A612F6, #390079); */
