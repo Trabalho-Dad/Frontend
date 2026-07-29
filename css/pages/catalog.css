@@ -214,7 +214,42 @@
   font-weight: 700;
   color: #ffffff;
 }
-  
+
+.btn-buy{
+  background: linear-gradient(to bottom left, #A612F6, #390079);
+  border-radius: 40px;
+  border: none;
+  padding: 5px 10px;
+  min-width: 130px;
+  color: #FFFFFF;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+}
+
+.card-fav-btn {         
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #371A56;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 2;
+  /* transition: background-color 0.2s ease; */
+}
+
   @media (max-width: 850px) {
     .catalog-content {
       grid-template-columns: 1fr;
