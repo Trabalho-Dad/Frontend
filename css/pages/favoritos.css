@@ -1,0 +1,270 @@
+.favoritos-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 30px 80px;
+}
+
+.favoritos-header {
+    margin-bottom: 40px;
+}
+
+.breadcrumb {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8B849C;
+    margin-bottom: 8px;
+}
+
+.favoritos-title {
+    font-size: 46px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.texto-roxo {
+    background: linear-gradient(90deg, #d3b4f5 0%, #834fbe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.products-count {
+    color: #8B849C;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.products-section {
+    width: 100%;
+}
+
+.favoritos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+.figure-card {
+    position: relative;
+    background: #241239;
+    border: 1px solid #60308F;
+    border-radius: 22px;
+    padding: 18px;
+    transition: .25s ease;
+}
+
+.figure-card:hover {
+    transform: translateY(-6px);
+    border-color: #9D5CFF;
+    box-shadow: 0 0 25px rgba(133, 79, 190, .25);
+}
+
+.card-fav-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: #71508F;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.card-fav-btn:hover {
+    background: #A94BFF;
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 190px;
+    background: #F4F4F6;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.card-img {
+    width: 135px;
+    height: 135px;
+    object-fit: contain;
+    transition: .25s;
+}
+
+.figure-card:hover .card-img {
+    transform: scale(1.04);
+}
+
+.card-category {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8D859E;
+    margin-bottom: 6px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-price {
+    font-size: 25px;
+    font-weight: 600;
+    color: #D3A7FF;
+}
+
+.card-price span {
+    font-size: 15px;
+}
+
+.btn-buy {
+    border: none;
+    border-radius: 30px;
+    padding: 7px 14px;
+    background: linear-gradient(
+        180deg,
+        #C637FF 0%,
+        #8F18E8 50%,
+        #6300BE 100%
+    );
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-buy:hover {
+    transform: scale(1.05);
+    filter: brightness(1.08);
+}
+
+@media (max-width: 1024px) {
+    .favoritos-container {
+        padding: 110px 24px 70px;
+    }
+
+    .favoritos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+    }
+
+    .favoritos-title {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 768px) {
+    .favoritos-container {
+        padding: 100px 20px 60px;
+    }
+
+    .favoritos-header {
+        margin-bottom: 32px;
+    }
+
+    .favoritos-title {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .products-count {
+        font-size: 12px;
+    }
+
+    .favoritos-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .figure-card {
+        padding: 16px;
+    }
+
+    .card-image-wrapper {
+        height: 220px;
+    }
+
+    .card-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-price {
+        font-size: 22px;
+    }
+
+    .btn-buy {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .favoritos-container {
+        padding: 90px 16px 50px;
+    }
+
+    .breadcrumb {
+        font-size: 9px;
+    }
+
+    .favoritos-title {
+        font-size: 28px;
+    }
+
+    .card-image-wrapper {
+        height: 180px;
+    }
+
+    .card-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .btn-buy {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card-price {
+        font-size: 20px;
+    }
+}
