@@ -35,7 +35,7 @@ async function handleLogin(event) {
       sessionStorage.removeItem("redirectAfterLogin");
       window.location.href = redirect;
     } else {
-      window.location.href = "index.html";
+      window.location.href = "./../../index.html";
     }
   } catch (error) {
     showError(error.message);
