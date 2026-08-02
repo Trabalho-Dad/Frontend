@@ -28,7 +28,7 @@ export async function apiFetch(path, { method = "GET", body, query, headers = {}
     body: body !== undefined ? JSON.stringify(body) : undefined
   });
 
-  if (response.status === 401 || response.status === 403) {
+  if ((response.status === 401 || response.status === 403) && !path.match(/login/)) {
     const err = new Error("LOGIN_REQUIRED");
     err.status = response.status;
     throw err;
