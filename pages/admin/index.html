@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./../../css/base/reset.css">
+  <link rel="stylesheet" href="./../../css/base/variables.css">
+  <link rel="stylesheet" href="./../../css/base/global.css">
+  <link rel="stylesheet" href="./../../css/components/header.css">
+  <link rel="stylesheet" href="./../../css/components/loading.css">
+  <link rel="stylesheet" href="./../../css/components/modal.css">
+  <link rel="stylesheet" href="./../../css/pages/admin.css">
+
+  <title>Astra - Administrativo</title>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="./../../index.html" class="brand-logo">
+        <img class="logo-icon" src="./../../assets/images/logo.png" alt="logo">
+        <span class="logo-text">astra admin</span>
+      </a>
+
+      <nav class="nav-actions">
+        <a href="./../../index.html" class="icon-btn" title="Ver loja">Ver loja</a>
+        <a href="./../../index.html" class="btn-logout" id="logout-link">Sair</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <h2>Gestão</h2>
+      <button class="admin-nav-btn active" data-section="figures">📦 Bonecos</button>
+      <button class="admin-nav-btn" data-section="categories">🏷️ Categorias</button>
+      <button class="admin-nav-btn" data-section="characters">🧑‍🎤 Personagens</button>
+      <button class="admin-nav-btn" data-section="images">🖼️ Imagens</button>
+      <button class="admin-nav-btn" data-section="coupons">🎟️ Cupons</button>
+    </aside>
+
+    <main class="admin-content">
+
+      <!-- ===================== FIGURAS ===================== -->
+      <section class="admin-section active" id="section-figures">
+        <div class="admin-section-header">
+          <h1>Bonecos</h1>
+          <button class="btn-primary" id="btn-new-figure">+ Novo boneco</button>
+        </div>
+
+        <div class="admin-filters">
+          <input type="text" id="figure-filter-name" class="form-control" placeholder="Buscar por nome...">
+          <select id="figure-filter-active" class="form-control">
+            <option value="">Todos os status</option>
+            <option value="true">Ativos</option>
+            <option value="false">Inativos</option>
+          </select>
+        </div>
+
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Img</th><th>Nome</th><th>Preço</th><th>Estoque</th><th>Status</th><th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="figures-table-body"></tbody>
+          </table>
+          <div class="admin-empty" id="figures-empty" style="display:none;">Nenhum boneco cadastrado ainda.</div>
+        </div>
+      </section>
+
+      <!-- ===================== CATEGORIAS ===================== -->
+      <section class="admin-section" id="section-categories">
+        <div class="admin-section-header">
+          <h1>Categorias</h1>
+          <button class="btn-primary" id="btn-new-category">+ Nova categoria</button>
+        </div>
+
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead><tr><th>Nome</th><th>Descrição</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="categories-table-body"></tbody>
+          </table>
+          <div class="admin-empty" id="categories-empty" style="display:none;">Nenhuma categoria cadastrada ainda.</div>
+        </div>
+      </section>
+
+      <!-- ===================== PERSONAGENS ===================== -->
+      <section class="admin-section" id="section-characters">
+        <div class="admin-section-header">
+          <h1>Personagens</h1>
+          <button class="btn-primary" id="btn-new-character">+ Novo personagem</button>
+        </div>
+
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead><tr><th>Nome</th><th>Descrição</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="characters-table-body"></tbody>
+          </table>
+          <div class="admin-empty" id="characters-empty" style="display:none;">Nenhum personagem cadastrado ainda.</div>
+        </div>
+      </section>
+
+      <!-- ===================== IMAGENS ===================== -->
+      <section class="admin-section" id="section-images">
+        <div class="admin-section-header">
+          <h1>Imagens</h1>
+        </div>
+
+        <p class="admin-hint">
+          As imagens são enviadas diretamente para o Cloudinary e depois registradas no catálogo da Astra.
+          Configure sua conta em <code>js/api/config.js</code> antes de usar.
+        </p>
+
+        <label class="image-upload-box" id="image-upload-box">
+          <input type="file" id="image-file-input" accept="image/*">
+          <div>📤 Clique para escolher uma imagem para enviar</div>
+        </label>
+
+        <div class="form-row" style="margin-bottom: var(--space-5);">
+          <div class="form-group">
+            <label for="image-description">Descrição</label>
+            <input type="text" id="image-description" class="form-control" placeholder="Ex: Goku Super Saiyajin - frente">
+          </div>
+          <div class="form-group">
+            <label for="image-type">Tipo</label>
+            <select id="image-type" class="form-control">
+              <option value="PRIMARY_FIGURE">Boneco (principal)</option>
+              <option value="FIGURE">Boneco (galeria)</option>
+              <option value="SECONDARY_FIGURE">Boneco (secundária)</option>
+              <option value="CHARACTER">Personagem</option>
+              <option value="ACCESSORY">Acessório</option>
+            </select>
+          </div>
+          <div class="form-group" style="justify-content:flex-end;">
+            <button class="btn-primary" id="btn-upload-image" disabled>Enviar imagem</button>
+          </div>
+        </div>
+        <p id="upload-progress" class="upload-progress"></p>
+
+        <div class="image-grid" id="images-grid"></div>
+        <div class="admin-empty" id="images-empty" style="display:none;">Nenhuma imagem enviada ainda.</div>
+      </section>
+
+      <!-- ===================== CUPONS ===================== -->
+      <section class="admin-section" id="section-coupons">
+        <div class="admin-section-header">
+          <h1>Cupons de desconto</h1>
+          <button class="btn-primary" id="btn-new-coupon">+ Novo cupom</button>
+        </div>
+
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead><tr><th>Código</th><th>Desconto</th><th>Uso</th><th>Validade</th><th>Status</th></tr></thead>
+            <tbody id="coupons-table-body"></tbody>
+          </table>
+          <div class="admin-empty" id="coupons-empty" style="display:none;">Nenhum cupom cadastrado ainda.</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===================== MODAL: FIGURA ===================== -->
+  <div id="figure-modal" class="modal-overlay hidden">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h3>Novo boneco</h3>
+        <button type="button" class="close-btn" data-close-modal="figure-modal">&times;</button>
+      </div>
+      <form id="figure-form">
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="figure-name">Nome</label>
+            <input type="text" id="figure-name" class="form-control" required minlength="3">
+          </div>
+          <div class="form-group">
+            <label for="figure-price">Preço (R$)</label>
+            <input type="number" id="figure-price" class="form-control" min="0.01" step="0.01" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="figure-description">Descrição</label>
+          <textarea id="figure-description" class="form-control" required minlength="5"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="figure-quantity">Quantidade em estoque</label>
+            <input type="number" id="figure-quantity" class="form-control" min="0" required>
+          </div>
+          <div class="form-group">
+            <label for="figure-character">Personagem</label>
+            <select id="figure-character" class="form-control" required></select>
+          </div>
+          <div class="form-group" style="justify-content:center;">
+            <label class="checkbox-row"><input type="checkbox" id="figure-active" checked> Ativo</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Categorias</label>
+          <div class="checkbox-grid" id="figure-categories-checklist"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="figure-accessory-ids">
+            IDs de acessórios (separados por vírgula)
+          </label>
+          <input type="text" id="figure-accessory-ids" class="form-control" placeholder="Ex: 1, 2, 3">
+          <small class="admin-hint" style="margin:4px 0 0;">
+            A API ainda não expõe um cadastro de acessórios — peça os IDs existentes ao time de backend
+            ou deixe em branco se o boneco não tiver acessórios cadastrados.
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Imagens do boneco (selecione pelo menos 1 — a primeira marcada vira a imagem principal)</label>
+          <div class="image-picker-grid" id="figure-images-picker"></div>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;">Salvar boneco</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: CATEGORIA ===================== -->
+  <div id="category-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="category-modal-title">Nova categoria</h3>
+        <button type="button" class="close-btn" data-close-modal="category-modal">&times;</button>
+      </div>
+      <form id="category-form">
+        <input type="hidden" id="category-id">
+        <div class="form-group">
+          <label for="category-name">Nome</label>
+          <input type="text" id="category-name" class="form-control" required minlength="3">
+        </div>
+        <div class="form-group">
+          <label for="category-description">Descrição</label>
+          <textarea id="category-description" class="form-control" required minlength="5"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-row"><input type="checkbox" id="category-active" checked> Ativa</label>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;">Salvar categoria</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: PERSONAGEM ===================== -->
+  <div id="character-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="character-modal-title">Novo personagem</h3>
+        <button type="button" class="close-btn" data-close-modal="character-modal">&times;</button>
+      </div>
+      <form id="character-form">
+        <input type="hidden" id="character-id">
+        <div class="form-group">
+          <label for="character-name">Nome</label>
+          <input type="text" id="character-name" class="form-control" required minlength="3">
+        </div>
+        <div class="form-group">
+          <label for="character-description">Descrição</label>
+          <textarea id="character-description" class="form-control" required minlength="5"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-row"><input type="checkbox" id="character-active" checked> Ativo</label>
+        </div>
+        <div class="form-group" id="character-images-group">
+          <label>Imagens do personagem</label>
+          <div class="image-picker-grid" id="character-images-picker"></div>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;">Salvar personagem</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: CUPOM ===================== -->
+  <div id="coupon-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Novo cupom</h3>
+        <button type="button" class="close-btn" data-close-modal="coupon-modal">&times;</button>
+      </div>
+      <form id="coupon-form">
+        <div class="form-group">
+          <label for="coupon-code-input">Código</label>
+          <input type="text" id="coupon-code-input" class="form-control" required minlength="2" style="text-transform:uppercase;">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="coupon-discount">Desconto (%)</label>
+            <input type="number" id="coupon-discount" class="form-control" min="1" max="100" required>
+          </div>
+          <div class="form-group">
+            <label for="coupon-limit">Limite de uso</label>
+            <input type="number" id="coupon-limit" class="form-control" min="1" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="coupon-start">Início</label>
+            <input type="date" id="coupon-start" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="coupon-end">Fim</label>
+            <input type="date" id="coupon-end" class="form-control" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;">Criar cupom</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="./../../js/pages/admin-home.js"></script>
+</body>
+</html>

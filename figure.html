@@ -11,36 +11,39 @@
   <link rel="stylesheet" href="css/components/header.css">
   <link rel="stylesheet" href="css/components/card.css">
   <link rel="stylesheet" href="css/components/footer.css">
+  <link rel="stylesheet" href="css/components/loading.css">
   
   <link rel="stylesheet" href="css/pages/product.css">
+  <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
 </head>
 <body>
 
   <header class="navbar">
     <div class="nav-container">
       <a href="index.html" class="brand-logo">
-        <span class="logo-icon">✦</span>
+        <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
         <span class="logo-text">astra</span>
       </a>
 
       <nav class="nav-links">
         <a href="index.html">Início</a>
-        <a href="catalogo.html">Catálogo</a>
+        <a href="catalogo.html" class="active">Catálogo</a>
         <a href="sobre.html">Sobre nós</a>
       </nav>
 
       <div class="nav-actions">
-        <button class="icon-btn" title="Buscar">🔍</button>
-        <a href="favoritos.html" class="icon-btn" title="Favoritos">🤍</a>
+        <button class="icon-btn" id="search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
+        <a href="favoritos.html" class="icon-btn" title="Favoritos"><img src="./assets/icons/favorito.svg" alt="favorito">
         <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho">
           🛒 <span id="cart-count" class="badge">0</span>
         </a>
-        <a href="login.html" class="btn-login">Entrar</a>
+        <a href="./pages/auth/login.html" class="btn-login" id="login-link">Entrar</a>
       </div>
     </div>
   </header>
 
   <main class="product-details-container">
+    <p id="login-error" class="login-error"></p>
     
     <div class="breadcrumb">
       <a href="catalogo.html">Catálogo</a> / <span id="breadcrumb-category">Colecionável</span> / <span id="breadcrumb-title">Carregando...</span>
@@ -78,16 +81,6 @@
           <button id="btn-add-cart" class="btn-add-cart">Adicionar ao Carrinho</button>
           <button id="btn-buy-now" class="btn-buy-now">Comprar Agora</button>
         </div>
-
-        <div class="shipping-box">
-          <h3>Calcular Frete e Prazo</h3>
-          <div class="shipping-input-group">
-            <input type="text" id="shipping-cep" placeholder="Digite seu CEP" maxlength="9">
-            <button type="button" id="btn-calc-shipping">Calcular</button>
-          </div>
-          <div id="shipping-result" class="shipping-result"></div>
-        </div>
-
       </div>
 
     </section>
@@ -120,6 +113,6 @@
     </div>
   </footer>
 
-  <script type="module" src="js/pages/product.js"></script>
+  <script type="module" src="./js/pages/figure.js"></script>
 </body>
 </html>

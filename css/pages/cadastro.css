@@ -32,10 +32,6 @@ body {
 }
 
 .voltar {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-
     color: #fff;
     text-decoration: none;
 
@@ -54,8 +50,10 @@ body {
 }
 
 .card {
-    width: 440px;
-    padding: 15px 20px;
+    width: 40vw;
+    min-width: 320px;
+    max-width: 440px;
+    padding: 16px 16px;
     border-radius: 25px;
     background: rgba(255, 255, 255, 0.032);
     backdrop-filter: blur(2px);
@@ -64,6 +62,9 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     color: white;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;   
 }
 
 .card::before {
@@ -81,10 +82,9 @@ body {
 }
 
 .logo {
-    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .logo img {
@@ -101,13 +101,17 @@ h1 {
 .subtitulo {
   text-align: center;
   font-size: 14px;
-  margin-bottom: 30px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .inputt {
   display: flex;
   flex-direction: column;
-  margin-bottom: 18px;
 }
 
 .inputt label {
@@ -135,9 +139,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
-/*button {
+button {
   width: 150px;
-  margin: -1px auto 0 auto;
+  margin: auto;
   display: block;
   padding: 10px;
 
@@ -161,39 +165,34 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 button:hover {
   transform: translateY(-3px);
-}*/
-
-.container-botao {
-    display: flex;
-    justify-content: center;
-    margin-top: 35px;
-    margin-bottom: 15px;
 }
 
-.btn-proximo {
-    display: inline-block;
-    width: 180px;
-    padding: 10px 0;
-
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-
-    border-radius: 50px;
-
-    background: linear-gradient(
-        180deg,
-        #d13bff 0%,
-        #a414f2 45%,
-        #5b00b5 100%
-    );
-
-    transition: 0.3s;
+.bottom-link {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
 }
 
-.btn-proximo:hover {
-    transform: scale(1.03);
-    filter: brightness(1.1);
+
+.bottom-link a {
+  color: #a463fa;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 5px;
+  
+}
+
+.bottom-link a:hover {
+  text-decoration: underline;
+}
+
+.login-error {
+  font-size: 14px;
+  color: white;
+  display: none;
+}
+
+.login-error.show {
+  display: block;
 }

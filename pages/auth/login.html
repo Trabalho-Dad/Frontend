@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./../../css/pages/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./../../assets/icons/logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./../../css/components/loading.css">
+    <title>Astra - Login</title>
+</head>
+
+<body>
+    <div class="background">
+
+        <div class="card">
+
+            <div class="logo">
+                <a href="./../../index.html" class="voltar" aria-label="Voltar para a página inicial">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+                <img src="./../../assets/images/logoAstra.png" alt="astra logo">
+            </div>
+
+            <div>
+                <h1>Bom te ver de novo!</h1>
+                <p class="subtitulo">
+                    Por favor, entre com suas credenciais
+                </p>
+            </div>
+
+            <form>
+
+                <div class="inputt">
+                    <label>Email</label>
+                    <input type="email" placeholder="Digite seu e-mail aqui" id="email">
+                </div>
+
+                <div class="inputt">
+                    <label>Senha</label>
+                    <input type="password" placeholder="Digite sua senha aqui" id="password">
+                </div>
+
+                <p id="login-error" class="login-error"></p>
+
+                <button type="submit">Entrar</button>
+
+                <p class="bottom-link">
+                    Não tem uma conta?
+                    <a href="./../../cadastro.html" id="abrirPopup">Cadastre-se</a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="./../../js/pages/login.js"></script>
+</body>
+
+</html>
