@@ -17,31 +17,29 @@
 </head>
 <body>
 
-  <header class="header">
-    <nav class="nav">
-      <a href="index.html" class="nav__logo">
-        <span class="nav__logo-mark">◆</span>
-        astra
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
+        <span class="logo-text">astra</span>
       </a>
 
-      <ul class="nav__links">
-        <li><a href="index.html">Início</a></li>
-        <li><a href="catalogo.html">Catálogo</a></li>
-        <li><a href="sobre.html" class="is-active">Sobre nós</a></li>
-      </ul>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Início</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="sobre.html">Sobre nós</a>
+      </nav>
 
-      <div class="nav__actions">
-        <button class="nav__icon-btn" aria-label="Buscar">🔍</button>
-        <button class="nav__icon-btn" aria-label="Favoritos">♡</button>
-        <button class="nav__icon-btn" data-cart-count="0" aria-label="Carrinho">🛍</button>
-        <button class="btn btn--primary btn--sm">Entrar</button>
+      <div class="nav-actions">
+        <button class="icon-btn" id="search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
+        <a href="favoritos.html" class="icon-btn" title="Favoritos"><img src="./assets/icons/favorito.svg" alt="favoritos"></a>
+        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg" alt="carrinho"> <span id="cart-count" class="badge">0</span>
+        </a>
+        <a href="login.html" class="btn-login">Entrar</a>
       </div>
-    </nav>
+    </div>
   </header>
-
   <main>
-
-    <!-- Hero -->
     <section class="about-hero container">
       <h1 class="about-hero__title">
         Construído por <span class="text-gradient">colecionadores</span>, para outros colecionadores.
@@ -50,12 +48,11 @@
         O astra nasceu da obsessão em transformar uma paixão geek em um espaço onde cada Funko Pop fosse tratado como uma peça rara. Aqui, colecionar é experiência.
       </p>
       <div class="about-hero__actions">
-        <a href="catalogo.html" class="btn btn--primary">Explorar catálogo →</a>
-        <a href="#equipe" class="btn btn--outline">Conheça o time</a>
+        <a href="catalogo.html" class="btn-hero">Explorar catálogo</a>
+        <a href="#equipe" class="btn-hero-outline">Conheça o time</a>
       </div>
     </section>
 
-    <!-- Universo Astra -->
     <section class="about-universo section container">
       <h2 class="section-title">O universo <span class="text-gradient">Astra</span></h2>
       <p>
@@ -69,38 +66,36 @@
       </p>
     </section>
 
-    <!-- O que nos move -->
     <section class="about-move section container">
       <h2 class="section-title">O que nos move</h2>
 
       <div class="about-move__grid">
         <article class="about-move__card">
-          <div class="about-move__icon">✓</div>
+          <div class="about-move__icon"><img src="./assets/icons/qualidade.svg" alt=""></div>
           <h3>Qualidade</h3>
           <p>Buscamos desenvolver uma plataforma pensada pela excelência em cada detalhe.</p>
         </article>
 
         <article class="about-move__card">
-          <div class="about-move__icon">🤝</div>
+          <div class="about-move__icon"><img src="./assets/icons/compromisso.svg" alt="simbolo compromisso"></div>
           <h3>Compromisso</h3>
           <p>Trabalhamos para oferecer uma experiência segura, transparente e satisfatória.</p>
         </article>
 
         <article class="about-move__card">
-          <div class="about-move__icon">📍</div>
+          <div class="about-move__icon"><img src="./assets/icons/inovação.svg" alt="simbolo inovação"></div>
           <h3>Inovação</h3>
           <p>Estamos sempre em busca de novas ideias que tornem a experiência mais eficiente.</p>
         </article>
 
         <article class="about-move__card">
-          <div class="about-move__icon">♡</div>
+          <div class="about-move__icon"><img src="./assets/icons/paixao.svg" alt="coração"></div>
           <h3>Paixão</h3>
           <p>Desenvolvemos o Astra pensando em quem possui a paixão por colecionar.</p>
         </article>
       </div>
     </section>
 
-    <!-- Por trás do Astra -->
     <section id="equipe" class="about-team section container">
       <h2 class="section-title">Por trás do Astra</h2>
 
@@ -127,7 +122,7 @@
         </div>
         <div>
           <img class="about-team__avatar" src="assets/images/team/pedro.jpg" alt="Pedro Casarine" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
-          <h4>Pedro Casarine</h4>
+          <h4>Pedro Casarini</h4>
           <span>Analista de dados</span>
         </div>
       </div>
@@ -136,34 +131,36 @@
   </main>
 
   <footer class="footer">
-    <div class="footer__grid container">
-      <div>
-        <a href="index.html" class="footer__logo">
-          <span class="nav__logo-mark">◆</span>
-          astra
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo">
+          <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
+          <span class="logo-text">astra</span>
         </a>
-        <p>A loja definitiva para colecionadores. Edições raras, exclusivos globais e drops semanais.</p>
-        <div class="footer__socials">
-          <span></span>
-          <span></span>
-          <span></span>
+        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e drops semanais.</p>
+        <div class="social-links">
+          <a href="#" class="social-logo" title="WhatsApp"><img src="./assets/icons/whatsapp.svg" alt="whatsapp"></a>
+          <a href="#" class="social-logo" title="Instagram"><img src="./assets/icons/instagram.svg" alt="instagram"></a>
+          <a href="#" class="social-logo" title="E-mail"><img src="./assets/icons/gmail.svg" alt="gmail"></a>
         </div>
       </div>
 
-      <div class="footer__col">
-        <h5>Loja</h5>
-        <a href="catalogo.html">Catálogo</a>
-        <a href="#">Lançamentos</a>
-        <a href="#">Exclusivos</a>
-        <a href="#">Novidades</a>
-      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Loja</h4>
+          <a href="catalogo.html">Catálogo</a>
+          <a href="#">Lançamentos</a>
+          <a href="#">Exclusivos</a>
+          <a href="#">Mais Vendidos</a>
+        </div>
 
-      <div class="footer__col">
-        <h5>Ajuda</h5>
-        <a href="#">Entregas</a>
-        <a href="#">Trocas e devoluções</a>
-        <a href="#">FAQ</a>
-        <a href="#">Suporte</a>
+        <div class="footer-col">
+          <h4>Ajuda</h4>
+          <a href="#">Entregas</a>
+          <a href="#">Trocas e Devoluções</a>
+          <a href="#">FAQ</a>
+          <a href="#">Suporte</a>
+        </div>
       </div>
     </div>
   </footer>
