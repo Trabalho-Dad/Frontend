@@ -7,20 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/pages/cadastro2.css">
+    <link rel="stylesheet" href="./css/components/loading.css">
     <title>Astra - Cadastro</title>
 </head>
 
 <body>
     <div class="background">
-
-        <a href="cadastro.html" class="voltar">
-            <span class="material-symbols-outlined">arrow_back</span>
-        </a>
-
         <div class="card">
 
             <div class="logo">
-                <img src="/assets/images/logoAstra.png" alt="astra logo">
+                <a href="cadastro.html" class="voltar" aria-label="Voltar para a página anterior de cadastro">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+                <img src="./assets/images/logoAstra.png" alt="astra logo">
             </div>
 
             <h1>Escolha sua senha!</h1>
@@ -29,13 +30,15 @@
 
                 <div class="inputt">
                     <label>Senha</label>
-                    <input type="password">
+                    <input type="password" id="password" placeholder="Digite sua senha aqui">
                 </div>
 
                 <div class="inputt">
                     <label>Confirme sua senha</label>
-                    <input type="password">
+                    <input type="password" id="confirmedPassword" placeholder="Confirme sua senha aqui">
                 </div>
+
+                <p id="login-error" class="login-error"></p>
 
                 <button type="submit">Cadastrar</button>
 
@@ -44,6 +47,8 @@
         </div>
 
     </div>
+
+    <script type="module" src="./js/pages/register.js"></script>
 </body>
 
 </html>

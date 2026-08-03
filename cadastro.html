@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/css/pages/cadastro.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="./css/pages/cadastro.css">
+    <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astra - Cadastro</title>
 </head>
@@ -13,46 +15,56 @@
 <body>
     <div class="background">
 
-        <a href="login.html" class="voltar">
-            <span class="material-symbols-outlined">arrow_back</span>
-        </a>
-
         <div class="card">
 
             <div class="logo">
-                <img src="/assets/images/logoAstra.png" alt="astra logo">
+                <a href="./pages/auth/login.html" class="voltar" aria-label="Voltar para a página de login">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+                <img src="./assets/images/logoAstra.png" alt="astra logo">
             </div>
 
-            <h1>Comece agora!</h1>
-            <p class="subtitulo">
-                Por favor, entre com suas credenciais
-            </p>
+            <div>
+                <h1>Comece agora!</h1>
+                <p class="subtitulo">
+                    Por favor, entre com suas credenciais
+                </p>
+            </div>
 
             <form>
 
                 <div class="inputt">
                     <label>Nome completo</label>
-                    <input type="text">
+                    <input type="text" id="fullName" placeholder="Digite seu nome aqui">
                 </div>
 
                 <div class="inputt">
                     <label>CPF</label>
-                    <input type="text">
+                    <input type="text" id="cpf" placeholder="___.___.___-__">
                 </div>
 
                 <div class="inputt">
                     <label>Email</label>
-                    <input type="email">
+                    <input type="email" id="email" placeholder="Digite seu e-mail aqui">
                 </div>
 
+                <p id="login-error" class="login-error"></p>
+
                 <div class="container-botao">
-                    <a href="cadastro2.html" class="btn-proximo">Próximo</a>
+                    <button class="btn-proximo" type="submit">Próximo</button>
                 </div>
+
+                <p class="bottom-link">
+                    Já possui conta?
+                    <a href="./pages/auth/login.html" id="abrirPopup">Faça login</a>
+                </p>
             </form>
 
         </div>
 
     </div>
+
+    <script type="module" src="./js/pages/register.js"></script>
 </body>
 
 </html>
