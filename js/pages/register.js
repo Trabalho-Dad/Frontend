@@ -76,7 +76,7 @@ async function handleSecondStep(event) {
 
     sessionStorage.removeItem("register");
 
-    window.location.href = "./pages/auth/./pages/auth/login.html";
+    window.location.href = "./pages/auth/login.html";
   } catch (error) {
     showError(error.message);
   } finally {
