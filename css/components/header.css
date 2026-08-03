@@ -1,123 +1,123 @@
 .navbar {
-    position: sticky;
-    top: 20px;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    background: transparent; 
-    padding: 0; 
-    margin-bottom: 60px;
-  }
-  
-.nav-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 24px;
-    background: rgba(11, 7, 18, 0.6);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border-color);
-    border-radius: 999px;
-    box-shadow: 0 0 25px rgba(124, 58, 237, 0.2);
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 60px;
 }
-  
-  .brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .logo-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    color: var(--purple-primary);
-  }
-  
-  .logo-text {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-extrabold);
-    color: #FFFFFF;
-    letter-spacing: -0.5px;
-  }
-  
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 48px;
-  }
-  
-  .nav-links a {
-    color: #9CA3AF;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    transition: color 0.2s ease;
-  }
-  
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: #FFFFFF;
-  }
-  
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .icon-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--purple-primary);
-    border: 1px solid rgba(124, 58, 237, 0.3);
-    border-radius: 50%;
-    font-size: 1.2rem;
-    color: var(--purple-primary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-  }
 
-  .icon-btn:hover {
-    background: rgba(124, 58, 237, 0.2);
-    color: #FFFFFF;
-    box-shadow: 0 0 10px var(--purple-glow);
-  }
-  
-  .icon-btn .badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background-color: var(--purple-primary);
-    color: #FFFFFF;
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    border-radius: 50%;
-    padding: 2px 6px;
-  }
+.nav-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(11, 7, 18, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.2);
+}
 
-  .btn-login{
-    background: linear-gradient(to right, #A612F6, #390079);
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 20px;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-  .btn-login:hover{
-    transform: translateY(-1px);
-    box-shadow: rgba(124, 58, 237, 0.4);
-  }
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--purple-primary);
+}
+
+.logo-text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  color: #FFFFFF;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.nav-links a {
+  color: #9CA3AF;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #FFFFFF;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--purple-primary);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: var(--purple-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.icon-btn:hover {
+  background: rgba(124, 58, 237, 0.2);
+  color: #FFFFFF;
+  box-shadow: 0 0 10px var(--purple-glow);
+}
+
+.icon-btn .badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: var(--purple-primary);
+  color: #FFFFFF;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.btn-login {
+  background: linear-gradient(to right, #A612F6, #390079);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 20px;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-1px);
+  box-shadow: rgba(124, 58, 237, 0.4);
+}
