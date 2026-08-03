@@ -27,8 +27,8 @@ async function handleFirstStep(event) {
     "register",
     JSON.stringify({
       name: fullName.value,
-      cpf: document.getElementById("cpf").value,
-      email: document.getElementById("email").value
+      cpf: cpf,
+      email: email
     })
   );
 
@@ -47,9 +47,9 @@ async function handleSecondStep(event) {
     return;
   }
 
-  if (confirmedPassword.value){
+  if (!confirmedPassword.value){
     showError("Confirme sua senha.");
-    register;
+    return;
   }
 
   if (password.value !== confirmedPassword.value) {

@@ -13,7 +13,7 @@ export function validateEmail(email){
 }
 
 export function validatePassword(password){
-  if (!email) throw new Error("Digitar a senha é obrigatório.");
+  if (!password) throw new Error("Digitar a senha é obrigatório.");
   if (!password.match(/\d/)) throw new Error("A senha deve conter um número.");
   if (!password.match(/[a-z]/)) throw new Error("A senha deve ter letras minúsculas.");
   if (!password.match(/[A-Z]/)) throw new Error("A senha deve conter letras maiúsculas.");
