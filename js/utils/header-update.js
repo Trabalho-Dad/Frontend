@@ -4,7 +4,6 @@ import { loading } from "../components/loading.js";
 const loginLink = document.getElementById("login-link");
 
 export async function updateNavbar() {
-  loading.show()
   try {
     const user = await getMyUser();
 
@@ -20,7 +19,5 @@ export async function updateNavbar() {
   } catch (error) {
     loginLink.href = "./pages/auth/login.html";
     loginLink.textContent = "Entrar";
-  } finally {
-    loading.hide()
   }
 }

@@ -41,7 +41,7 @@ body {
 .product-image {
     width:100%;
     height:100%;
-    object-fit:contain;
+    object-fit: cover;
 }
 
 .card-fav-btn {
@@ -201,7 +201,7 @@ body {
     width:100%;
     height:100%;
 
-    object-fit:contain;
+    object-fit:cover;
 
 }
 
@@ -356,7 +356,6 @@ body {
     padding:6px 15px;
 
     border-radius:20px;
-
 }
 
 .qty-btn {
@@ -374,9 +373,12 @@ body {
 }
 
 .qty-value {
-
+    width: 20px;
     font-size:14px;
-
+    background-color: transparent;
+    border: none;
+    color: white;
+    text-align: center;
 }
 
 .product-buttons {

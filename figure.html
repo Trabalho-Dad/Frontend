@@ -1,118 +1,397 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Astra Store - Detalhes do Produto</title>
-  
-  <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/variables.css">
-  <link rel="stylesheet" href="css/base/global.css">
-  <link rel="stylesheet" href="css/components/header.css">
-  <link rel="stylesheet" href="css/components/card.css">
-  <link rel="stylesheet" href="css/components/footer.css">
-  <link rel="stylesheet" href="css/components/loading.css">
-  
-  <link rel="stylesheet" href="css/pages/product.css">
-  <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astra - Ver Mais</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/base/global.css">
+
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/loading.css">
+
+    <link rel="stylesheet" href="css/pages/verMais.css">
+    <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="brand-logo">
-        <img class="logo-icon" src="./assets/images/logo.png" alt="logo">
-        <span class="logo-text">astra</span>
-      </a>
+    <header class="navbar">
 
-      <nav class="nav-links">
-        <a href="index.html">Início</a>
-        <a href="catalogo.html" class="active">Catálogo</a>
-        <a href="sobre.html">Sobre nós</a>
-      </nav>
+        <div class="nav-container">
 
-      <div class="nav-actions">
-        <button class="icon-btn" id="search-btn" title="Buscar"><img src="./assets/icons/buscar.svg" alt="buscar"></button>
-        <a href="favoritos.html" class="icon-btn" title="Favoritos"><img src="./assets/icons/favorito.svg" alt="favorito">
-        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho">
-          🛒 <span id="cart-count" class="badge">0</span>
-        </a>
-        <a href="./pages/auth/login.html" class="btn-login" id="login-link">Entrar</a>
-      </div>
-    </div>
-  </header>
+            <a href="index.html" class="brand-logo">
+                <img class="logo-icon" src="./assets/images/logo.png" alt="Logo Astra">
+                <span class="logo-text">astra</span>
+            </a>
 
-  <main class="product-details-container">
-    <p id="login-error" class="login-error"></p>
-    
-    <div class="breadcrumb">
-      <a href="catalogo.html">Catálogo</a> / <span id="breadcrumb-category">Colecionável</span> / <span id="breadcrumb-title">Carregando...</span>
-    </div>
+            <nav class="nav-links">
+                <a href="index.html">Início</a>
+                <a href="catalogo.html" class="active">Catálogo</a>
+                <a href="sobre.html">Sobre nós</a>
+            </nav>
 
-    <section class="product-main">
-      
-      <div class="gallery-container">
-        <div class="main-image-box">
-          <img id="main-product-img" src="assets/images/placeholder.png" alt="Imagem do Produto">
-        </div>
-        <div id="thumbnails-row" class="thumbnails-row">
-          </div>
-      </div>
+            <div class="nav-actions">
 
-      <div class="product-info-box">
-        <span id="product-category" class="card-category">CATEGORIA</span>
-        <h1 id="product-title">Nome do Produto</h1>
-        <p id="product-character" class="product-character">Personagem: <span>-</span></p>
+                <button class="icon-btn" id="search-btn">
+                    <img src="./assets/icons/buscar.svg" alt="Buscar">
+                </button>
 
-        <div class="product-price-large">
-          <span id="product-price">R$ 0,00</span>
+                <a href="favoritos.html" class="icon-btn">
+                    <img src="./assets/icons/favorito.svg" alt="Favoritos">
+                </a>
+
+                <a href="checkout.html" class="icon-btn cart-btn">
+                    🛒
+                    <span class="badge">0</span>
+                </a>
+
+                <a href="./pages/auth/login.html" class="btn-login" id="login-link">
+                    Entrar
+                </a>
+
+            </div>
+
         </div>
 
-        <div class="quantity-selector">
-          <label for="quantity">Quantidade:</label>
-          <div class="qty-controls">
-            <button type="button" id="qty-minus">-</button>
-            <input type="number" id="quantity" value="1" min="1" readonly>
-            <button type="button" id="qty-plus">+</button>
-          </div>
+    </header>
+
+    <main class="verMais-container">
+
+        <div class="verMais-content">
+
+            <section class="product-gallery">
+
+                <div class="gallery-thumbnails" id="thumbnails-row"></div>
+
+                <div class="main-image">
+                    <img id="main-product-img" class="product-image" src="" alt="">
+                </div>
+
+            </section>
+
+            <section class="product-info">
+
+                <span id="product-category" class="product-category"></span>
+
+                <h1 id="product-title" class="product-title"></h1>
+
+                <p id="error" class="error"></p>
+
+                <div class="product-rating">
+                    <div class="stars">★★★★★</div>
+                    <span class="rating-text">
+                        4.9 (127 avaliações)
+                    </span>
+                </div>
+
+                <p id="product-description" class="product-description"></p>
+
+                <div class="product-price-box">
+                    <span class="price-label">Valor</span>
+
+                    <h2 id="product-price" class="product-price"></h2>
+
+                    <span class="installments">
+                        ou 12x sem juros
+                    </span>
+                </div>
+
+                <div class="quantity-section">
+                    <span class="quantity-label">Quantidade</span>
+
+                    <div class="quantity-selector">
+                        <button id="qty-minus" class="qty-btn">−</button>
+
+                        <p id="quantity" class="qty-value">1<p>
+
+                        <button id="qty-plus" class="qty-btn">+</button>
+                    </div>
+                </div>
+
+                <div class="product-buttons">
+                    <button class="btn-buy-now">
+                        Comprar agora
+                    </button>
+
+                    <button id="btn-add-cart" class="btn-add-cart">
+                        🛒 Adicionar ao carrinho
+                    </button>
+                </div>
+
+                <div class="benefits-grid">
+
+                    <div class="benefit-card">
+
+                        <div>
+
+                            <h3>
+                                Frete rápido
+                            </h3>
+
+                            <p>
+                                Envio para todo o Brasil.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="benefit-card">
+
+                        <div>
+
+                            <h3>
+                                Compra segura
+                            </h3>
+
+                            <p>
+                                Seus dados protegidos.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="benefit-card">
+
+                        <div>
+
+                            <h3>
+                                Produto exclusivo
+                            </h3>
+
+                            <p>
+                                Edição limitada Astra.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
         </div>
 
-        <div class="action-buttons">
-          <button id="btn-add-cart" class="btn-add-cart">Adicionar ao Carrinho</button>
-          <button id="btn-buy-now" class="btn-buy-now">Comprar Agora</button>
+        <section class="related-products">
+
+            <div class="related-header">
+
+                <span class="breadcrumb">
+                    RECOMENDAÇÕES
+                </span>
+
+                <h2 class="related-title">
+                    Você também pode <span class="texto-roxo">gostar</span>
+                </h2>
+
+            </div>
+
+            <div class="verMais-grid">
+
+                <article class="figure-card">
+
+                    <button class="card-fav-btn">❤</button>
+
+                    <div class="card-image-wrapper">
+                        <img src="./assets/images/boneco/nanda-tech-boneca.png" alt="" class="card-img">
+                    </div>
+
+                    <p class="card-category">
+                        TECNOLOGIA
+                    </p>
+
+                    <h3 class="card-title">
+                        Nanda Tech
+                    </h3>
+
+                    <div class="card-footer">
+
+                        <p class="card-price">
+                            <span>R$</span> 189,90
+                        </p>
+
+                        <button class="btn-buy">
+                            🛒 Comprar
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <article class="figure-card">
+
+                    <button class="card-fav-btn">❤</button>
+
+                    <div class="card-image-wrapper">
+                        <img src="./assets/images/boneco/nanda-picpay-boneca.png" alt="" class="card-img">
+                    </div>
+
+                    <p class="card-category">
+                        GRUPO J&F
+                    </p>
+
+                    <h3 class="card-title">
+                        Nanda PicPay
+                    </h3>
+
+                    <div class="card-footer">
+
+                        <p class="card-price">
+                            <span>R$</span> 189,90
+                        </p>
+
+                        <button class="btn-buy">
+                            🛒 Comprar
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <article class="figure-card">
+
+                    <button class="card-fav-btn">❤</button>
+
+                    <div class="card-image-wrapper">
+                        <img src="./assets/images/boneco/nanda-esporte-boneca.png" alt="" class="card-img">
+                    </div>
+
+                    <p class="card-category">
+                        ESPORTES
+                    </p>
+
+                    <h3 class="card-title">
+                        Nanda Esportiva
+                    </h3>
+
+                    <div class="card-footer">
+
+                        <p class="card-price">
+                            <span>R$</span> 189,90
+                        </p>
+
+                        <button class="btn-buy">
+                            🛒 Comprar
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <article class="figure-card">
+
+                    <button class="card-fav-btn">❤</button>
+
+                    <div class="card-image-wrapper">
+                        <img src="./assets/images/boneco/nanda-astro-boneca.png" alt="" class="card-img">
+                    </div>
+
+                    <p class="card-category">
+                        ASTRONAUTA
+                    </p>
+
+                    <h3 class="card-title">
+                        Nanda Astronauta
+                    </h3>
+
+                    <div class="card-footer">
+
+                        <p class="card-price">
+                            <span>R$</span> 189,90
+                        </p>
+
+                        <button class="btn-buy">
+                            🛒 Comprar
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="brand-logo">
+                    <img class="logo-icon" src="./assets/images/logo.png" alt="Logo Astra">
+                    <span class="logo-text">astra</span>
+                </a>
+
+                <p>
+                    A loja definitiva para colecionadores.
+                    <br>
+                    Edições raras, exclusivas globais e drops semanais.
+                </p>
+
+                <div class="social-links">
+
+                    <a href="#" class="social-logo">
+                        <img src="./assets/icons/whatsapp.svg" alt="WhatsApp">
+                    </a>
+
+                    <a href="#" class="social-logo">
+                        <img src="./assets/icons/instagram.svg" alt="Instagram">
+                    </a>
+
+                    <a href="#" class="social-logo">
+                        <img src="./assets/icons/gmail.svg" alt="E-mail">
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="footer-links">
+
+                <div class="footer-col">
+
+                    <h4>Loja</h4>
+
+                    <a href="catalogo.html">Catálogo</a>
+                    <a href="#">Lançamentos</a>
+                    <a href="#">Exclusivos</a>
+                    <a href="#">Mais vendidos</a>
+
+                </div>
+
+                <div class="footer-col">
+
+                    <h4>Ajuda</h4>
+
+                    <a href="#">Entregas</a>
+                    <a href="#">Trocas e devoluções</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Suporte</a>
+
+                </div>
+
+            </div>
+
         </div>
-      </div>
 
-    </section>
+    </footer>
 
-    <section class="product-description-section">
-      <h2>Descrição do Colecionável</h2>
-      <div id="product-description" class="description-content">
-        <p>Carregando especificações do produto...</p>
-      </div>
-    </section>
+    <script type="module" src="js/pages/figure.js"></script>
 
-  </main>
-
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <a href="index.html" class="brand-logo">
-          <span class="logo-icon"></span>
-          <span class="logo-text">astra</span>
-        </a>
-        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e envio protegido.</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h4>Loja</h4>
-          <a href="catalogo.html">Catálogo</a>
-          <a href="#">Exclusivos</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script type="module" src="./js/pages/figure.js"></script>
 </body>
+
 </html>
