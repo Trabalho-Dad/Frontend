@@ -146,7 +146,7 @@ body {
     filter: brightness(1.08);
 }
 
-/*.favorite-btn {
+.favorite-btn {
 
     position:absolute;
 
@@ -167,7 +167,7 @@ body {
     cursor:pointer;
 
     font-size:18px;
-}*/
+}
 
 .gallery-thumbnails {
 
