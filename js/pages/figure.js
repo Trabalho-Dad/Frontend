@@ -115,11 +115,14 @@ async function main() {
 
     await updateNavbar();
 
-    const figure = await findById(id);
+    const responses = await Promise.all([
+      findById(id),
+      
+    ]);
 
-    renderProduct(figure);
+    renderProduct(responses[0]);
 
-    setupQuantity(figure.quantity);
+    setupQuantity(responses[0].quantity);
   } catch (error) {
     console.log(error)
     showError(error.message)
@@ -134,7 +137,6 @@ addToCartButton.addEventListener("click", async () => {
 
     await addFigureToOrder(id, Number(buyingQuantity.value));
   } catch (error) {
-    console.log(error)
     if (error.message === "LOGIN_REQUIRED") {
       sessionStorage.setItem(
         "redirectAfterLogin",

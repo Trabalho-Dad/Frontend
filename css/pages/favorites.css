@@ -1,10 +1,10 @@
-.favoritos-container {
+.favorites-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 120px 30px 80px;
 }
 
-.favoritos-header {
+.favorites-header {
     margin-bottom: 40px;
 }
 
@@ -18,7 +18,7 @@
     margin-bottom: 8px;
 }
 
-.favoritos-title {
+.favorites-title {
     font-size: 46px;
     font-weight: 700;
     color: #FFFFFF;
@@ -43,7 +43,7 @@
     width: 100%;
 }
 
-.favoritos-grid {
+.favorites-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 26px;
@@ -167,30 +167,30 @@
 }
 
 @media (max-width: 1024px) {
-    .favoritos-container {
+    .favorites-container {
         padding: 110px 24px 70px;
     }
 
-    .favoritos-grid {
+    .favorites-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 22px;
     }
 
-    .favoritos-title {
+    .favorites-title {
         font-size: 38px;
     }
 }
 
 @media (max-width: 768px) {
-    .favoritos-container {
+    .favorites-container {
         padding: 100px 20px 60px;
     }
 
-    .favoritos-header {
+    .favorites-header {
         margin-bottom: 32px;
     }
 
-    .favoritos-title {
+    .favorites-title {
         font-size: 32px;
         line-height: 1.2;
     }
@@ -199,7 +199,7 @@
         font-size: 12px;
     }
 
-    .favoritos-grid {
+    .favorites-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
@@ -232,7 +232,7 @@
 }
 
 @media (max-width: 480px) {
-    .favoritos-container {
+    .favorites-container {
         padding: 90px 16px 50px;
     }
 
@@ -240,7 +240,7 @@
         font-size: 9px;
     }
 
-    .favoritos-title {
+    .favorites-title {
         font-size: 28px;
     }
 

@@ -99,6 +99,8 @@ h1 {
 }
 
 .subtitulo {
+  width: 80%;
+  margin: auto;
   text-align: center;
   font-size: 14px;
 }
@@ -187,12 +189,12 @@ button:hover {
   text-decoration: underline;
 }
 
-.login-error {
+.error {
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   display: none;
 }
 
-.login-error.show {
+.error.show {
   display: block;
 }

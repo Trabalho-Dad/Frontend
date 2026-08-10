@@ -135,8 +135,8 @@ function toggleFavorite(button, productId, productName) {
 
     showToast(
         isNowFavorite
-            ? `${productName} adicionado aos favoritos`
-            : `${productName} removido dos favoritos`
+            ? `${productName} adicionado aos favorites`
+            : `${productName} removido dos favorites`
     );
 }
 
