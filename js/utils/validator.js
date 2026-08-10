@@ -25,3 +25,8 @@ export function validateCep(cep){
   if (!cep) throw new Error("O CEP é obrigatório.");
   if (!cep.match(/^\d{5}-?\d{3}$/)) throw new Error("O CEP deve estar no formato 99999-999.");
 }
+
+export function validateCode(code){
+  if (!code) throw new Error("O código é obrigatório.");
+  if (!code.match(/^\d{6}$/)) throw new Error("O código deve ter 6 números.");
+}

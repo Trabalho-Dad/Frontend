@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./../../assets/icons/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="./../../css/components/loading.css">
-    <title>Astra - Login</title>
+    <title>Astra - Validar código</title>
 </head>
 
 <body>
@@ -18,46 +18,33 @@
         <div class="card">
 
             <div class="logo">
-                <a href="./../../index.html" class="voltar" aria-label="Voltar para a página inicial">
+                <a href="./send-code.html" class="voltar" aria-label="Voltar para a página inicial">
                     <span class="material-symbols-outlined">arrow_back</span>
                 </a>
                 <img src="./../../assets/images/logoAstra.png" alt="astra logo">
             </div>
 
             <div>
-                <h1>Bom te ver de novo!</h1>
+                <h1>Validação</h1>
                 <p class="subtitulo">
-                    Por favor, entre com suas credenciais
+                    Digite o código enviado para o seu e-mail
                 </p>
             </div>
 
             <form>
 
                 <div class="inputt">
-                    <label>Email</label>
-                    <input type="email" placeholder="Digite seu e-mail aqui" id="email">
-                </div>
-
-                <div class="inputt">
-                    <label>Senha</label>
-                    <input type="password" placeholder="Digite sua senha aqui" id="password">
+                    <label>Código</label>
+                    <input type="text" placeholder="Digite o código aqui" id="code">
                 </div>
 
                 <p id="error" class="error"></p>
 
-                <button type="submit">Entrar</button>
+                <button type="submit">Enviar</button>
 
-                <div class="secondary-links">
-                    <p class="bottom-link">
-                        Não tem uma conta?
-                        <a href="./../../cadastro.html" id="abrirPopup">Cadastre-se</a>
-                    </p>
-
-                    <p class="bottom-link">
-                        Esqueceu sua senha?
-                        <a href="./send-code.html" id="abrirPopup">Clique aqui</a>
-                    </p>
-                </div>
+                <p class="bottom-link">
+                    <a href="./login.html" id="abrirPopup">Cancelar</a>
+                </p>
 
             </form>
 
@@ -65,7 +52,7 @@
 
     </div>
 
-    <script type="module" src="./../../js/pages/login.js"></script>
+    <script type="module" src="./../../js/pages/validate-code.js"></script>
 </body>
 
 </html>

@@ -13,15 +13,15 @@ export async function register({ name, cpf, email, password }) {
 }
 
 export async function sendRecoveryCode(email) {
-  return apiFetch(`/api/auth/send-code/${encodeURIComponent(email)}`);
+  return apiFetch(`/api/auth/send-code/${email}`);
 }
 
 export async function validateRecoveryCode(email, code) {
-  return apiFetch(`/api/auth/validate-code/${encodeURIComponent(email)}/${code}`);
+  return apiFetch(`/api/auth/validate-code/${email}/${code}`);
 }
 
 export async function changePassword(email, code, newPassword, confirmPassword) {
-  return apiFetch(`/api/auth/change-password/${encodeURIComponent(email)}/${code}`, {
+  return apiFetch(`/api/auth/change-password/${email}/${code}`, {
     method: "POST",
     body: { newPassword, confirmPassword }
   });
