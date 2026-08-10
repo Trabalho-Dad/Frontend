@@ -105,7 +105,7 @@ function renderFigures(list) {
 
     const buyButton = document.createElement("a");
     buyButton.className = "btn-buy";
-    buyButton.href = `./figure.html?id=${product.id}`
+    buyButton.href = `./VerMais.html?id=${product.id}`
 
     const buyIcon = document.createElement("img");
     buyIcon.src = "./assets/icons/comprar.svg";
