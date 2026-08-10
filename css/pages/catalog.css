@@ -4,6 +4,40 @@
   padding: var(--space-10) 20px var(--space-20) 20px;
 }
 
+.catalog-search {
+  width: 676px;
+  height: 40px;
+  margin-left: 30px;
+  margin-bottom: var(--space-8);
+  border: 1px solid #834fbe;
+  border-radius: 22px;
+  background-color: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
+}
+
+.catalog-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+
+.catalog-search input::placeholder {
+  color: #9CA3AF;
+}
+
+.catalog-search img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+}
+
 .catalog-header {
   margin-bottom: var(--space-8);
   margin-top: var(--space-8);
