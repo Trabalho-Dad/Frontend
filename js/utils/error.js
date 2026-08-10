@@ -1,4 +1,4 @@
-const errorMessage = document.getElementById("login-error");
+const errorMessage = document.getElementById("error");
 
 export function showError(message) {
   errorMessage.textContent = message;

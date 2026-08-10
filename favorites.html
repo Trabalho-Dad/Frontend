@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astra - favorites</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/base/variables.css">
+    <link rel="stylesheet" href="css/base/global.css">
+
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+    <link rel="stylesheet" href="css/components/loading.css">
+
+    <link rel="stylesheet" href="css/pages/favorites.css">
+    <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="brand-logo">
+                <img class="logo-icon" src="./assets/images/logo.png" alt="Logo Astra">
+                <span class="logo-text">astra</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html">Início</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="sobre.html">Sobre nós</a>
+            </nav>
+
+            <div class="nav-actions">
+
+                <a href="favorites.html" class="icon-btn active" title="favorites">
+                    <img src="./assets/icons/favorito.svg" alt="favorites">
+                </a>
+
+                <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg"
+                        alt="carrinho"> <span id="cart-count" class="badge">0</span>
+                </a>
+
+                <a href="./pages/auth/login.html" class="btn-login" id="login-link">
+                    Entrar
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <main class="favorites-container">
+
+        <header class="favorites-header">
+
+            <span class="breadcrumb">
+                favorites
+            </span>
+
+            <h1 class="favorites-title">
+                Todos os que você
+                <span class="texto-roxo">amou</span>
+            </h1>
+
+            <p class="products-count" id="products-count">Nenhum produto encontrado</p>
+            <p id="error" class="error"></p>
+
+        </header>
+
+        <section class="products-section">
+
+            <div id="favorites-grid" class="favorites-grid">
+                <p class="favorites-empty" id="favorites-empty">Você ainda não tem produtos favoritos.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="brand-logo">
+                    <img class="logo-icon" src="./assets/images/logo.png" alt="">
+                    <span class="logo-text">astra</span>
+                </a>
+
+                <p>
+                    A loja definitiva para colecionadores.
+                    <br>
+                    Edições raras, exclusivas globais e drops semanais.
+                </p>
+
+                <div class="social-links">
+
+                    <a href="#" class="social-logo">
+                        <img src="./assets/icons/whatsapp.svg" alt="">
+                    </a>
+
+                    <a href="#" class="social-logo">
+                        <img src="./assets/icons/instagram.svg" alt="">
+                    </a>
+
+                    <a href="#" class="social-logo">
+                        <img src="./assets/icons/gmail.svg" alt="">
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="footer-links">
+
+                <div class="footer-col">
+
+                    <h4>Loja</h4>
+
+                    <a href="catalogo.html">Catálogo</a>
+                    <a href="#">Lançamentos</a>
+                    <a href="#">Exclusivos</a>
+                    <a href="#">Mais vendidos</a>
+
+                </div>
+
+                <div class="footer-col">
+
+                    <h4>Ajuda</h4>
+
+                    <a href="#">Entregas</a>
+                    <a href="#">Trocas e devoluções</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Suporte</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script type="module" src="js/pages/favorites.js"></script>
+
+</body>
+
+</html>

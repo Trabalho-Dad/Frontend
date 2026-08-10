@@ -1,7 +1,7 @@
 import { loadPublicFigures } from "../api/figures.js";
 import { loadPublicCategories } from "../api/categories.js";
-import { loading } from "../components/loading.js";
 import { updateNavbar } from "../utils/header-update.js";
+import { loading } from "../components/loading.js";
 
 const grid = document.getElementById("catalog-grid");
 const count = document.getElementById("products-count");
@@ -73,13 +73,13 @@ function renderFigures(list) {
 
     const favIcon = document.createElement("img");
     favIcon.src = "./assets/icons/favorito.svg";
-    favIcon.alt = "favoritos";
+    favIcon.alt = "favorites";
 
     favButton.appendChild(favIcon);
 
     const image = document.createElement("img");
     image.className = "card-img";
-    image.src = product.images?.[0]?.url ?? "";
+    image.src = product.mainImage.url ?? "";
     image.alt = product.name;
 
     imageWrapper.appendChild(favButton);
@@ -158,7 +158,8 @@ async function main() {
 
   const responses = await Promise.all([
     loadPublicFigures(),
-    loadPublicCategories()
+    loadPublicCategories(),
+    updateNavbar()
   ])
 
   renderFigures(responses[0].figures);
