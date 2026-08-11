@@ -116,14 +116,12 @@ async function main() {
 
     const responses = await Promise.all([
       findById(id),
-      
     ]);
 
     renderProduct(responses[0]);
 
     setupQuantity(responses[0].quantity);
   } catch (error) {
-    console.log(error)
     showError(error.message)
   } finally {
     loading.hide()

@@ -36,8 +36,10 @@
       </nav>
 
       <div class="nav-actions">
-        <a href="favorites.html" class="icon-btn" title="favorites"><img src="./assets/icons/favorito.svg" alt="favorites"></a>
-        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg" alt="carrinho"> <span id="cart-count" class="badge">0</span>
+        <a href="favorites.html" class="icon-btn" title="favorites"><img src="./assets/icons/favorito.svg"
+            alt="favorites"></a>
+        <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg"
+            alt="carrinho"> <span id="cart-count" class="badge">0</span>
         </a>
         <a href="=./pages/auth/login.html" class="btn-login" id="login-link">Entrar</a>
       </div>
@@ -45,6 +47,11 @@
   </header>
 
   <main class="catalog-container">
+
+    <div class="catalog-search">
+      <input type="text" id="catalog-search-input" placeholder="Busque pelo seu funko pop predileto">
+      <img src="./assets/icons/buscar.svg" alt="Buscar">
+    </div>
 
     <header class="catalog-header">
       <span class="breadcrumb">C A T A L O G O </span>
@@ -71,6 +78,8 @@
       <section class="products-section">
         <div id="catalog-grid" class="catalog-grid">
         </div>
+
+        <div id="pagination" class="pagination"></div>
       </section>
 
     </div>
@@ -112,6 +121,7 @@
   </footer>
 
   <script type="module" src="./js/pages/catalog.js"></script>
+  <script type="module" src="./js/utils/cart-header.js"></script>
 </body>
 
 </html>

@@ -73,3 +73,21 @@
 }
 
 /* background: linear-gradient(to bottom left, #A612F6, #390079); */
+
+.card-fav-btn.active,
+.favorite-btn.active,
+.card-fav-btn[aria-pressed="true"],
+.favorite-btn[aria-pressed="true"] {
+  background: #a612f6;
+  border-color: #d3aff9;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(166, 18, 246, 0.65);
+}
+
+.card-fav-btn .favorite-icon,
+.favorite-btn .favorite-icon {
+  display: block;
+  width: 24px;
+  height: 21px;
+  flex-shrink: 0;
+}

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/components/loading.css">
 
     <link rel="stylesheet" href="css/pages/favorites.css">
-  <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
 </head>
 
 <body>
@@ -41,17 +41,12 @@
 
             <div class="nav-actions">
 
-                <button class="icon-btn" id="search-btn" title="Buscar">
-                    <img src="./assets/icons/buscar.svg" alt="Buscar">
-                </button>
-
                 <a href="favorites.html" class="icon-btn active" title="favorites">
                     <img src="./assets/icons/favorito.svg" alt="favorites">
                 </a>
 
-                <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho">
-                    🛒
-                    <span id="cart-count" class="badge">0</span>
+                <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg"
+                        alt="carrinho"> <span id="cart-count" class="badge">0</span>
                 </a>
 
                 <a href="./pages/auth/login.html" class="btn-login" id="login-link">
@@ -77,7 +72,7 @@
                 <span class="texto-roxo">amou</span>
             </h1>
 
-            <p class="products-count" id = "products-count">Nenhum produto encontrado</p>
+            <p class="products-count" id="products-count">Nenhum produto encontrado</p>
             <p id="error" class="error"></p>
 
         </header>
@@ -159,7 +154,8 @@
 
     </footer>
 
-    <script type="module" src="js/pages/favorites.js"></script>
+    <script type="module" src="js/pages/favoritos.js"></script>
+    <script type="module" src="js/utils/cart-header.js"></script>
 
 </body>
 
