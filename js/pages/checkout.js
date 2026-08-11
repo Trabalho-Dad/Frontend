@@ -1,3 +1,5 @@
+import { clearCart, getCart } from "../utils/cart.js";
+
 const SHIPPING = 19.9;
 
 const cartContainer = document.getElementById("cart-items");
@@ -14,16 +16,6 @@ function showMessage(message = "", type = "") {
   if (type) checkoutMessage.classList.add(`checkout-message--${type}`);
 }
 
-function getCart() {
-  try {
-    const cart = JSON.parse(localStorage.getItem("cart"));
-    return Array.isArray(cart) ? cart : [];
-  } catch (error) {
-    showMessage("Não foi possível carregar o carrinho.", "error");
-    return [];
-  }
-}
-
 function formatPrice(value) {
   return Number(value).toLocaleString("pt-BR", {
     style: "currency",
@@ -35,28 +27,48 @@ function createProductSummary(item) {
   const product = document.createElement("div");
   product.className = "product-summary";
 
-  const image = document.createElement("img");
-  image.src = item.image;
-  image.alt = item.name;
+  cartContainer.replaceChildren();
 
-  const details = document.createElement("div");
-  const name = document.createElement("p");
-  name.textContent = item.name;
+  if (cart.length === 0) {
+    const emptyMessage = document.createElement("p");
+    emptyMessage.textContent = "Seu carrinho está vazio.";
+    cartContainer.appendChild(emptyMessage);
+    updateSummary(0);
+    return;
+  }
 
   const quantity = document.createElement("span");
   quantity.textContent = `Qtd: ${item.quantity}`;
 
-  const price = document.createElement("strong");
-  price.textContent = formatPrice(item.price * item.quantity);
+  cart.forEach(item => {
+    subtotal += item.price * item.quantity;
 
-  details.append(name, quantity);
-  product.append(image, details, price);
+    const product = document.createElement("div");
+    product.className = "product-summary";
+
+    const image = document.createElement("img");
+    image.src = item.image;
+    image.alt = item.name;
+
+    const details = document.createElement("div");
+    const name = document.createElement("p");
+    name.textContent = item.name;
+    const quantity = document.createElement("span");
+    quantity.textContent = `Qtd: ${item.quantity}`;
+    details.append(name, quantity);
+
+    const price = document.createElement("strong");
+    price.textContent = formatPrice(item.price * item.quantity);
+
+    product.append(image, details, price);
+    cartContainer.appendChild(product);
+  });
 
   return product;
 }
 
-function updateSummary(subtotal, hasItems) {
-  const shipping = hasItems ? SHIPPING : 0;
+function updateSummary(subtotal) {
+  const shipping = subtotal > 0 ? SHIPPING : 0;
   const total = subtotal + shipping;
 
   subtotalEl.textContent = formatPrice(subtotal);
@@ -70,21 +82,12 @@ function renderCart() {
   cartContainer.replaceChildren();
 
   if (cart.length === 0) {
-    const emptyMessage = document.createElement("p");
-    emptyMessage.textContent = "Seu carrinho está vazio.";
-    cartContainer.appendChild(emptyMessage);
-    btnPay.disabled = true;
-    updateSummary(0, false);
+    showCheckoutMessage("Seu carrinho está vazio.", true);
     return;
   }
 
-  btnPay.disabled = false;
-  let subtotal = 0;
-
-  cart.forEach(item => {
-    subtotal += Number(item.price) * Number(item.quantity);
-    cartContainer.appendChild(createProductSummary(item));
-  });
+  showCheckoutMessage("Compra finalizada com sucesso!");
+  clearCart();
 
   updateSummary(subtotal, true);
 }
@@ -116,4 +119,8 @@ document.querySelectorAll(".payment-option").forEach(option => {
   });
 });
 
-renderCart();
+function showCheckoutMessage(message, isError = false) {
+  const messageEl = document.getElementById("checkout-message");
+  messageEl.textContent = message;
+  messageEl.classList.toggle("error", isError);
+}
