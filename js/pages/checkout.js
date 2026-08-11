@@ -7,16 +7,25 @@ const subtotalEl = document.getElementById("subtotal");
 const shippingEl = document.getElementById("shipping");
 const totalEl = document.getElementById("total");
 const btnPay = document.getElementById("btn-pay");
+const checkoutMessage = document.getElementById("checkout-message");
+
+function showMessage(message = "", type = "") {
+  checkoutMessage.textContent = message;
+  checkoutMessage.className = "checkout-message";
+
+  if (type) checkoutMessage.classList.add(`checkout-message--${type}`);
+}
 
 function formatPrice(value) {
-  return value.toLocaleString("pt-BR", {
+  return Number(value).toLocaleString("pt-BR", {
     style: "currency",
-    currency: "BRL",
+    currency: "BRL"
   });
 }
 
-function renderCart() {
-  const cart = getCart();
+function createProductSummary(item) {
+  const product = document.createElement("div");
+  product.className = "product-summary";
 
   cartContainer.replaceChildren();
 
@@ -28,7 +37,8 @@ function renderCart() {
     return;
   }
 
-  let subtotal = 0;
+  const quantity = document.createElement("span");
+  quantity.textContent = `Qtd: ${item.quantity}`;
 
   cart.forEach(item => {
     subtotal += item.price * item.quantity;
@@ -54,7 +64,7 @@ function renderCart() {
     cartContainer.appendChild(product);
   });
 
-  updateSummary(subtotal);
+  return product;
 }
 
 function updateSummary(subtotal) {
@@ -64,12 +74,12 @@ function updateSummary(subtotal) {
   subtotalEl.textContent = formatPrice(subtotal);
   shippingEl.textContent = formatPrice(shipping);
   totalEl.textContent = formatPrice(total);
-
   btnPay.textContent = `Pagar ${formatPrice(total)}`;
 }
 
-btnPay.addEventListener("click", () => {
+function renderCart() {
   const cart = getCart();
+  cartContainer.replaceChildren();
 
   if (cart.length === 0) {
     showCheckoutMessage("Seu carrinho está vazio.", true);
@@ -79,20 +89,32 @@ btnPay.addEventListener("click", () => {
   showCheckoutMessage("Compra finalizada com sucesso!");
   clearCart();
 
-  renderCart();
+  updateSummary(subtotal, true);
+}
+
+btnPay.addEventListener("click", () => {
+  const cart = getCart();
+
+  if (cart.length === 0) {
+    showMessage("Seu carrinho está vazio. Adicione um produto antes de pagar.", "error");
+    return;
+  }
+
+  try {
+    localStorage.removeItem("cart");
+    renderCart();
+    showMessage("Compra finalizada com sucesso!", "success");
+  } catch (error) {
+    showMessage("Não foi possível finalizar a compra. Tente novamente.", "error");
+  }
 });
 
-renderCart();
-
-const options = document.querySelectorAll(".payment-option");
-
-options.forEach(option => {
+document.querySelectorAll(".payment-option").forEach(option => {
   option.addEventListener("click", () => {
-
-    options.forEach(o => o.classList.remove("active"));
+    document.querySelectorAll(".payment-option")
+      .forEach(item => item.classList.remove("active"));
 
     option.classList.add("active");
-
     option.querySelector("input").checked = true;
   });
 });
