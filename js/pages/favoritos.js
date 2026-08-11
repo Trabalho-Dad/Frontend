@@ -1,6 +1,6 @@
 import { getFavorites, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
 
-const grid = document.getElementById("favoritos-grid");
+const grid = document.getElementById("favorites-grid");
 const count = document.querySelector(".products-count");
 
 function formatPrice(value) {
