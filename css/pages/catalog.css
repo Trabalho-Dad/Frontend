@@ -5,7 +5,8 @@
 }
 
 .catalog-search {
-  width: 676px;
+  width: min(676px, calc(100% - 60px));
+  max-width: 100%;
   height: 40px;
   margin-left: 30px;
   margin-bottom: var(--space-8);
@@ -20,6 +21,7 @@
 
 .catalog-search input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
@@ -288,11 +290,49 @@
 }
 
 @media (max-width: 850px) {
+  .catalog-container {
+    padding-inline: 16px;
+  }
+
+  .catalog-search {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .catalog-header,
+  .products-section,
+  .filters-sidebar {
+    margin-left: 0;
+  }
+
   .catalog-content {
     grid-template-columns: 1fr;
   }
 
   .filters-sidebar {
     position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-search {
+    height: 44px;
+    padding-inline: 14px;
+  }
+
+  .catalog-search input {
+    font-size: 0.75rem;
+  }
+
+  .catalog-title {
+    font-size: 1.8rem;
+  }
+
+  .tags-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tag-btn[data-category="Dia dos Namorados"] {
+    grid-column: span 2;
   }
 }

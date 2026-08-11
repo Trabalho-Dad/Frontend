@@ -121,3 +121,116 @@
   transform: translateY(-1px);
   box-shadow: rgba(124, 58, 237, 0.4);
 }
+
+@media (max-width: 1000px) {
+  .nav-container {
+    width: 94%;
+    padding: 12px 18px;
+  }
+
+  .nav-links {
+    gap: 24px;
+  }
+
+  .nav-actions {
+    gap: 10px;
+  }
+
+  .btn-login {
+    padding-inline: 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  .navbar {
+    top: 10px;
+    margin-bottom: 40px;
+  }
+
+  .nav-container {
+    flex-wrap: wrap;
+    row-gap: 12px;
+    border-radius: 24px;
+  }
+
+  .brand-logo {
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: clamp(18px, 7vw, 42px);
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-actions {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    margin-bottom: 32px;
+  }
+
+  .nav-container {
+    width: calc(100% - 20px);
+    padding: 10px 12px;
+    row-gap: 10px;
+  }
+
+  .brand-logo {
+    gap: 7px;
+  }
+
+  .logo-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .nav-actions {
+    gap: 7px;
+  }
+
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .icon-btn img {
+    max-width: 19px;
+    max-height: 19px;
+  }
+
+  .btn-login {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .nav-links {
+    justify-content: space-around;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 350px) {
+  .logo-text {
+    display: none;
+  }
+
+  .btn-login {
+    padding-inline: 10px;
+  }
+}
