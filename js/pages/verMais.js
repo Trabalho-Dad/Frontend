@@ -1,5 +1,6 @@
+import { isFavorite, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
+
 const CART_STORAGE_KEY = "astra_cart";
-const FAVORITES_STORAGE_KEY = "astra_favorites";
 
 function parsePrice(priceText) {
     if (!priceText) return 0;
@@ -105,47 +106,12 @@ function updateCartBadge() {
     badge.textContent = totalItems;
 }
 
-function getFavorites() {
-    try {
-        return JSON.parse(localStorage.getItem(FAVORITES_STORAGE_KEY)) || [];
-    } catch {
-        return [];
-    }
-}
-
-function saveFavorites(favorites) {
-    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
-}
-
-function toggleFavorite(button, productId, productName) {
-    const favorites = getFavorites();
-    const index = favorites.indexOf(productId);
-    const isNowFavorite = index === -1;
-
-    if (isNowFavorite) {
-        favorites.push(productId);
-    } else {
-        favorites.splice(index, 1);
-    }
-
-    saveFavorites(favorites);
-
-    button.classList.toggle("active", isNowFavorite);
-    button.style.color = isNowFavorite ? "#e0245e" : "";
-
-    showToast(
-        isNowFavorite
-            ? `${productName} adicionado aos favorites`
-            : `${productName} removido dos favorites`
-    );
-}
-
-function initFavoriteButtonState(button, productId) {
-    const favorites = getFavorites();
-    const isFavorite = favorites.includes(productId);
-
-    button.classList.toggle("active", isFavorite);
-    button.style.color = isFavorite ? "#e0245e" : "";
+function toggleProductFavorite(button, product) {
+    const active = toggleFavorite(product);
+    setFavoriteButtonState(button, active);
+    showToast(active
+        ? `${product.name} adicionado aos favoritos`
+        : `${product.name} removido dos favoritos`);
 }
 
 function initGallery() {
@@ -234,6 +200,8 @@ function getMainProductData() {
         name,
         price,
         image,
+        category: document.querySelector(".product-category")?.textContent.trim() ?? "Colecionável",
+        detailUrl: window.location.href,
     };
 }
 
@@ -286,10 +254,10 @@ function initMainFavoriteButton() {
 
     const product = getMainProductData();
 
-    initFavoriteButtonState(favoriteBtn, product.id);
+    setFavoriteButtonState(favoriteBtn, isFavorite(product.id));
 
     favoriteBtn.addEventListener("click", () => {
-        toggleFavorite(favoriteBtn, product.id, product.name);
+        toggleProductFavorite(favoriteBtn, product);
     });
 }
 
@@ -306,14 +274,22 @@ function initRelatedProducts() {
         const name = titleEl?.textContent.trim() || "Produto";
         const price = parsePrice(priceEl?.textContent);
         const image = imageEl?.src || "";
-        const id = slugify(name);
+        const id = `related-${slugify(name)}`;
+        const product = {
+            id,
+            name,
+            price,
+            image,
+            category: card.querySelector(".card-category")?.textContent.trim() ?? "Colecionável",
+            detailUrl: `verMais.html?product=${encodeURIComponent(id)}`
+        };
 
         if (favBtn) {
-            initFavoriteButtonState(favBtn, id);
+            setFavoriteButtonState(favBtn, isFavorite(id));
 
             favBtn.addEventListener("click", (event) => {
                 event.stopPropagation();
-                toggleFavorite(favBtn, id, name);
+                toggleProductFavorite(favBtn, product);
             });
         }
 
@@ -322,8 +298,7 @@ function initRelatedProducts() {
                 event.preventDefault();
                 event.stopPropagation();
 
-                addToCart({ id, name, price, image }, 1);
-                showToast(`${name} adicionado ao carrinho`);
+                window.location.href = product.detailUrl;
             });
         }
     });

@@ -213,6 +213,7 @@
   aspect-ratio: 1;
   margin-bottom: 12px;
   overflow: hidden;
+  position: relative;
 }
 
 .card-img {
@@ -279,7 +280,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   z-index: 2;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .card-fav-btn:hover {

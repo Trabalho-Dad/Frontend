@@ -2,6 +2,7 @@ import { loadPublicFigures } from "../api/figures.js";
 import { loadPublicCategories } from "../api/categories.js";
 import { updateNavbar } from "../utils/header-update.js";
 import { loading } from "../components/loading.js";
+import { isFavorite, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
 
 const grid = document.getElementById("catalog-grid");
 const count = document.getElementById("products-count");
@@ -69,13 +70,23 @@ function renderFigures(list) {
 
     const favButton = document.createElement("button");
     favButton.className = "card-fav-btn";
-    favButton.title = "Favoritar";
+    favButton.type = "button";
 
-    const favIcon = document.createElement("img");
-    favIcon.src = "./assets/icons/favorito.svg";
-    favIcon.alt = "favorites";
+    const favoriteProduct = {
+      id: `api-${product.id}`,
+      figureId: product.id,
+      name: product.name,
+      category: product.category ?? "Colecionável",
+      price: Number(product.price),
+      image: product.mainImage?.url ?? "",
+      detailUrl: `verMais.html?id=${product.id}`
+    };
 
-    favButton.appendChild(favIcon);
+    setFavoriteButtonState(favButton, isFavorite(favoriteProduct.id));
+    favButton.addEventListener("click", event => {
+      event.stopPropagation();
+      setFavoriteButtonState(favButton, toggleFavorite(favoriteProduct));
+    });
 
     const image = document.createElement("img");
     image.className = "card-img";
@@ -105,7 +116,7 @@ function renderFigures(list) {
 
     const buyButton = document.createElement("a");
     buyButton.className = "btn-buy";
-    buyButton.href = `./VerMais.html?id=${product.id}`
+    buyButton.href = `./verMais.html?id=${product.id}`;
 
     const buyIcon = document.createElement("img");
     buyIcon.src = "./assets/icons/comprar.svg";
