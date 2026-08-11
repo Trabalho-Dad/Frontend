@@ -167,12 +167,22 @@ body {
     cursor:pointer;
 
     font-size:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+}
+
+.favorite-btn .favorite-icon {
+    width:24px;
+    height:21px;
 }
 
 .gallery-thumbnails {
 
     display:flex;
     gap:18px;
+    flex-wrap:wrap;
 }
 
 .thumb {
@@ -438,6 +448,16 @@ body {
     font-size:13px;
 
     cursor:pointer;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:0 18px;
 
 }
 
@@ -717,4 +737,16 @@ grid-template-columns:1fr;
 flex-direction:column;
 
 }
+}
+
+.btn-add-cart img,
+.btn-buy img {
+    width:18px;
+    height:18px;
+    object-fit:contain;
+    flex-shrink:0;
+}
+
+.btn-add-cart img {
+    display:block;
 }

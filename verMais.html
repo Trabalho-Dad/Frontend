@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/components/header.css">
     <link rel="stylesheet" href="css/components/card.css">
     <link rel="stylesheet" href="css/components/footer.css">
-    <link rel="stylesheet" href="css/components/loading.css">
 
     <link rel="stylesheet" href="css/pages/verMais.css">
     <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
@@ -40,10 +39,21 @@
             </nav>
 
             <div class="nav-actions">
-                <a href="favorites.html" class="icon-btn" title="favorites"><img src="./assets/icons/favorito.svg" alt="favorites"></a>
-                <a href="checkout.html" class="icon-btn cart-btn" title="Carrinho"><img src="./assets/icons/comprar.svg" alt="carrinho"> <span id="cart-count" class="badge">0</span>
+
+                <button class="icon-btn" id="search-btn">
+                    <img src="./assets/icons/buscar.svg" alt="Buscar">
+                </button>
+
+                <a href="favorites.html" class="icon-btn">
+                    <img src="./assets/icons/favorito.svg" alt="Favoritos">
                 </a>
-                <a href="./pages/auth/login.html" class="btn-login" id="login-link">
+
+                <a href="checkout.html" class="icon-btn cart-btn">
+                    <img src="./assets/icons/comprar.svg" alt="Carrinho">
+                    <span class="badge">0</span>
+                </a>
+
+                <a href="./pages/auth/login.html" class="btn-login">
                     Entrar
                 </a>
 
@@ -59,61 +69,120 @@
 
             <section class="product-gallery">
 
-                <div class="gallery-thumbnails" id="thumbnails-row"></div>
+                <div class="gallery-thumbnails">
+
+                    <button class="thumb active">
+                        <img src="./assets/images/boneco/nanda-copa-boneca.png" alt="Boneca Nanda Copa">
+                    </button>
+
+                    <button class="thumb">
+                        <img src="/assets/images/acessorios/acessorio2-copa-nanda.png" alt="">
+                    </button>
+
+                    <button class="thumb">
+                        <img src="/assets/images/acessorios/acessorio3-copa-nanda.png" alt="">
+                    </button>
+
+                    <button class="thumb">
+                        <img src="/assets/images/acessorios/acessorio1-copa-nanda.png" alt="">
+                    </button>
+
+                    <button class="thumb">
+                        <img src="./assets/images/boneco+caixa/nanda-copa-boneco.png" alt="Boneca Nanda Copa na caixa">
+                    </button>
+
+                </div>
 
                 <div class="main-image">
-                    <img id="main-product-img" class="product-image" src="" alt="">
+
+                    <button class="favorite-btn">
+                        ❤
+                    </button>
+
+                    <img src="./assets/images/boneco/nanda-copa-boneca.png"
+                        alt="Nanda Astronauta"
+                        class="product-image">
+
                 </div>
 
             </section>
 
-            <section class="product-info">
+                        <section class="product-info">
 
-                <span id="product-category" class="product-category"></span>
+                <span class="product-category">
+                    COLEÇÃO ASTRONAUTA
+                </span>
 
-                <h1 id="product-title" class="product-title"></h1>
-
-                <p id="error" class="error"></p>
+                <h1 class="product-title">
+                    Nanda Astronauta
+                </h1>
 
                 <div class="product-rating">
-                    <div class="stars">★★★★★</div>
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
                     <span class="rating-text">
                         4.9 (127 avaliações)
                     </span>
+
                 </div>
 
-                <p id="product-description" class="product-description"></p>
+                <p class="product-description">
+                    Leve a Nanda para uma missão espacial! Uma edição exclusiva
+                    produzida em vinil premium, com pintura detalhada e acabamento
+                    impecável. Ideal para colecionadores que procuram peças únicas
+                    para destacar sua coleção.
+                </p>
 
                 <div class="product-price-box">
-                    <span class="price-label">Valor</span>
 
-                    <h2 id="product-price" class="product-price"></h2>
+                    <span class="price-label">
+                        Valor
+                    </span>
+
+                    <h2 class="product-price">
+                        R$ 189,90
+                    </h2>
 
                     <span class="installments">
-                        ou 12x sem juros
+                        ou 12x de R$ 15,82 sem juros
                     </span>
+
                 </div>
 
                 <div class="quantity-section">
-                    <span class="quantity-label">Quantidade</span>
+
+                    <span class="quantity-label">
+                        Quantidade
+                    </span>
 
                     <div class="quantity-selector">
-                        <button id="qty-minus" class="qty-btn">−</button>
 
-                        <p id="quantity" class="qty-value">1<p>
+                        <button class="qty-btn">−</button>
 
-                        <button id="qty-plus" class="qty-btn">+</button>
+                        <span class="qty-value">
+                            1
+                        </span>
+
+                        <button class="qty-btn">+</button>
+
                     </div>
+
                 </div>
 
                 <div class="product-buttons">
+
                     <button class="btn-buy-now">
                         Comprar agora
                     </button>
 
-                    <button id="btn-add-cart" class="btn-add-cart">
-                        🛒 Adicionar ao carrinho
+                    <button class="btn-add-cart">
+                        <img src="./assets/icons/comprar.svg" alt="">
+                        Adicionar ao carrinho
                     </button>
+
                 </div>
 
                 <div class="benefits-grid">
@@ -172,7 +241,7 @@
 
         </div>
 
-        <section class="related-products">
+                <section class="related-products">
 
             <div class="related-header">
 
@@ -211,7 +280,8 @@
                         </p>
 
                         <button class="btn-buy">
-                            🛒 Comprar
+                            <img src="./assets/icons/comprar.svg" alt="">
+                            Comprar
                         </button>
 
                     </div>
@@ -241,7 +311,8 @@
                         </p>
 
                         <button class="btn-buy">
-                            🛒 Comprar
+                            <img src="./assets/icons/comprar.svg" alt="">
+                            Comprar
                         </button>
 
                     </div>
@@ -271,7 +342,8 @@
                         </p>
 
                         <button class="btn-buy">
-                            🛒 Comprar
+                            <img src="./assets/icons/comprar.svg" alt="">
+                            Comprar
                         </button>
 
                     </div>
@@ -301,7 +373,8 @@
                         </p>
 
                         <button class="btn-buy">
-                            🛒 Comprar
+                            <img src="./assets/icons/comprar.svg" alt="">
+                            Comprar
                         </button>
 
                     </div>
@@ -379,7 +452,8 @@
 
     </footer>
 
-    <script type="module" src="js/pages/figure.js"></script>
+    <script type="module" src="js/pages/verMais.js"></script>
+    <script type="module" src="js/utils/cart-header.js"></script>
 
 </body>
 
