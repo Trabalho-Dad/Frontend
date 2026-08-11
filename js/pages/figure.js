@@ -3,11 +3,14 @@ import { loading } from "../components/loading.js";
 import { showError, hideError } from "../utils/error.js";
 import { addFigureToOrder } from "../api/order.js";
 import { updateNavbar } from "../utils/header-update.js";
+import { formatPrice } from "../utils/formatters.js";
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const addToCartButton = document.getElementById("btn-add-cart");
 const buyingQuantity = document.getElementById("quantity");
+const priceElement = document.getElementById("product-price");
+let price;
 
 function renderProduct(product) {
   document.getElementById("product-title").textContent = product.name;
@@ -19,6 +22,8 @@ function renderProduct(product) {
 
   document.getElementById("product-category").textContent =
     product.category ?? "Colecionável";
+
+  price = product.price;
 
   document.getElementById("product-price").textContent =
     formatPrice(product.price);
@@ -75,14 +80,6 @@ function renderThumbnails(images, mainImage) {
   container.appendChild(imageButtton(mainImage, images.length))
 }
 
-
-function formatPrice(price) {
-  return Number(price).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-}
-
 function setupQuantity(figureQuantity) {
   const quantity = document.getElementById("quantity");
   const minus = document.getElementById("qty-minus");
@@ -91,12 +88,14 @@ function setupQuantity(figureQuantity) {
   plus.addEventListener("click", () => {
     if (Number(quantity.textContent) < figureQuantity) {
       quantity.textContent = Number(quantity.textContent) + 1;
+      priceElement.textContent = formatPrice(Number(quantity.textContent) * price);
     }
   });
 
   minus.addEventListener("click", () => {
     if (Number(quantity.textContent) > 1) {
       quantity.textContent = Number(quantity.textContent) - 1;
+      priceElement.textContent = formatPrice(Number(quantity.textContent) * price);
     }
   });
 }

@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sobre nós | astra</title>
 
-  <link rel="stylesheet" href="css/base/reset.css">
-  <link rel="stylesheet" href="css/base/variables.css">
-  <link rel="stylesheet" href="css/base/global.css">
+  <link rel="stylesheet" href="./css/base/reset.css">
+  <link rel="stylesheet" href="./css/base/variables.css">
+  <link rel="stylesheet" href="./css/base/global.css">
 
-  <link rel="stylesheet" href="css/components/header.css">
-  <link rel="stylesheet" href="css/components/footer.css">
-  <link rel="stylesheet" href="css/components/button.css">
+  <link rel="stylesheet" href="./css/components/header.css">
+  <link rel="stylesheet" href="./css/components/footer.css">
+  <link rel="stylesheet" href="./css/components/button.css">
+  <link rel="stylesheet" href="./css/components/loading.css">
 
-  <link rel="stylesheet" href="css/pages/sobre.css">
+  <link rel="stylesheet" href="./css/pages/sobre.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
 </head>
@@ -26,7 +27,7 @@
         <span class="logo-text">astra</span>
       </a>
 
-      <nav class="nav-links">
+      <nav class="nav-links" id="nav-links">
         <a href="index.html">Início</a>
         <a href="catalogo.html">Catálogo</a>
         <a href="sobre.html" class="active">Sobre nós</a>
@@ -103,27 +104,27 @@
 
       <div class="about-team__grid">
         <div>
-          <img class="about-team__avatar" src="assets/images/team/ana.jpg" alt="Ana Blefari" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
+          <img class="about-team__avatar" src="./assets/images/team/ana.jpg" alt="Ana Blefari" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
           <h4>Ana Blefari</h4>
           <span>UX designer | Front</span>
         </div>
         <div>
-          <img class="about-team__avatar" src="assets/images/team/nanda.jpg" alt="Nanda Nagata" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
+          <img class="about-team__avatar" src="./assets/images/team/nanda.jpg" alt="Nanda Nagata" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
           <h4>Nanda Nagata</h4>
           <span>UX designer | Front</span>
         </div>
         <div>
-          <img class="about-team__avatar" src="assets/images/team/caio.jpg" alt="Caio Marcos" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
+          <img class="about-team__avatar" src="./assets/images/team/caio.jpg" alt="Caio Marcos" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
           <h4>Caio Marcos</h4>
           <span>Dev back</span>
         </div>
         <div>
-          <img class="about-team__avatar" src="assets/images/team/edu.jpg" alt="Edu Amex" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
+          <img class="about-team__avatar" src="./assets/images/team/edu.jpg" alt="Edu Amex" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
           <h4>Edu Amex</h4>
           <span>Analista de dados</span>
         </div>
         <div>
-          <img class="about-team__avatar" src="assets/images/team/pedro.jpg" alt="Pedro Casarine" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
+          <img class="about-team__avatar" src="./assets/images/team/pedro.jpg" alt="Pedro Casarine" onerror="this.src='';this.style.background='linear-gradient(160deg,#ece7f5,#d8cdea)'">
           <h4>Pedro Casarini</h4>
           <span>Analista de dados</span>
         </div>
@@ -167,5 +168,6 @@
     </div>
   </footer>
 
+  <script type="module" src="js/pages/sobre.js"></script>
 </body>
 </html>

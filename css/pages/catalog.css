@@ -41,10 +41,6 @@
   color: var(--text-muted);
 }
 
-.products-section {
-  margin-left: 5rem;
-}
-
 .catalog-content {
   display: grid;
   grid-template-columns: 350px 1fr;
@@ -200,16 +196,23 @@
   color: #ffffff;
 }
 
+.card-info{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .card-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 4px;
   margin-top: auto;
 }
 
 .card-price {
   font-size: 1.1rem;
   font-weight: 700;
+  white-space: nowrap;
   color: #ffffff;
 }
 

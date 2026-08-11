@@ -1,13 +1,18 @@
 import { getMyUser } from "./../api/profile.js";
-import { loading } from "../components/loading.js";
 
 const navLinks = document.getElementById("nav-links");
 const loginLink = document.getElementById("login-link");
 
 function renderAdmin(){
   const link = document.createElement('a');
-  link.href = './pages/admin/index.html';
   link.textContent = "Administrativo"
+
+  if (window.location.pathname.includes('/pages/admin/index.html')) {
+    link.href = '#';
+    link.classList.add('active');
+  } else {
+    link.href = './pages/admin/index.html';
+  }
 
   navLinks.appendChild(link)
 }

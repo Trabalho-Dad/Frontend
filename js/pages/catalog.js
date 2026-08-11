@@ -79,7 +79,7 @@ function renderFigures(list) {
 
     const image = document.createElement("img");
     image.className = "card-img";
-    image.src = product.mainImage.url ?? "";
+    image.src = product?.mainImage?.url ?? "";
     image.alt = product.name;
 
     imageWrapper.appendChild(favButton);
