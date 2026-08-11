@@ -1,3 +1,5 @@
+import { clearCart, getCart } from "../utils/cart.js";
+
 const SHIPPING = 19.9;
 
 const cartContainer = document.getElementById("cart-items");
@@ -5,10 +7,6 @@ const subtotalEl = document.getElementById("subtotal");
 const shippingEl = document.getElementById("shipping");
 const totalEl = document.getElementById("total");
 const btnPay = document.getElementById("btn-pay");
-
-function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
-}
 
 function formatPrice(value) {
   return value.toLocaleString("pt-BR", {
@@ -20,10 +18,12 @@ function formatPrice(value) {
 function renderCart() {
   const cart = getCart();
 
-  cartContainer.innerHTML = "";
+  cartContainer.replaceChildren();
 
   if (cart.length === 0) {
-    cartContainer.innerHTML = "<p>Seu carrinho está vazio.</p>";
+    const emptyMessage = document.createElement("p");
+    emptyMessage.textContent = "Seu carrinho está vazio.";
+    cartContainer.appendChild(emptyMessage);
     updateSummary(0);
     return;
   }
@@ -33,28 +33,36 @@ function renderCart() {
   cart.forEach(item => {
     subtotal += item.price * item.quantity;
 
-    const productHTML = `
-      <div class="product-summary">
-        <img src="${item.image}" alt="${item.name}">
-        <div>
-          <p>${item.name}</p>
-          <span>Qtd: ${item.quantity}</span>
-        </div>
-        <strong>${formatPrice(item.price * item.quantity)}</strong>
-      </div>
-    `;
+    const product = document.createElement("div");
+    product.className = "product-summary";
 
-    cartContainer.innerHTML += productHTML;
+    const image = document.createElement("img");
+    image.src = item.image;
+    image.alt = item.name;
+
+    const details = document.createElement("div");
+    const name = document.createElement("p");
+    name.textContent = item.name;
+    const quantity = document.createElement("span");
+    quantity.textContent = `Qtd: ${item.quantity}`;
+    details.append(name, quantity);
+
+    const price = document.createElement("strong");
+    price.textContent = formatPrice(item.price * item.quantity);
+
+    product.append(image, details, price);
+    cartContainer.appendChild(product);
   });
 
   updateSummary(subtotal);
 }
 
 function updateSummary(subtotal) {
-  const total = subtotal + SHIPPING;
+  const shipping = subtotal > 0 ? SHIPPING : 0;
+  const total = subtotal + shipping;
 
   subtotalEl.textContent = formatPrice(subtotal);
-  shippingEl.textContent = formatPrice(SHIPPING);
+  shippingEl.textContent = formatPrice(shipping);
   totalEl.textContent = formatPrice(total);
 
   btnPay.textContent = `Pagar ${formatPrice(total)}`;
@@ -64,13 +72,12 @@ btnPay.addEventListener("click", () => {
   const cart = getCart();
 
   if (cart.length === 0) {
-    alert("Seu carrinho está vazio!");
+    showCheckoutMessage("Seu carrinho está vazio.", true);
     return;
   }
 
-  alert("Compra finalizada com sucesso!");
-
-  localStorage.removeItem("cart");
+  showCheckoutMessage("Compra finalizada com sucesso!");
+  clearCart();
 
   renderCart();
 });
@@ -89,3 +96,9 @@ options.forEach(option => {
     option.querySelector("input").checked = true;
   });
 });
+
+function showCheckoutMessage(message, isError = false) {
+  const messageEl = document.getElementById("checkout-message");
+  messageEl.textContent = message;
+  messageEl.classList.toggle("error", isError);
+}

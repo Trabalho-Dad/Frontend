@@ -1,6 +1,5 @@
 import { isFavorite, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
-
-const CART_STORAGE_KEY = "astra_cart";
+import { getCart, saveCart } from "../utils/cart.js";
 
 function parsePrice(priceText) {
     if (!priceText) return 0;
@@ -68,18 +67,6 @@ function showToast(message) {
         toast.style.opacity = "0";
         toast.style.transform = "translateY(10px)";
     }, 2500);
-}
-
-function getCart() {
-    try {
-        return JSON.parse(localStorage.getItem(CART_STORAGE_KEY)) || [];
-    } catch {
-        return [];
-    }
-}
-
-function saveCart(cart) {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
 }
 
 function addToCart(product, quantity) {
@@ -166,9 +153,17 @@ function initQuantitySelector() {
     const increaseBtn = qtyButtons[1];
 
     let quantity = parseInt(qtyValueEl.textContent, 10) || 1;
+    const priceEl = document.querySelector(".product-price");
+    const installmentsEl = document.querySelector(".installments");
+    const unitPrice = parsePrice(priceEl?.textContent);
 
     const render = () => {
         qtyValueEl.textContent = quantity;
+        const total = unitPrice * quantity;
+        if (priceEl) priceEl.textContent = formatPrice(total);
+        if (installmentsEl) {
+            installmentsEl.textContent = `ou 12x de ${formatPrice(total / 12)} sem juros`;
+        }
     };
 
     decreaseBtn.addEventListener("click", () => {
@@ -183,16 +178,19 @@ function initQuantitySelector() {
         render();
     });
 
-    return () => quantity;
+    return {
+        getQuantity: () => quantity,
+        getUnitPrice: () => unitPrice,
+    };
 }
 
-function getMainProductData() {
+function getMainProductData(unitPrice) {
     const titleEl = document.querySelector(".product-title");
     const priceEl = document.querySelector(".product-price");
     const imageEl = document.querySelector(".main-image .product-image");
 
     const name = titleEl?.textContent.trim() || "Produto";
-    const price = parsePrice(priceEl?.textContent);
+    const price = unitPrice ?? parsePrice(priceEl?.textContent);
     const image = imageEl?.src || "";
 
     return {
@@ -205,15 +203,16 @@ function getMainProductData() {
     };
 }
 
-function initMainProductActions(getQuantity) {
+function initMainProductActions(quantityController) {
     const addToCartBtn = document.querySelector(".btn-add-cart");
     const buyNowBtn = document.querySelector(".btn-buy-now");
 
-    const readQuantity = () => (typeof getQuantity === "function" ? getQuantity() : 1);
+    const readQuantity = () => quantityController?.getQuantity() ?? 1;
+    const readProduct = () => getMainProductData(quantityController?.getUnitPrice());
 
     if (addToCartBtn) {
         addToCartBtn.addEventListener("click", () => {
-            const product = getMainProductData();
+            const product = readProduct();
             const quantity = readQuantity();
 
             addToCart(product, quantity);
@@ -226,7 +225,7 @@ function initMainProductActions(getQuantity) {
 
     if (buyNowBtn) {
         buyNowBtn.addEventListener("click", () => {
-            const product = getMainProductData();
+            const product = readProduct();
             const quantity = readQuantity();
             const total = product.price * quantity;
 
