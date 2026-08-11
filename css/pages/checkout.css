@@ -182,3 +182,33 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .checkout-container {
+    padding: 24px 16px 56px;
+  }
+
+  .checkout-title {
+    font-size: 2rem;
+    margin-bottom: 28px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .checkout-card {
+    padding: 18px;
+  }
+
+  .product-summary {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .product-summary strong {
+    width: 100%;
+    margin-left: 72px;
+  }
+}
