@@ -186,8 +186,9 @@
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, 310px);
   gap: 20px;
+  justify-content: start;
 }
 
 .figure-card {
