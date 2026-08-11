@@ -18,10 +18,10 @@ export async function findFigureByIdAdmin(id) {
   return apiFetch(`/api/admin/figures/${id}`);
 }
 
-export async function createFigure({ name, description, price, quantity, active, characterId, accessoryIds, categoryIds, imageIds }) {
+export async function createFigure({ name, description, price, quantity, active, characterId, accessoryIds, categoryIds, imageIds, images }) {
   return apiFetch("/api/admin/figures", {
     method: "POST",
-    body: { name, description, price, quantity, active, characterId, accessoryIds, categoryIds, imageIds }
+    body: { name, description, price, quantity, active, characterId, accessoryIds, categoryIds, imageIds, images }
   });
 }
 

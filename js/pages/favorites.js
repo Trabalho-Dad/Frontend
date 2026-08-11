@@ -83,16 +83,18 @@ async function main() {
   loading.show();
 
   try{
-    const userId = await getMyUser();
+    await updateNavbar();
 
-    if (!userId) {
+    const user = await getMyUser();
+
+    if (!user) {
       renderFigures([]);
       count.textContent = "Nenhum produto favoritado foi encontrado.";
       loading.hide();
       return;
     }
 
-    const favorites = await getFavoritesByUser(userId);
+    const favorites = await getFavoritesByUser(user.id);
 
     const figures = await Promise.all(
       (favorites ?? []).map(fav => findById(fav.figure_id ?? fav.figureId))
@@ -116,5 +118,4 @@ async function main() {
   loading.hide();
 }
 
-updateNavbar();
 main();

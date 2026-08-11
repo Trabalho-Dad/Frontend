@@ -1,11 +1,31 @@
-import { API_ROUTE } from "./config.js";
+import { apiFetch } from "./config.js";
 
-export async function loadPublicCategories(category){
-  const response = await fetch(`${API_ROUTE}/api/categories/find-all`);
+export async function loadPublicCategories() {
+  return apiFetch("/api/categories/find-all");
+}
 
-  if (!response.ok) {
-    throw new Error(`Erro ${response.status}`);
-  }
+export async function findManyCategoriesAdmin({ name, active, page = 1, take = 20 } = {}) {
+  return apiFetch("/api/admin/categories", { query: { name, active, page, take } });
+}
 
-  return await response.json();
+export async function findCategoryByIdAdmin(id) {
+  return apiFetch(`/api/admin/categories/${id}`);
+}
+
+export async function createCategory({ name, description, active }) {
+  return apiFetch("/api/admin/categories", {
+    method: "POST",
+    body: { name, description, active }
+  });
+}
+
+export async function updateCategory(id, { name, description, active }) {
+  return apiFetch(`/api/admin/categories/${id}`, {
+    method: "PUT",
+    body: { name, description, active }
+  });
+}
+
+export async function toggleCategoryStatus(id) {
+  return apiFetch(`/api/admin/categories/${id}/status`, { method: "PATCH" });
 }

@@ -3,7 +3,17 @@ import { apiFetch } from "./config.js";
 export async function getMyUser() {
   const cached = sessionStorage.getItem("logged");
 
-  if (cached) return JSON.parse(cached).user;
+  if (cached) {
+    const start = Date.now();
+
+    const elapsed = Date.now() - start;
+    const minDuration = 300;
+
+    if (elapsed < minDuration) {
+      await new Promise(r => setTimeout(r, minDuration - elapsed));
+    }
+    return JSON.parse(cached).user;
+  }
 
   try {
     const user = await apiFetch("/api/profile/me");

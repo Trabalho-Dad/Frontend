@@ -10,10 +10,11 @@ const searchInput = document.getElementById("catalog-search-input");
 const pagination = document.getElementById("pagination");
 
 let activeCategory = "";
-let allFigures = [];
-let filteredFigures = [];
-
+let searchTerm = "";
 let currentPage = 1;
+let totalPages = 1;
+
+let searchDebounceTimer = null;
 
 const ITEMS_PER_PAGE = 6;
 
@@ -34,7 +35,7 @@ function renderCategories(categories) {
 
     currentPage = 1;
 
-    applyFilters();
+    fetchFigures();
   });
 
   fragment.appendChild(allButton);
@@ -54,7 +55,7 @@ function renderCategories(categories) {
 
       currentPage = 1;
 
-      applyFilters();
+      fetchFigures();
     });
 
     fragment.appendChild(button);
@@ -77,14 +78,9 @@ function renderFigures(list) {
     return;
   }
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-
-  const pageItems = list.slice(startIndex, endIndex);
-
   const fragment = document.createDocumentFragment();
 
-  pageItems.forEach(product => {
+  list.forEach(product => {
     const card = document.createElement("div");
     card.className = "figure-card";
 
@@ -103,8 +99,7 @@ function renderFigures(list) {
 
     const image = document.createElement("img");
     image.className = "card-img";
-
-    image.src = product.mainImage?.url ?? "";
+    image.src = product?.mainImage?.url ?? "";
     image.alt = product.name;
 
     imageWrapper.appendChild(favButton);
@@ -157,17 +152,13 @@ function renderFigures(list) {
   grid.appendChild(fragment);
 }
 
-function renderPagination(list) {
+function renderPagination() {
   pagination.innerHTML = "";
 
-  const totalPages = Math.ceil(list.length / ITEMS_PER_PAGE);
-
-  
   if (totalPages <= 1) {
     return;
   }
 
-  // Botão "Anterior"
   const previousButton = document.createElement("button");
 
   previousButton.className = "pagination-arrow";
@@ -180,13 +171,12 @@ function renderPagination(list) {
     if (currentPage > 1) {
       currentPage--;
 
-      renderCurrentPage();
+      fetchFigures();
     }
   });
 
   pagination.appendChild(previousButton);
 
-  // Números das páginas
   for (let page = 1; page <= totalPages; page++) {
     const pageButton = document.createElement("button");
 
@@ -199,13 +189,12 @@ function renderPagination(list) {
     pageButton.addEventListener("click", () => {
       currentPage = page;
 
-      renderCurrentPage();
+      fetchFigures();
     });
 
     pagination.appendChild(pageButton);
   }
 
-  // Botão "Próxima"
   const nextButton = document.createElement("button");
 
   nextButton.className = "pagination-arrow";
@@ -218,52 +207,55 @@ function renderPagination(list) {
     if (currentPage < totalPages) {
       currentPage++;
 
-      renderCurrentPage();
+      fetchFigures();
     }
   });
 
   pagination.appendChild(nextButton);
 }
 
-function renderCurrentPage() {
-  renderFigures(filteredFigures);
-  renderPagination(filteredFigures);
-}
+async function fetchFigures() {
+  try {
+    loading.show();
 
-function applyFilters() {
-  const searchTerm = searchInput
-    ? searchInput.value.trim().toLowerCase()
-    : "";
+    const response = await loadPublicFigures(
+      activeCategory || undefined,
+      searchTerm || undefined,
+      currentPage,
+      ITEMS_PER_PAGE
+    );
 
-  filteredFigures = allFigures.filter(product => {
+    const figures = response.figures ?? [];
 
-    // Filtro por categoria
-    const matchesCategory =
-      activeCategory === "" ||
-      String(product.categoryId) === String(activeCategory) ||
-      String(product.category?.id) === String(activeCategory);
+    totalPages = Math.max(1, response.totalPages ?? 1);
 
-    // Filtro por busca
-    const matchesSearch =
-      searchTerm === "" ||
-      product.name.toLowerCase().includes(searchTerm) ||
-      String(product.category ?? "")
-        .toLowerCase()
-        .includes(searchTerm);
+    if (currentPage > totalPages) {
+      currentPage = totalPages;
 
-    return matchesCategory && matchesSearch;
-  });
+      return fetchFigures();
+    }
 
-  const totalPages = Math.ceil(
-    filteredFigures.length / ITEMS_PER_PAGE
-  );
+    renderFigures(figures);
+    renderPagination();
 
-  // Garante que a página atual continue válida
-  if (currentPage > totalPages && totalPages > 0) {
-    currentPage = totalPages;
+  } catch (error) {
+    console.error("Erro ao carregar catálogo:", error);
+
+    grid.innerHTML = "";
+
+    const errorMessage = document.createElement("p");
+
+    errorMessage.className = "catalog-empty";
+    errorMessage.textContent =
+      "Não foi possível carregar os produtos.";
+
+    grid.appendChild(errorMessage);
+
+    pagination.innerHTML = "";
+
+  } finally {
+    loading.hide();
   }
-
-  renderCurrentPage();
 }
 
 function setActiveButton(clickedBtn) {
@@ -278,15 +270,21 @@ function setActiveButton(clickedBtn) {
 
 if (searchInput) {
   searchInput.addEventListener("input", () => {
-    currentPage = 1;
+    clearTimeout(searchDebounceTimer);
 
-    applyFilters();
+    searchDebounceTimer = setTimeout(() => {
+      searchTerm = searchInput.value.trim();
+      currentPage = 1;
+
+      fetchFigures();
+    }, 400);
   });
 }
 
 if (clearFiltersBtn) {
   clearFiltersBtn.addEventListener("click", () => {
     activeCategory = "";
+    searchTerm = "";
 
     if (searchInput) {
       searchInput.value = "";
@@ -302,7 +300,7 @@ if (clearFiltersBtn) {
 
     currentPage = 1;
 
-    applyFilters();
+    fetchFigures();
   });
 }
 
@@ -310,19 +308,14 @@ async function main() {
   try {
     loading.show();
 
-    const responses = await Promise.all([
-      loadPublicFigures(),
+    const [categories] = await Promise.all([
       loadPublicCategories(),
       updateNavbar()
     ]);
 
-    allFigures = responses[0].figures ?? [];
+    renderCategories(categories);
 
-    filteredFigures = [...allFigures];
-
-    renderCategories(responses[1]);
-
-    renderCurrentPage();
+    await fetchFigures();
 
   } catch (error) {
     console.error("Erro ao carregar catálogo:", error);

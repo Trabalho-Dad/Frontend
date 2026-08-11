@@ -55,14 +55,6 @@
   max-width: 1200px;
 }
 
-.admin-section {
-  display: none;
-}
-
-.admin-section.active {
-  display: block;
-}
-
 .admin-section-header {
   display: flex;
   align-items: center;
@@ -144,10 +136,9 @@
 .admin-table img.thumb {
   width: 40px;
   height: 40px;
-  object-fit: contain;
+  object-fit: cover;
   background: #fff;
   border-radius: 6px;
-  padding: 3px;
 }
 
 .badge-status {
@@ -199,7 +190,6 @@
   color: var(--text-muted);
 }
 
-/* Upload de imagens */
 .image-upload-box {
   border: 2px dashed var(--border-color);
   border-radius: var(--border-radius-md);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,22 +11,35 @@
   <link rel="stylesheet" href="./../../css/components/header.css">
   <link rel="stylesheet" href="./../../css/components/loading.css">
   <link rel="stylesheet" href="./../../css/components/modal.css">
-  <link rel="stylesheet" href="./../../css/pages/admin.css">
-    <link rel="shortcut icon" href="./../../assets/icons/logo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="./../../css/pages/admin-home.css">
+  <link rel="stylesheet" href="./../../css/pages/admin-figure.css">
+
+  <link rel="shortcut icon" href="./../../assets/icons/logo.jpg" type="image/x-icon">
 
   <title>Astra - Administrativo</title>
 </head>
+
 <body>
   <header class="navbar">
     <div class="nav-container">
       <a href="./../../index.html" class="brand-logo">
         <img class="logo-icon" src="./../../assets/images/logo.png" alt="logo">
-        <span class="logo-text">astra admin</span>
+        <span class="logo-text">astra</span>
       </a>
 
+      <nav class="nav-links" id="nav-links">
+        <a href="./../../index.html">Início</a>
+        <a href="./../../catalogo.html">Catálogo</a>
+        <a href="./../../sobre.html">Sobre nós</a>
+      </nav>
+
       <nav class="nav-actions">
-        <a href="./../../index.html" class="icon-btn" title="Ver loja">Ver loja</a>
-        <a href="./../../index.html" class="btn-logout" id="logout-link">Sair</a>
+        <a href="./../../favorites.html" class="icon-btn" title="favorites"><img src="./../../assets/icons/favorito.svg"
+            alt="favorites"></a>
+        <a href="./../../checkout.html" class="icon-btn cart-btn" title="Carrinho"><img
+            src="./../../assets/icons/comprar.svg" alt="carrinho"> <span id="cart-count" class="badge">0</span>
+        </a>
+        <a href="./../auth/login.html" class="btn-login" id="login-link">Entrar</a>
       </nav>
     </div>
   </header>
@@ -33,16 +47,56 @@
   <div class="admin-layout">
     <aside class="admin-sidebar">
       <h2>Gestão</h2>
-      <button class="admin-nav-btn" data-section="home">Home</button>
-      <button class="admin-nav-btn active" data-section="figures">📦 Bonecos</button>
-      <button class="admin-nav-btn" data-section="categories">🏷️ Categorias</button>
-      <button class="admin-nav-btn" data-section="characters">🧑‍🎤 Personagens</button>
-      <button class="admin-nav-btn" data-section="images">🖼️ Imagens</button>
-      <button class="admin-nav-btn" data-section="coupons">🎟️ Cupons</button>
+      <a class="admin-nav-btn" href="./index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <path d="M9 22V12h6v10" />
+        </svg>
+        Home
+      </a>
+
+      <a class="admin-nav-btn active" href="./figures.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+          <line x1="12" y1="22.08" x2="12" y2="12" />
+        </svg>
+        Bonecos
+      </a>
+
+      <a class="admin-nav-btn" href="./categories.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        </svg>
+        Categorias
+      </a>
+
+      <a class="admin-nav-btn" href="./characters.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="7" r="4" />
+          <path d="M5.5 21a6.5 6.5 0 0 1 13 0" />
+        </svg>
+        Personagens
+      </a>
+      
+      <a class="admin-nav-btn" href="./coupons.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M2 9V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 0 0 6v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-6z" />
+          <line x1="9" y1="5" x2="9" y2="19" stroke-dasharray="2,2" />
+        </svg>
+        Cupons
+      </a>
     </aside>
 
     <main class="admin-content">
-      <section class="admin-section active" id="section-figures">
+      <section class="admin-section" id="section-figures">
         <div class="admin-section-header">
           <h1>Bonecos</h1>
           <button class="btn-primary" id="btn-new-figure">+ Novo boneco</button>
@@ -58,10 +112,16 @@
         </div>
 
         <div class="admin-table-wrapper">
+          <p id="error" class="error"></p>
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Img</th><th>Nome</th><th>Preço</th><th>Estoque</th><th>Status</th><th>Ações</th>
+                <th>Img</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Status</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody id="figures-table-body"></tbody>
@@ -70,253 +130,61 @@
         </div>
       </section>
 
-      <!-- ===================== CATEGORIAS ===================== -->
-      <section class="admin-section" id="section-categories">
-        <div class="admin-section-header">
-          <h1>Categorias</h1>
-          <button class="btn-primary" id="btn-new-category">+ Nova categoria</button>
-        </div>
 
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead><tr><th>Nome</th><th>Descrição</th><th>Status</th><th>Ações</th></tr></thead>
-            <tbody id="categories-table-body"></tbody>
-          </table>
-          <div class="admin-empty" id="categories-empty" style="display:none;">Nenhuma categoria cadastrada ainda.</div>
-        </div>
-      </section>
-
-      <!-- ===================== PERSONAGENS ===================== -->
-      <section class="admin-section" id="section-characters">
-        <div class="admin-section-header">
-          <h1>Personagens</h1>
-          <button class="btn-primary" id="btn-new-character">+ Novo personagem</button>
-        </div>
-
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead><tr><th>Nome</th><th>Descrição</th><th>Status</th><th>Ações</th></tr></thead>
-            <tbody id="characters-table-body"></tbody>
-          </table>
-          <div class="admin-empty" id="characters-empty" style="display:none;">Nenhum personagem cadastrado ainda.</div>
-        </div>
-      </section>
-
-      <!-- ===================== IMAGENS ===================== -->
-      <section class="admin-section" id="section-images">
-        <div class="admin-section-header">
-          <h1>Imagens</h1>
-        </div>
-
-        <p class="admin-hint">
-          As imagens são enviadas diretamente para o Cloudinary e depois registradas no catálogo da Astra.
-          Configure sua conta em <code>js/api/config.js</code> antes de usar.
-        </p>
-
-        <label class="image-upload-box" id="image-upload-box">
-          <input type="file" id="image-file-input" accept="image/*">
-          <div>📤 Clique para escolher uma imagem para enviar</div>
-        </label>
-
-        <div class="form-row" style="margin-bottom: var(--space-5);">
-          <div class="form-group">
-            <label for="image-description">Descrição</label>
-            <input type="text" id="image-description" class="form-control" placeholder="Ex: Goku Super Saiyajin - frente">
+      <div id="figure-modal" class="modal-overlay hidden">
+        <div class="modal-content modal-lg">
+          <div class="modal-header">
+            <h3>Novo boneco</h3>
+            <button type="button" class="close-btn" data-close-modal="figure-modal">&times;</button>
           </div>
-          <div class="form-group">
-            <label for="image-type">Tipo</label>
-            <select id="image-type" class="form-control">
-              <option value="PRIMARY_FIGURE">Boneco (principal)</option>
-              <option value="FIGURE">Boneco (galeria)</option>
-              <option value="SECONDARY_FIGURE">Boneco (secundária)</option>
-              <option value="CHARACTER">Personagem</option>
-              <option value="ACCESSORY">Acessório</option>
-            </select>
-          </div>
-          <div class="form-group" style="justify-content:flex-end;">
-            <button class="btn-primary" id="btn-upload-image" disabled>Enviar imagem</button>
-          </div>
+          <form id="figure-form">
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="figure-name">Nome</label>
+                <input type="text" id="figure-name" class="form-control" required minlength="3">
+              </div>
+              <div class="form-group">
+                <label for="figure-price">Preço (R$)</label>
+                <input type="number" id="figure-price" class="form-control" min="0.01" step="0.01" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="figure-description">Descrição</label>
+              <textarea id="figure-description" class="form-control" required minlength="5"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="figure-quantity">Quantidade em estoque</label>
+                <input type="number" id="figure-quantity" class="form-control" min="0" required>
+              </div>
+              <div class="form-group">
+                <label for="figure-character">Personagem</label>
+                <select id="figure-character" class="form-control" required></select>
+              </div>
+              <div class="form-group" style="justify-content:center;">
+                <label class="checkbox-row"><input type="checkbox" id="figure-active" checked disabled> Ativo</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Categorias</label>
+              <div class="checkbox-grid" id="figure-categories-checklist"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="figure-images-input">Imagens do boneco (a primeira selecionada vira a imagem principal)</label>
+              <input type="file" id="figure-images-input" class="form-control" accept="image/*" multiple required>
+              <div class="image-preview-grid" id="figure-images-preview"></div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%; margin-top:var(--space-1);">Salvar boneco</button>
+          </form>
         </div>
-        <p id="upload-progress" class="upload-progress"></p>
-
-        <div class="image-grid" id="images-grid"></div>
-        <div class="admin-empty" id="images-empty" style="display:none;">Nenhuma imagem enviada ainda.</div>
-      </section>
-
-      <!-- ===================== CUPONS ===================== -->
-      <section class="admin-section" id="section-coupons">
-        <div class="admin-section-header">
-          <h1>Cupons de desconto</h1>
-          <button class="btn-primary" id="btn-new-coupon">+ Novo cupom</button>
-        </div>
-
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead><tr><th>Código</th><th>Desconto</th><th>Uso</th><th>Validade</th><th>Status</th></tr></thead>
-            <tbody id="coupons-table-body"></tbody>
-          </table>
-          <div class="admin-empty" id="coupons-empty" style="display:none;">Nenhum cupom cadastrado ainda.</div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ===================== MODAL: FIGURA ===================== -->
-  <div id="figure-modal" class="modal-overlay hidden">
-    <div class="modal-content modal-lg">
-      <div class="modal-header">
-        <h3>Novo boneco</h3>
-        <button type="button" class="close-btn" data-close-modal="figure-modal">&times;</button>
       </div>
-      <form id="figure-form">
-        <div class="form-row">
-          <div class="form-group flex-2">
-            <label for="figure-name">Nome</label>
-            <input type="text" id="figure-name" class="form-control" required minlength="3">
-          </div>
-          <div class="form-group">
-            <label for="figure-price">Preço (R$)</label>
-            <input type="number" id="figure-price" class="form-control" min="0.01" step="0.01" required>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label for="figure-description">Descrição</label>
-          <textarea id="figure-description" class="form-control" required minlength="5"></textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="figure-quantity">Quantidade em estoque</label>
-            <input type="number" id="figure-quantity" class="form-control" min="0" required>
-          </div>
-          <div class="form-group">
-            <label for="figure-character">Personagem</label>
-            <select id="figure-character" class="form-control" required></select>
-          </div>
-          <div class="form-group" style="justify-content:center;">
-            <label class="checkbox-row"><input type="checkbox" id="figure-active" checked> Ativo</label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Categorias</label>
-          <div class="checkbox-grid" id="figure-categories-checklist"></div>
-        </div>
-
-        <div class="form-group">
-          <label for="figure-accessory-ids">
-            IDs de acessórios (separados por vírgula)
-          </label>
-          <input type="text" id="figure-accessory-ids" class="form-control" placeholder="Ex: 1, 2, 3">
-          <small class="admin-hint" style="margin:4px 0 0;">
-            A API ainda não expõe um cadastro de acessórios — peça os IDs existentes ao time de backend
-            ou deixe em branco se o boneco não tiver acessórios cadastrados.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label>Imagens do boneco (selecione pelo menos 1 — a primeira marcada vira a imagem principal)</label>
-          <div class="image-picker-grid" id="figure-images-picker"></div>
-        </div>
-
-        <button type="submit" class="btn-primary" style="width:100%; margin-top:8px;">Salvar boneco</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===================== MODAL: CATEGORIA ===================== -->
-  <div id="category-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="category-modal-title">Nova categoria</h3>
-        <button type="button" class="close-btn" data-close-modal="category-modal">&times;</button>
-      </div>
-      <form id="category-form">
-        <input type="hidden" id="category-id">
-        <div class="form-group">
-          <label for="category-name">Nome</label>
-          <input type="text" id="category-name" class="form-control" required minlength="3">
-        </div>
-        <div class="form-group">
-          <label for="category-description">Descrição</label>
-          <textarea id="category-description" class="form-control" required minlength="5"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="checkbox-row"><input type="checkbox" id="category-active" checked> Ativa</label>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%;">Salvar categoria</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===================== MODAL: PERSONAGEM ===================== -->
-  <div id="character-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="character-modal-title">Novo personagem</h3>
-        <button type="button" class="close-btn" data-close-modal="character-modal">&times;</button>
-      </div>
-      <form id="character-form">
-        <input type="hidden" id="character-id">
-        <div class="form-group">
-          <label for="character-name">Nome</label>
-          <input type="text" id="character-name" class="form-control" required minlength="3">
-        </div>
-        <div class="form-group">
-          <label for="character-description">Descrição</label>
-          <textarea id="character-description" class="form-control" required minlength="5"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="checkbox-row"><input type="checkbox" id="character-active" checked> Ativo</label>
-        </div>
-        <div class="form-group" id="character-images-group">
-          <label>Imagens do personagem</label>
-          <div class="image-picker-grid" id="character-images-picker"></div>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%;">Salvar personagem</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===================== MODAL: CUPOM ===================== -->
-  <div id="coupon-modal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Novo cupom</h3>
-        <button type="button" class="close-btn" data-close-modal="coupon-modal">&times;</button>
-      </div>
-      <form id="coupon-form">
-        <div class="form-group">
-          <label for="coupon-code-input">Código</label>
-          <input type="text" id="coupon-code-input" class="form-control" required minlength="2" style="text-transform:uppercase;">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="coupon-discount">Desconto (%)</label>
-            <input type="number" id="coupon-discount" class="form-control" min="1" max="100" required>
-          </div>
-          <div class="form-group">
-            <label for="coupon-limit">Limite de uso</label>
-            <input type="number" id="coupon-limit" class="form-control" min="1" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="coupon-start">Início</label>
-            <input type="date" id="coupon-start" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="coupon-end">Fim</label>
-            <input type="date" id="coupon-end" class="form-control" required>
-          </div>
-        </div>
-        <button type="submit" class="btn-primary" style="width:100%;">Criar cupom</button>
-      </form>
-    </div>
-  </div>
-
-  <script type="module" src="./../../js/pages/admin-home.js"></script>
+      <script type="module" src="./../../js/pages/admin-figure.js"></script>
 </body>
+
 </html>
