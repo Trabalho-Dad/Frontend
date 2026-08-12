@@ -1,4 +1,5 @@
 const THEME_STORAGE_KEY = "astra-theme";
+const THEME_SCRIPT_URL = document.currentScript?.src ?? window.location.href;
 
 function readTheme() {
     try {
@@ -57,3 +58,15 @@ if (document.readyState === "loading") {
 } else {
     createThemeToggle();
 }
+
+// O tema já está presente em todas as telas, então ele inicializa também
+// os controles compartilhados de acessibilidade sem repetir tags em cada HTML.
+const accessibilityStyle = document.createElement("link");
+accessibilityStyle.rel = "stylesheet";
+accessibilityStyle.href = new URL("../css/accessibility.css", THEME_SCRIPT_URL).href;
+document.head.appendChild(accessibilityStyle);
+
+const accessibilityScript = document.createElement("script");
+accessibilityScript.type = "module";
+accessibilityScript.src = new URL("./accessibility.js", THEME_SCRIPT_URL).href;
+document.head.appendChild(accessibilityScript);
