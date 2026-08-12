@@ -1,3 +1,37 @@
+.header {
+    width: 100%;
+    padding: 24px 28px;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: fit-content;
+
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.logo span {
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    letter-spacing: -0.5px;
+}
+
 .navbar {
   display: flex;
   justify-content: center;
