@@ -25,6 +25,13 @@ export async function createFigure({ name, description, price, quantity, active,
   });
 }
 
+export async function updateFigure(id, { name, description, price, active, characterId, accessoryIds, categoryIds, imageIds, images }) {
+  return apiFetch(`/api/admin/figures/${id}`, {
+    method: "PATCH",
+    body: { name, description, price, active, characterId, accessoryIds, categoryIds, imageIds, images }
+  });
+}
+
 export async function increaseFigureQuantity(id, quantity) {
   return apiFetch(`/api/admin/figures/${id}/quantity/increase/${quantity}`, { method: "PATCH" });
 }

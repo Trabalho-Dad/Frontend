@@ -1,22 +1,28 @@
 import {
   findManyFiguresAdmin,
   createFigure,
+  updateFigure
 } from "../api/figures.js";
 import { findManyCategoriesAdmin } from "../api/categories.js";
 import { findManyCharactersAdmin } from "../api/characters.js";
-import { uploadAndRegisterImage } from "../api/images.js";
+import { uploadImageToCloudinary } from "../api/images.js";
 import { loading } from "../components/loading.js";
 import { hideError, showError } from "../utils/error.js";
 import { formatPrice } from "../utils/formatters.js";
 import { openModal, closeModal } from "../utils/modal.js";
 import { uploadImageToCloudinary } from "../api/images.js";
 import { updateNavbar } from "../utils/header-update.js";
+import { renderPagination } from "../utils/pagination.js";
 
 const FIGURE_MODAL_ID = "figure-modal";
+const ITEMS_PER_PAGE = 5;
 
 const figuresTableBody = document.getElementById("figures-table-body");
 const figuresEmpty = document.getElementById("figures-empty");
+const figuresPagination = document.getElementById("figures-pagination");
 const figureForm = document.getElementById("figure-form");
+const figureModalTitle = document.getElementById("figure-modal-title");
+const figureImagesGroup = document.getElementById("figure-images-input").closest(".form-group");
 
 const figureFilterName = document.getElementById("figure-filter-name");
 const figureFilterActive = document.getElementById("figure-filter-active");
@@ -27,6 +33,8 @@ let allCharacters = [];
 let allCategories = [];
 let figureSelectedFiles = [];
 let figureMainImageIndex = 0;
+let figureEditingId = null;
+let currentPage = 1;
 
 let figureFilterTimeout = null;
 
@@ -50,7 +58,13 @@ async function uploadImageIfNeeded(file) {
 
 function debounceFilter() {
   clearTimeout(figureFilterTimeout);
-  figureFilterTimeout = setTimeout(loadFigures, 400);
+  figureFilterTimeout = setTimeout(() => loadFigures(1), 400);
+}
+
+function clearContainer(container) {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
 }
 
 function renderFigureCharacterSelect() {
@@ -63,96 +77,6 @@ function renderFigureCharacterSelect() {
     opt.textContent = character.name;
     select.appendChild(opt);
   });
-}
-
-function clearContainer(container) {
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-}
-
-async function buildFigureImagesPayload() {
-  const orderedFiles = [
-    figureSelectedFiles[figureMainImageIndex],
-    ...figureSelectedFiles.filter((_, index) => index !== figureMainImageIndex),
-  ];
-
-  const images = [];
-  for (const [index, item] of orderedFiles.entries()) {
-    const cloudinaryResult = await uploadImageIfNeeded(item.file);
-    images.push({
-      description: item.description,
-      url: cloudinaryResult.secure_url,
-      imageType: index === 0 ? "PRIMARY_FIGURE" : "SECONDARY_FIGURE",
-    });
-  }
-
-  return images;
-}
-
-async function handleFigureFormSubmit(event) {
-  event.preventDefault();
-
-  const characterId = document.getElementById("figure-character").value;
-  const name = document.getElementById("figure-name").value.trim();
-
-  if (!characterId) {
-    showError("Selecione um personagem.");
-    return;
-  }
-
-  if (figureSelectedFiles.length === 0) {
-    showError("Selecione ao menos uma imagem.");
-    return;
-  }
-
-  if (figureSelectedFiles.some(item => !item.description.trim())) {
-    showError("Preencha a descrição de todas as imagens.");
-    return;
-  }
-
-  try {
-    loading.show();
-    hideError();
-
-    const images = await buildFigureImagesPayload();
-
-    await createFigure({
-      name,
-      description: document.getElementById("figure-description").value.trim(),
-      price: Number(document.getElementById("figure-price").value),
-      quantity: Number(document.getElementById("figure-quantity").value),
-      active: document.getElementById("figure-active").checked,
-      characterId,
-      imageIds: [],
-      accessoryIds: [],
-      categoryIds: Array.from(figureSelectedCategoryIds),
-      images,
-    });
-
-    closeModal(FIGURE_MODAL_ID);
-    resetFigureForm();
-    await loadFigures();
-  } catch (error) {
-    showError(error.message);
-  } finally {
-    loading.hide();
-  }
-}
-
-function handleFigureImagesInputChange(event) {
-  const files = Array.from(event.target.files ?? []);
-  if (files.length === 0) return;
-
-  const newItems = files.map(file => ({
-    file,
-    previewUrl: URL.createObjectURL(file),
-    description: "",
-  }));
-
-  figureSelectedFiles = figureSelectedFiles.concat(newItems);
-  event.target.value = "";
-  renderFigureImagesPreview();
 }
 
 function renderFigureCategoriesChecklist() {
@@ -248,14 +172,148 @@ function renderFigureImagesPreview() {
   });
 }
 
+function handleFigureImagesInputChange(event) {
+  const files = Array.from(event.target.files ?? []);
+  if (files.length === 0) return;
+
+  const newItems = files.map(file => ({
+    file,
+    previewUrl: URL.createObjectURL(file),
+    description: "",
+  }));
+
+  figureSelectedFiles = figureSelectedFiles.concat(newItems);
+  event.target.value = "";
+  renderFigureImagesPreview();
+}
+
+async function buildFigureImagesPayload() {
+  const orderedFiles = [
+    figureSelectedFiles[figureMainImageIndex],
+    ...figureSelectedFiles.filter((_, index) => index !== figureMainImageIndex),
+  ];
+
+  const images = [];
+  for (const [index, item] of orderedFiles.entries()) {
+    const cloudinaryResult = await uploadImageIfNeeded(item.file);
+    images.push({
+      description: item.description,
+      url: cloudinaryResult.secure_url,
+      imageType: index === 0 ? "PRIMARY_FIGURE" : "SECONDARY_FIGURE",
+    });
+  }
+
+  return images;
+}
+
 function resetFigureForm() {
   figureForm.reset();
+  figureEditingId = null;
   figureSelectedCategoryIds.clear();
   revokeFigurePreviewUrls();
   figureSelectedFiles = [];
   figureMainImageIndex = 0;
+  figureImagesGroup.style.display = "";
   renderFigureCategoriesChecklist();
   renderFigureImagesPreview();
+}
+
+function openNewFigureModal() {
+  resetFigureForm();
+  figureModalTitle.textContent = "Nova figura";
+  openModal(FIGURE_MODAL_ID);
+}
+
+async function handleEditFigure(figure) {
+  try {
+    loading.show();
+
+    figureEditingId = figure.id;
+    figureModalTitle.textContent = "Editar figura";
+
+    document.getElementById("figure-character").value = figure.characterId ?? figure.character?.id ?? "";
+    document.getElementById("figure-name").value = figure.name;
+    document.getElementById("figure-description").value = figure.description;
+    document.getElementById("figure-price").value = figure.price;
+    document.getElementById("figure-quantity").value = figure.quantity;
+    document.getElementById("figure-active").checked = figure.active;
+
+    figureSelectedCategoryIds.clear();
+    (figure.categories ?? []).forEach(category => figureSelectedCategoryIds.add(category.id));
+    renderFigureCategoriesChecklist();
+
+    revokeFigurePreviewUrls();
+    figureSelectedFiles = [];
+    figureMainImageIndex = 0;
+    figureImagesGroup.style.display = "none";
+    renderFigureImagesPreview();
+
+    openModal(FIGURE_MODAL_ID);
+  } catch (error) {
+    showError(error.message);
+  } finally {
+    loading.hide();
+  }
+}
+
+async function handleFigureFormSubmit(event) {
+  event.preventDefault();
+
+  const isEditing = Boolean(figureEditingId);
+
+  const characterId = document.getElementById("figure-character").value;
+  const name = document.getElementById("figure-name").value.trim();
+  const description = document.getElementById("figure-description").value.trim();
+  const price = Number(document.getElementById("figure-price").value);
+  const quantity = Number(document.getElementById("figure-quantity").value);
+  const active = document.getElementById("figure-active").checked;
+
+  if (!characterId) {
+    showError("Selecione um personagem.");
+    return;
+  }
+
+  if (!isEditing && figureSelectedFiles.length === 0) {
+    showError("Selecione ao menos uma imagem.");
+    return;
+  }
+
+  if (figureSelectedFiles.some(item => !item.description.trim())) {
+    showError("Preencha a descrição de todas as imagens.");
+    return;
+  }
+
+  try {
+    loading.show();
+    hideError();
+
+    const images = figureSelectedFiles.length > 0 ? await buildFigureImagesPayload() : undefined;
+
+    const payload = {
+      name,
+      description,
+      price,
+      quantity,
+      active,
+      characterId,
+      accessoryIds: [],
+      categoryIds: Array.from(figureSelectedCategoryIds),
+    };
+
+    if (isEditing) {
+      await updateFigure(figureEditingId, { ...payload, images });
+    } else {
+      await createFigure({ ...payload, imageIds: [], images });
+    }
+
+    closeModal(FIGURE_MODAL_ID);
+    resetFigureForm();
+    await loadFigures(1);
+  } catch (error) {
+    showError(error.message);
+  } finally {
+    loading.hide();
+  }
 }
 
 async function loadReferenceData() {
@@ -270,26 +328,7 @@ async function loadReferenceData() {
   renderFigureCharacterSelect();
 }
 
-async function loadFigures() {
-  try {
-    loading.show();
-    hideError();
-
-    const response = await findManyFiguresAdmin({
-      name: figureFilterName.value.trim() || undefined,
-      active: figureFilterActive.value || undefined,
-      take: 100,
-    });
-
-    renderFiguresTable(response.figures ?? []);
-  } catch (error) {
-    showError(error.message);
-  } finally {
-    loading.hide();
-  }
-}
-
-function buildImageCell(figure) {
+function createImageCell(figure) {
   const td = document.createElement("td");
   const img = document.createElement("img");
   img.className = "thumb";
@@ -299,48 +338,43 @@ function buildImageCell(figure) {
   return td;
 }
 
-function buildTextCell(text) {
+function createTextCell(text) {
   const td = document.createElement("td");
   td.textContent = text;
   return td;
 }
 
-function buildStatusCell(figure) {
+function createStatusCell(active) {
   const td = document.createElement("td");
-  const span = document.createElement("span");
-  span.className = `badge-status ${figure.active ? "badge-active" : "badge-inactive"}`;
-  span.textContent = figure.active ? "Ativo" : "Inativo";
-  td.appendChild(span);
+  const badge = document.createElement("span");
+  badge.className = `badge-status ${active ? "badge-active" : "badge-inactive"}`;
+  badge.textContent = active ? "Ativo" : "Inativo";
+  td.appendChild(badge);
   return td;
 }
 
-function buildQuantityButton(figure, delta, label, title, figures) {
-  const button = document.createElement("button");
-  button.className = "icon-action-btn";
-  button.title = title;
-  button.textContent = label;
-  button.addEventListener("click", () =>
-    handleQuantityChange(figure.id, delta, figures)
-  );
-  return button;
-}
-
-function buildActionsCell(figure, figures) {
+function createActionsCell(figure) {
   const td = document.createElement("td");
   td.className = "table-actions";
-  td.appendChild(buildQuantityButton(figure, 1, "+1", "Aumentar estoque", figures));
-  td.appendChild(buildQuantityButton(figure, -1, "-1", "Diminuir estoque", figures));
+
+  const editBtn = document.createElement("button");
+  editBtn.className = "icon-action-btn";
+  editBtn.title = "Editar";
+  editBtn.textContent = "✏️";
+  editBtn.addEventListener("click", () => handleEditFigure(figure));
+
+  td.appendChild(editBtn);
   return td;
 }
 
-function buildFigureRow(figure, figures) {
+function createFigureRow(figure) {
   const tr = document.createElement("tr");
-  tr.appendChild(buildImageCell(figure));
-  tr.appendChild(buildTextCell(figure.name));
-  tr.appendChild(buildTextCell(formatPrice(figure.price)));
-  tr.appendChild(buildTextCell(figure.quantity));
-  tr.appendChild(buildStatusCell(figure));
-  tr.appendChild(buildActionsCell(figure, figures));
+  tr.appendChild(createImageCell(figure));
+  tr.appendChild(createTextCell(figure.name));
+  tr.appendChild(createTextCell(formatPrice(figure.price)));
+  tr.appendChild(createTextCell(figure.quantity));
+  tr.appendChild(createStatusCell(figure.active));
+  tr.appendChild(createActionsCell(figure));
   return tr;
 }
 
@@ -349,23 +383,32 @@ function renderFiguresTable(figures) {
   figuresEmpty.style.display = figures.length === 0 ? "block" : "none";
 
   figures.forEach(figure => {
-    figuresTableBody.appendChild(buildFigureRow(figure, figures));
+    figuresTableBody.appendChild(createFigureRow(figure));
   });
 }
 
-async function handleQuantityChange(figureId, delta, figures) {
-  const figure = figures.find(f => f.id === figureId);
-  if (!figure) return;
-
-  const newQuantity = figure.quantity + delta;
-  if (newQuantity < 0) return;
-
+async function loadFigures(page = 1) {
   try {
     loading.show();
     hideError();
 
-    await updateFigureQuantity(figureId, newQuantity);
-    await loadFigures();
+    const response = await findManyFiguresAdmin({
+      name: figureFilterName.value.trim() || undefined,
+      active: figureFilterActive.value || undefined,
+      page,
+      take: ITEMS_PER_PAGE,
+    });
+
+    const figures = response.figures ?? [];
+    const totalPages = response.totalPages ?? Math.ceil((response.total ?? figures.length) / ITEMS_PER_PAGE);
+
+    currentPage = page;
+    renderFiguresTable(figures);
+    renderPagination(figuresPagination, {
+      currentPage,
+      totalPages,
+      onPageChange: loadFigures
+    });
   } catch (error) {
     showError(error.message);
   } finally {
@@ -373,39 +416,28 @@ async function handleQuantityChange(figureId, delta, figures) {
   }
 }
 
-async function uploadFigureImages(figureName) {
-  const orderedFiles = [
-    figureSelectedFiles[figureMainImageIndex],
-    ...figureSelectedFiles.filter((_, index) => index !== figureMainImageIndex),
-  ];
-
-  const uploaded = [];
-  for (const [index, item] of orderedFiles) {
-    const image = await uploadAndRegisterImage(item.file, {
-      description: figureName,
-      imageType: index == 1 ? "PRIMARY_FIGURE" : "SECONDARY_FIGURE",
-    });
-    uploaded.push(image);
-  }
-
-  return uploaded.map(image => image.id);
-}
-
 function setupFilters() {
   figureFilterName.addEventListener("input", debounceFilter);
-  figureFilterActive.addEventListener("change", loadFigures);
+  figureFilterActive.addEventListener("change", () => loadFigures(1));
 }
 
 function setupNewFigureButton() {
-  document.getElementById("btn-new-figure").addEventListener("click", () => {
-    resetFigureForm();
-    openModal(FIGURE_MODAL_ID);
-  });
+  document.getElementById("btn-new-figure").addEventListener("click", openNewFigureModal);
 }
 
 function setupFigureImagesInput() {
   document.getElementById("figure-images-input")
     .addEventListener("change", handleFigureImagesInputChange);
+}
+
+function setupModalClose() {
+  const closeButtons = document.querySelectorAll('[data-close-modal="figure-modal"]');
+  closeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      closeModal(FIGURE_MODAL_ID);
+      resetFigureForm();
+    });
+  });
 }
 
 async function main() {
@@ -418,10 +450,12 @@ async function main() {
     setupFilters();
     setupNewFigureButton();
     setupFigureImagesInput();
+    setupModalClose();
     figureForm.addEventListener("submit", handleFigureFormSubmit);
 
+    await updateNavbar();
     await loadReferenceData();
-    await loadFigures();
+    await loadFigures(currentPage);
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") {
       window.location.href = "./../login.html";
