@@ -3,8 +3,8 @@ import { loading } from "../components/loading.js";
 import { showError, hideError } from "../utils/error.js";
 import { updateNavbar } from "../utils/header-update.js";
 import { formatPrice } from "../utils/formatters.js";
-import { getCart, saveCart } from "../utils/cart.js";
 import { requireLogin } from "../utils/auth-guard.js";
+import { addFigureToOrder } from "../api/order.js";
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -138,23 +138,9 @@ addToCartButton.addEventListener("click", async () => {
     loading.show();
 
     const quantity = Number(buyingQuantity.textContent) || 1;
-    const cart = getCart();
-    const existing = cart.find(item => String(item.id) === String(id));
 
-    if (existing) {
-      existing.quantity += quantity;
-    } else {
-      cart.push({
-        id,
-        name: currentProduct.name,
-        category: currentProduct.category ?? "Colecionável",
-        price: Number(currentProduct.price),
-        image: currentProduct.mainImage?.url ?? "",
-        quantity,
-      });
-    }
+    await addFigureToOrder(id, quantity)
 
-    saveCart(cart);
     const originalText = addToCartButton.textContent;
     addToCartButton.textContent = "Adicionado!";
     window.setTimeout(() => {
@@ -185,23 +171,9 @@ async function handleBuyNow() {
   if (!await requireLogin()) return;
 
   const quantity = Number(buyingQuantity.textContent) || 1;
-  const cart = getCart();
-  const existing = cart.find(item => String(item.id) === String(id));
 
-  if (existing) {
-    existing.quantity += quantity;
-  } else {
-    cart.push({
-      id,
-      name: currentProduct.name,
-      category: currentProduct.category ?? "Colecionável",
-      price: Number(currentProduct.price),
-      image: currentProduct.mainImage?.url ?? "",
-      quantity,
-    });
-  }
-
-  saveCart(cart);
+  await addFigureToOrder(id, quantity)
+  
   window.location.href = "checkout.html";
 }
 

@@ -1,129 +1,276 @@
-import { getCart, saveCart } from "../utils/cart.js";
+import {
+  findMyOrders,
+  findOrderById,
+  addFigureToOrder,
+  removeFigureFromOrder,
+  cancelOrder
+} from "../api/order.js";
+import { updateNavbar } from "../utils/header-update.js";
+import { loading } from "../components/loading.js";
+import { requireLogin } from "../utils/auth-guard.js";
 
-const SHIPPING = 19.9;
-const productsContainer = document.querySelector(".produtos");
-const subtotalElement = document.getElementById("subtotal");
-const shippingElement = document.getElementById("frete");
-const totalElement = document.getElementById("total");
-const checkoutLink = document.querySelector(".finalizar-container");
+const produtosSection = document.querySelector(".produtos");
+const subtotalEl = document.getElementById("subtotal");
+const freteEl = document.getElementById("frete");
+const totalEl = document.getElementById("total");
+const errorEl = document.querySelector(".error");
+const finalizarLink = document.querySelector(".finalizar-container");
+
+let currentOrder = null;
+let carrinhoVazio = true;
+
+const STATUS_CARRINHO = "IN_PROGRESS";
 
 function formatPrice(value) {
-  return Number(value).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
+  return `R$ ${Number(value ?? 0).toFixed(2).replace(".", ",")}`;
+}
+
+function showError(message) {
+  if (errorEl) {
+    errorEl.textContent = message ?? "";
+  }
+}
+
+function renderResumo(order) {
+  const figures = order?.figures ?? [];
+  carrinhoVazio = figures.length === 0;
+
+  const subtotal = Number(order?.price ?? 0);
+  const desconto = Number(order?.discount ?? 0);
+  const total = Number(order?.finalPrice ?? subtotal);
+
+  subtotalEl.textContent = formatPrice(subtotal);
+  totalEl.textContent = formatPrice(total);
+
+  freteEl.textContent = carrinhoVazio ? formatPrice(0) : "Calculado na finalização";
+
+  void desconto;
+
+  if (finalizarLink) {
+    finalizarLink.classList.toggle("disabled", carrinhoVazio);
+
+    if (carrinhoVazio) {
+      finalizarLink.setAttribute("aria-disabled", "true");
+    } else {
+      finalizarLink.removeAttribute("aria-disabled");
+    }
+  }
+}
+
+function renderProdutos(order) {
+  produtosSection.innerHTML = "";
+
+  const items = order?.figures ?? [];
+
+  if (items.length === 0) {
+    const empty = document.createElement("p");
+
+    empty.className = "carrinho-vazio";
+    empty.textContent = "Seu carrinho está vazio.";
+
+    produtosSection.appendChild(empty);
+
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  items.forEach(item => {
+    if (item.quantity === 0) return;
+
+    const figure = item.figure ?? {};
+
+    const article = document.createElement("article");
+    article.className = "produto";
+    article.dataset.price = Number(item.price);
+    article.dataset.figureId = item.figureId ?? figure.id;
+
+    const info = document.createElement("div");
+    info.className = "produto-info";
+
+    const image = document.createElement("img");
+    image.className = "produto-imagem";
+    image.src = figure?.mainImage?.url ?? "";
+    image.alt = figure.name ?? "Produto";
+
+    const texto = document.createElement("div");
+    texto.className = "produto-texto";
+
+    const nome = document.createElement("h2");
+    nome.textContent = figure.name ?? "Produto";
+
+    const categoria = document.createElement("p");
+    categoria.textContent = figure.category ?? "";
+
+    texto.appendChild(nome);
+    texto.appendChild(categoria);
+
+    info.appendChild(image);
+    info.appendChild(texto);
+
+    const acoes = document.createElement("div");
+    acoes.className = "produto-acoes";
+
+    const quantidade = document.createElement("div");
+    quantidade.className = "quantidade";
+
+    const valorQuantidade = document.createElement("span");
+    valorQuantidade.className = "valor-quantidade";
+    valorQuantidade.textContent = item.quantity;
+
+    quantidade.appendChild(valorQuantidade);
+
+    const preco = document.createElement("span");
+    preco.className = "produto-preco";
+    preco.textContent = formatPrice(Number(item.price))
+
+    const btnRemover = document.createElement("button");
+    btnRemover.className = "btn-remover";
+    btnRemover.type = "button";
+    btnRemover.setAttribute("aria-label", "Remover produto");
+    btnRemover.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 7H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <path d="M10 11V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <path d="M14 11V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        <path d="M5 7L6 20H18L19 7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+      </svg>
+    `;
+
+    btnRemover.addEventListener("click", () =>
+      removerProduto(item.figureId ?? figure.id, Number(item.quantity))
+    );
+
+    acoes.appendChild(quantidade);
+    acoes.appendChild(preco);
+    acoes.appendChild(btnRemover);
+
+    article.appendChild(info);
+    article.appendChild(acoes);
+
+    fragment.appendChild(article);
+  });
+
+  produtosSection.appendChild(fragment);
+}
+
+function renderCarrinho(order) {
+  renderProdutos(order);
+  renderResumo(order);
+}
+
+if (finalizarLink) {
+  finalizarLink.addEventListener("click", event => {
+    event.preventDefault();
+
+    if (carrinhoVazio) return;
+
+    window.location.href = finalizarLink.getAttribute("href");
   });
 }
 
-function updateSummary(cart) {
-  const subtotal = cart.reduce(
-    (total, item) => total + Number(item.price) * Number(item.quantity),
-    0
-  );
-  const shipping = cart.length > 0 ? SHIPPING : 0;
+async function alterarQuantidade(figureId, delta) {
+  showError("");
 
-  subtotalElement.textContent = formatPrice(subtotal);
-  shippingElement.textContent = formatPrice(shipping);
-  totalElement.textContent = formatPrice(subtotal + shipping);
-  checkoutLink.classList.toggle("disabled", cart.length === 0);
-  checkoutLink.setAttribute("aria-disabled", String(cart.length === 0));
-}
+  try {
+    loading.show();
 
-function updateQuantity(productId, change) {
-  const cart = getCart();
-  const item = cart.find(product => String(product.id) === String(productId));
-  if (!item) return;
+    if (delta > 0) {
+      await addFigureToOrder(figureId, 1);
+    } else {
+      await removeFigureFromOrder(figureId, 1);
+    }
 
-  item.quantity = Math.max(1, Number(item.quantity) + change);
-  saveCart(cart);
-  renderCart();
-}
+    await fetchCarrinho();
 
-function removeProduct(productId) {
-  const cart = getCart().filter(product => String(product.id) !== String(productId));
-  saveCart(cart);
-  renderCart();
-}
+  } catch (error) {
+    if (error.message === "LOGIN_REQUIRED") return;
 
-function createQuantityButton(text, label, onClick) {
-  const button = document.createElement("button");
-  button.className = "btn-quantidade";
-  button.type = "button";
-  button.textContent = text;
-  button.setAttribute("aria-label", label);
-  button.addEventListener("click", onClick);
-  return button;
-}
+    console.error("Erro ao alterar quantidade:", error);
+    showError(error.message ?? "Não foi possível atualizar a quantidade.");
 
-function createProductCard(item) {
-  const product = document.createElement("article");
-  product.className = "produto";
-
-  const info = document.createElement("div");
-  info.className = "produto-info";
-
-  const image = document.createElement("img");
-  image.className = "produto-imagem";
-  image.src = item.image || "./assets/images/placeholder.png";
-  image.alt = item.name || "Produto";
-
-  const text = document.createElement("div");
-  text.className = "produto-texto";
-  const title = document.createElement("h2");
-  title.textContent = item.name || "Produto";
-  const category = document.createElement("p");
-  category.textContent = item.category || "Colecionável";
-  text.append(title, category);
-  info.append(image, text);
-
-  const actions = document.createElement("div");
-  actions.className = "produto-acoes";
-  const quantity = document.createElement("div");
-  quantity.className = "quantidade";
-  const quantityValue = document.createElement("span");
-  quantityValue.className = "valor-quantidade";
-  quantityValue.textContent = String(item.quantity);
-  quantity.append(
-    createQuantityButton("−", "Diminuir quantidade", () => updateQuantity(item.id, -1)),
-    quantityValue,
-    createQuantityButton("+", "Aumentar quantidade", () => updateQuantity(item.id, 1))
-  );
-
-  const price = document.createElement("span");
-  price.className = "produto-preco";
-  price.textContent = formatPrice(Number(item.price) * Number(item.quantity));
-
-  const removeButton = document.createElement("button");
-  removeButton.className = "btn-remover";
-  removeButton.type = "button";
-  removeButton.setAttribute("aria-label", `Remover ${item.name || "produto"}`);
-  removeButton.textContent = "×";
-  removeButton.addEventListener("click", () => removeProduct(item.id));
-
-  actions.append(quantity, price, removeButton);
-  product.append(info, actions);
-  return product;
-}
-
-function renderCart() {
-  const cart = getCart();
-  productsContainer.replaceChildren();
-
-  if (cart.length === 0) {
-    const empty = document.createElement("p");
-    empty.className = "carrinho-vazio";
-    empty.textContent = "Seu carrinho está vazio.";
-    productsContainer.appendChild(empty);
-  } else {
-    const fragment = document.createDocumentFragment();
-    cart.forEach(item => fragment.appendChild(createProductCard(item)));
-    productsContainer.appendChild(fragment);
+  } finally {
+    loading.hide();
   }
-
-  updateSummary(cart);
 }
 
-checkoutLink.addEventListener("click", event => {
-  if (getCart().length === 0) event.preventDefault();
-});
+async function removerProduto(figureId, quantity) {
+  showError("");
 
-renderCart();
+  try {
+    loading.show();
+
+    await removeFigureFromOrder(figureId, quantity);
+
+    await fetchCarrinho();
+
+  } catch (error) {
+    if (error.message === "LOGIN_REQUIRED") return;
+
+    console.error("Erro ao remover produto:", error);
+    showError(error.message ?? "Não foi possível remover o produto.");
+
+  } finally {
+    loading.hide();
+  }
+}
+
+async function fetchCarrinho() {
+  try {
+    loading.show();
+    showError("");
+
+    // 1. Lista os pedidos do usuário filtrando pelo status "em aberto"
+    const response = await findMyOrders({ status: STATUS_CARRINHO, page: 1, take: 1 });
+
+    const resumo = response?.orders?.[0] ?? null;
+
+    if (!resumo) {
+      currentOrder = null;
+      renderCarrinho(null);
+      return;
+    }
+
+    const order = await findOrderById(resumo.id);
+
+    currentOrder = order;
+
+    renderCarrinho(order);
+
+  } catch (error) {
+    console.error("Erro ao carregar carrinho:", error);
+
+    produtosSection.innerHTML = "";
+
+    const errorMessage = document.createElement("p");
+    errorMessage.className = "carrinho-vazio";
+    errorMessage.textContent = "Não foi possível carregar o carrinho.";
+
+    produtosSection.appendChild(errorMessage);
+
+    renderResumo(null);
+
+  } finally {
+    loading.hide();
+  }
+}
+
+async function main() {
+  if (!(await requireLogin())) return;
+
+  try {
+    loading.show();
+
+    await updateNavbar();
+    await fetchCarrinho();
+
+  } catch (error) {
+    console.error("Erro ao carregar carrinho:", error);
+
+  } finally {
+    loading.hide();
+  }
+}
+
+main();

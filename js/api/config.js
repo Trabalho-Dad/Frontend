@@ -1,4 +1,4 @@
-export const API_ROUTE = "https://astra-37n1.onrender.com";
+export const API_ROUTE = "http://localhost:8081";
 export const FEEDBACK_API_ROUTE = "https://ms-user-engagement.onrender.com"
 
 export const CLOUDINARY_CLOUD_NAME = "dmab5ocrc";
