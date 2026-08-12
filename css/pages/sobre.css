@@ -172,7 +172,7 @@ main {
     border: 2px solid rgba(255, 255, 255, 0.1);
   }
   
-  .about-team__grid h4 {
+  .about-team__grid h3 {
     font-size: 15px;
     font-weight: 500;
   }

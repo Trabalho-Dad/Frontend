@@ -37,7 +37,7 @@
   margin-bottom: var(--space-5);
 }
 
-.modal-header h3 {
+.modal-header h2 {
   font-size: var(--font-size-lg);
   color: var(--text-main);
 }

@@ -83,7 +83,7 @@ html[data-theme="light"] .nav-container {
 
 html[data-theme="light"] .logo-text,
 html[data-theme="light"] .nav-links a,
-html[data-theme="light"] .footer-col h4,
+html[data-theme="light"] .footer-col h2,
 html[data-theme="light"] .footer-col a:hover {
     color: var(--text-main) !important;
 }
@@ -141,7 +141,7 @@ html[data-theme="light"] .section-title,
 html[data-theme="light"] .filter-box h2,
 html[data-theme="light"] .admin-section-header h1,
 html[data-theme="light"] .kpi-value,
-html[data-theme="light"] .modal-header h3 {
+html[data-theme="light"] .modal-header h2 {
     color: var(--text-main) !important;
 }
 
@@ -387,7 +387,7 @@ html[data-theme="light"] .admin-sidebar {
     border-right-color: var(--border-color) !important;
 }
 
-html[data-theme="light"] .admin-sidebar h2,
+html[data-theme="light"] .admin-sidebar-title,
 html[data-theme="light"] .admin-nav-btn,
 html[data-theme="light"] .image-upload-box,
 html[data-theme="light"] .upload-progress {
