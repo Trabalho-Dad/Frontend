@@ -14,7 +14,7 @@
   gap: var(--space-1);
 }
 
-.admin-sidebar h2 {
+.admin-sidebar-title {
   font-size: var(--font-size-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
