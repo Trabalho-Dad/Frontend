@@ -473,7 +473,7 @@ body {
 
 .benefit-card {
 
-    height:65px;
+    height:100px;
 
     border-radius:15px;
 
@@ -488,6 +488,8 @@ body {
     justify-content:center;
 
     gap:8px;
+
+    padding: 5px;
 
 }
 
