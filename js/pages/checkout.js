@@ -51,7 +51,6 @@ function showMessage(message, isError = true) {
   messageEl.classList.toggle("error", isError);
 }
 
-<<<<<<< HEAD
 function setupPaymentOptions() {
   if (paymentRadios[0]) paymentRadios[0].value = "PIX";
   if (paymentRadios[1]) paymentRadios[1].value = "CREDIT_CARD";
@@ -146,131 +145,8 @@ function renderCartItems(order) {
     row.appendChild(preco);
 
     fragment.appendChild(row);
-=======
-function normalizeCollection(response, keys) {
-  if (Array.isArray(response)) return response;
-  for (const key of keys) {
-    if (Array.isArray(response?.[key])) return response[key];
-  }
-  return Array.isArray(response?.data) ? response.data : [];
-}
-
-function setField(id, value) {
-  const field = document.getElementById(id);
-  if (field) field.value = value ?? "";
-}
-
-function fillCheckoutData(user, address) {
-  setField("checkout-name", user?.name ?? user?.fullName);
-  setField("checkout-email", user?.email);
-  setField("checkout-phone", user?.phone ?? user?.phoneNumber ?? user?.telephone);
-  setField("checkout-cep", address?.cep ?? address?.zipCode);
-  const street = address?.street ?? address?.address ?? "";
-  setField("checkout-address", `${street}${address?.number ? `, ${address.number}` : ""}`);
-  setField("checkout-city", [address?.city, address?.state].filter(Boolean).join(" - "));
-  setField("checkout-complement", address?.complement);
-}
-
-function createProductSummary(item) {
-  const product = document.createElement("div");
-  product.className = "product-summary";
-  const image = document.createElement("img");
-  image.src = item.image || "./assets/images/placeholder.png";
-  image.alt = item.name || "Produto";
-  const details = document.createElement("div");
-  const name = document.createElement("p");
-  name.textContent = item.name || "Produto";
-  const quantity = document.createElement("span");
-  quantity.textContent = `Qtd: ${Number(item.quantity)}`;
-  details.append(name, quantity);
-  const price = document.createElement("strong");
-  price.textContent = formatPrice(Number(item.price) * Number(item.quantity));
-  product.append(image, details, price);
-  return product;
-}
-
-function updateSummary(cart) {
-  const subtotal = cart.reduce((total, item) => total + Number(item.price) * Number(item.quantity), 0);
-  const shipping = cart.length > 0 ? SHIPPING : 0;
-  const total = subtotal + shipping;
-  subtotalElement.textContent = formatPrice(subtotal);
-  shippingElement.textContent = formatPrice(shipping);
-  totalElement.textContent = formatPrice(total);
-  payButton.textContent = cart.length > 0 ? `Pagar ${formatPrice(total)}` : "Pagar";
-  payButton.disabled = cart.length === 0;
-}
-
-function renderCart() {
-  const cart = getCart();
-  cartContainer.replaceChildren();
-  if (cart.length === 0) {
-    const empty = document.createElement("p");
-    empty.textContent = "Seu carrinho está vazio.";
-    cartContainer.appendChild(empty);
-  } else {
-    const fragment = document.createDocumentFragment();
-    cart.forEach(item => fragment.appendChild(createProductSummary(item)));
-    cartContainer.appendChild(fragment);
-  }
-  updateSummary(cart);
-}
-
-function redirectToLogin() {
-  sessionStorage.setItem("redirectAfterLogin", window.location.href);
-  window.location.href = "auth/login.html";
-}
-
-async function loadCheckoutData() {
-  try {
-    const [user, addressesResponse] = await Promise.all([getMyUser(), findMyAddresses()]);
-    const addresses = normalizeCollection(addressesResponse, ["addresses", "items", "results"]);
-    selectedAddress = addresses[0] ?? null;
-    fillCheckoutData(user, selectedAddress);
-    if (!selectedAddress) showMessage("Cadastre um endereço no seu perfil antes de finalizar o pedido.", "error");
-  } catch (error) {
-    if (error.message === "LOGIN_REQUIRED") return redirectToLogin();
-    showMessage(error.message ?? "Não foi possível carregar seus dados.", "error");
-  }
-}
-
-payButton.addEventListener("click", async () => {
-  if (getCart().length === 0) return showMessage("Seu carrinho está vazio.", "error");
-  if (!getAddressId(selectedAddress)) return showMessage("Cadastre um endereço no seu perfil antes de finalizar o pedido.", "error");
-
-  const selectedPayment = document.querySelector('input[name="payment"]:checked');
-  payButton.disabled = true;
-  payButton.textContent = "Processando pagamento...";
-  showMessage();
-
-  try {
-    const response = await finishOrder({
-      addressId: getAddressId(selectedAddress),
-      shippingCost: SHIPPING,
-      estimatedDeliveryTime: 7,
-      installmentsCount: 1,
-      paymentType: selectedPayment?.value ?? "PIX",
-    });
-    const order = response?.order ?? response?.data?.order ?? response?.data ?? response ?? {};
-    const orderNumber = order?.orderNumber ?? order?.number ?? order?.id ?? order?.orderId;
-    sessionStorage.setItem(FINISHED_ORDER_KEY, JSON.stringify({ orderNumber, finishedAt: new Date().toISOString() }));
-    clearCart();
-    window.location.href = "pedido-finalizado.html";
-  } catch (error) {
-    if (error.message === "LOGIN_REQUIRED") return redirectToLogin();
-    showMessage(error.message ?? "Não foi possível finalizar o pedido.", "error");
-    updateSummary(getCart());
-  }
-});
-
-document.querySelectorAll(".payment-option").forEach(option => {
-  option.addEventListener("click", () => {
-    document.querySelectorAll(".payment-option").forEach(item => item.classList.remove("active"));
-    option.classList.add("active");
-    option.querySelector("input").checked = true;
->>>>>>> 12b1d3b25db67987260d860a6ed08f76e4892724
   });
 
-<<<<<<< HEAD
   cartItemsEl.appendChild(fragment);
 }
 
@@ -521,7 +397,3 @@ async function main() {
 }
 
 main();
-=======
-renderCart();
-loadCheckoutData();
->>>>>>> 12b1d3b25db67987260d860a6ed08f76e4892724
