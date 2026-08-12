@@ -1,123 +1,129 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { getCart, saveCart } from "../utils/cart.js";
 
-    const produtos = document.querySelectorAll(".produto");
+const SHIPPING = 19.9;
+const productsContainer = document.querySelector(".produtos");
+const subtotalElement = document.getElementById("subtotal");
+const shippingElement = document.getElementById("frete");
+const totalElement = document.getElementById("total");
+const checkoutLink = document.querySelector(".finalizar-container");
 
-    const subtotalElement = document.getElementById("subtotal");
-    const freteElement = document.getElementById("frete");
-    const totalElement = document.getElementById("total");
+function formatPrice(value) {
+  return Number(value).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
 
-    const FRETE = 19.90;
+function updateSummary(cart) {
+  const subtotal = cart.reduce(
+    (total, item) => total + Number(item.price) * Number(item.quantity),
+    0
+  );
+  const shipping = cart.length > 0 ? SHIPPING : 0;
 
+  subtotalElement.textContent = formatPrice(subtotal);
+  shippingElement.textContent = formatPrice(shipping);
+  totalElement.textContent = formatPrice(subtotal + shipping);
+  checkoutLink.classList.toggle("disabled", cart.length === 0);
+  checkoutLink.setAttribute("aria-disabled", String(cart.length === 0));
+}
 
-    function formatarPreco(valor) {
-        return valor.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
-    }
+function updateQuantity(productId, change) {
+  const cart = getCart();
+  const item = cart.find(product => String(product.id) === String(productId));
+  if (!item) return;
 
+  item.quantity = Math.max(1, Number(item.quantity) + change);
+  saveCart(cart);
+  renderCart();
+}
 
-    function atualizarCarrinho() {
+function removeProduct(productId) {
+  const cart = getCart().filter(product => String(product.id) !== String(productId));
+  saveCart(cart);
+  renderCart();
+}
 
-        let subtotal = 0;
+function createQuantityButton(text, label, onClick) {
+  const button = document.createElement("button");
+  button.className = "btn-quantidade";
+  button.type = "button";
+  button.textContent = text;
+  button.setAttribute("aria-label", label);
+  button.addEventListener("click", onClick);
+  return button;
+}
 
-        document.querySelectorAll(".produto").forEach((produto) => {
+function createProductCard(item) {
+  const product = document.createElement("article");
+  product.className = "produto";
 
-            const preco = Number(produto.dataset.price);
+  const info = document.createElement("div");
+  info.className = "produto-info";
 
-            const quantidade = Number(
-                produto.querySelector(".valor-quantidade").textContent
-            );
+  const image = document.createElement("img");
+  image.className = "produto-imagem";
+  image.src = item.image || "./assets/images/placeholder.png";
+  image.alt = item.name || "Produto";
 
-            const precoFinal = preco * quantidade;
+  const text = document.createElement("div");
+  text.className = "produto-texto";
+  const title = document.createElement("h2");
+  title.textContent = item.name || "Produto";
+  const category = document.createElement("p");
+  category.textContent = item.category || "Colecionável";
+  text.append(title, category);
+  info.append(image, text);
 
-            subtotal += precoFinal;
+  const actions = document.createElement("div");
+  actions.className = "produto-acoes";
+  const quantity = document.createElement("div");
+  quantity.className = "quantidade";
+  const quantityValue = document.createElement("span");
+  quantityValue.className = "valor-quantidade";
+  quantityValue.textContent = String(item.quantity);
+  quantity.append(
+    createQuantityButton("−", "Diminuir quantidade", () => updateQuantity(item.id, -1)),
+    quantityValue,
+    createQuantityButton("+", "Aumentar quantidade", () => updateQuantity(item.id, 1))
+  );
 
-            const precoElement = produto.querySelector(".produto-preco");
+  const price = document.createElement("span");
+  price.className = "produto-preco";
+  price.textContent = formatPrice(Number(item.price) * Number(item.quantity));
 
-            precoElement.textContent = formatarPreco(precoFinal);
-        });
+  const removeButton = document.createElement("button");
+  removeButton.className = "btn-remover";
+  removeButton.type = "button";
+  removeButton.setAttribute("aria-label", `Remover ${item.name || "produto"}`);
+  removeButton.textContent = "×";
+  removeButton.addEventListener("click", () => removeProduct(item.id));
 
+  actions.append(quantity, price, removeButton);
+  product.append(info, actions);
+  return product;
+}
 
-        const quantidadeProdutos = document.querySelectorAll(".produto").length;
+function renderCart() {
+  const cart = getCart();
+  productsContainer.replaceChildren();
 
-        if (quantidadeProdutos === 0) {
+  if (cart.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "carrinho-vazio";
+    empty.textContent = "Seu carrinho está vazio.";
+    productsContainer.appendChild(empty);
+  } else {
+    const fragment = document.createDocumentFragment();
+    cart.forEach(item => fragment.appendChild(createProductCard(item)));
+    productsContainer.appendChild(fragment);
+  }
 
-            subtotalElement.textContent = formatarPreco(0);
-            freteElement.textContent = formatarPreco(0);
-            totalElement.textContent = formatarPreco(0);
+  updateSummary(cart);
+}
 
-            return;
-        }
-
-
-        const total = subtotal + FRETE;
-
-        subtotalElement.textContent = formatarPreco(subtotal);
-        freteElement.textContent = formatarPreco(FRETE);
-        totalElement.textContent = formatarPreco(total);
-    }
-
-
-    produtos.forEach((produto) => {
-
-        const botaoDiminuir =
-            produto.querySelector(".diminuir");
-
-        const botaoAumentar =
-            produto.querySelector(".aumentar");
-
-        const quantidadeElement =
-            produto.querySelector(".valor-quantidade");
-
-        const botaoRemover =
-            produto.querySelector(".btn-remover");
-
-
-        /* AUMENTAR */
-
-        botaoAumentar.addEventListener("click", () => {
-
-            let quantidade =
-                Number(quantidadeElement.textContent);
-
-            quantidade++;
-
-            quantidadeElement.textContent = quantidade;
-
-            atualizarCarrinho();
-        });
-
-
-        /* DIMINUIR */
-
-        botaoDiminuir.addEventListener("click", () => {
-
-            let quantidade =
-                Number(quantidadeElement.textContent);
-
-            if (quantidade > 1) {
-                quantidade--;
-
-                quantidadeElement.textContent = quantidade;
-
-                atualizarCarrinho();
-            }
-        });
-
-
-        /* REMOVER */
-
-        botaoRemover.addEventListener("click", () => {
-
-            produto.remove();
-
-            atualizarCarrinho();
-        });
-
-    });
-
-
-    atualizarCarrinho();
-
+checkoutLink.addEventListener("click", event => {
+  if (getCart().length === 0) event.preventDefault();
 });
+
+renderCart();

@@ -1,18 +1,22 @@
 import { findById } from "../api/figures.js";
 import { loading } from "../components/loading.js";
 import { showError, hideError } from "../utils/error.js";
-import { addFigureToOrder } from "../api/order.js";
 import { updateNavbar } from "../utils/header-update.js";
 import { formatPrice } from "../utils/formatters.js";
+import { getCart, saveCart } from "../utils/cart.js";
+import { requireLogin } from "../utils/auth-guard.js";
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const addToCartButton = document.getElementById("btn-add-cart");
+const buyNowButton = document.getElementById("btn-buy-now");
 const buyingQuantity = document.getElementById("quantity");
 const priceElement = document.getElementById("product-price");
 let price;
+let currentProduct;
 
 function renderProduct(product) {
+  currentProduct = product;
   document.getElementById("product-title").textContent = product.name;
 
   document.getElementById("product-title").textContent = product.name;
@@ -69,7 +73,7 @@ function imageButtton(image, index){
 function renderThumbnails(images, mainImage) {
   const container = document.getElementById("thumbnails-row");
 
-  container.innerHTML = "";
+  container.replaceChildren();
 
   images.forEach((image, index) => {
     const button = imageButtton(image, index);  
@@ -130,9 +134,32 @@ async function main() {
 
 addToCartButton.addEventListener("click", async () => {
   try {
+    if (!await requireLogin()) return;
     loading.show();
 
-    await addFigureToOrder(id, Number(buyingQuantity.value));
+    const quantity = Number(buyingQuantity.textContent) || 1;
+    const cart = getCart();
+    const existing = cart.find(item => String(item.id) === String(id));
+
+    if (existing) {
+      existing.quantity += quantity;
+    } else {
+      cart.push({
+        id,
+        name: currentProduct.name,
+        category: currentProduct.category ?? "Colecionável",
+        price: Number(currentProduct.price),
+        image: currentProduct.mainImage?.url ?? "",
+        quantity,
+      });
+    }
+
+    saveCart(cart);
+    const originalText = addToCartButton.textContent;
+    addToCartButton.textContent = "Adicionado!";
+    window.setTimeout(() => {
+      addToCartButton.textContent = originalText;
+    }, 1200);
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") {
       sessionStorage.setItem(
@@ -149,5 +176,33 @@ addToCartButton.addEventListener("click", async () => {
     loading.hide();
   }
 })
+
+buyNowButton.addEventListener("click", () => {
+  handleBuyNow();
+});
+
+async function handleBuyNow() {
+  if (!await requireLogin()) return;
+
+  const quantity = Number(buyingQuantity.textContent) || 1;
+  const cart = getCart();
+  const existing = cart.find(item => String(item.id) === String(id));
+
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
+    cart.push({
+      id,
+      name: currentProduct.name,
+      category: currentProduct.category ?? "Colecionável",
+      price: Number(currentProduct.price),
+      image: currentProduct.mainImage?.url ?? "",
+      quantity,
+    });
+  }
+
+  saveCart(cart);
+  window.location.href = "checkout.html";
+}
 
 main();
