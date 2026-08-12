@@ -317,6 +317,86 @@
   color: var(--purple-neon);
 }
 
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-5);
+  transition: 0.2s;
+}
+
+.kpi-card:hover {
+  border-color: var(--purple-primary);
+  transform: translateY(-2px);
+}
+
+.kpi-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--purple-glow);
+  color: var(--purple-neon);
+}
+
+.kpi-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.kpi-icon-orders {
+  background: var(--purple-glow);
+  color: var(--purple-neon);
+}
+
+.kpi-icon-revenue {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ADE80;
+}
+
+.kpi-icon-figures {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+}
+
+.kpi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-value {
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-main);
+}
+
+@media (max-width: 500px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 800px) {
   .admin-layout {
     flex-direction: column;
@@ -328,3 +408,4 @@
     overflow-x: auto;
   }
 }
+

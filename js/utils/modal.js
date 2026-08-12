@@ -1,3 +1,5 @@
+import { hideError } from "./error.js";
+
 const HIDDEN_CLASS = "hidden";
 
 export function openModal(modalId) {
@@ -9,6 +11,7 @@ export function openModal(modalId) {
 }
 
 export function closeModal(modalId) {
+  hideError();
   const modal = document.getElementById(modalId);
   if (!modal) return;
 

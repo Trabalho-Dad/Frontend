@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./../../css/components/loading.css">
   <link rel="stylesheet" href="./../../css/components/modal.css">
   <link rel="stylesheet" href="./../../css/pages/admin-home.css">
+  <link rel="stylesheet" href="./../../css/pages/admin-category.css">
 
   <link rel="shortcut icon" href="./../../assets/icons/logo.jpg" type="image/x-icon">
 
@@ -111,9 +112,12 @@
                 <th>Ações</th>
               </tr>
             </thead>
-            <tbody id="categories-table-body"></tbody>
+            <tbody id="categories-table-body">
+            </tbody>
           </table>
           <div class="admin-empty" id="categories-empty" style="display:none;">Nenhuma categoria cadastrada ainda.</div>
+
+          <div id="pagination" class="pagination"></div>
         </div>
       </section>
 
@@ -138,12 +142,13 @@
             <div class="form-group">
               <label class="checkbox-row"><input type="checkbox" id="category-active" checked> Ativa</label>
             </div>
+            <p class="error"></p>
             <button type="submit" class="btn-primary" style="width:100%;">Salvar categoria</button>
           </form>
         </div>
       </div>
 
-      <script type="module" src="./../../js/pages/admin-home.js"></script>
+      <script type="module" src="./../../js/pages/admin-category.js"></script>
 </body>
 
 </html>

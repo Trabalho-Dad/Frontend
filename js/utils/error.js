@@ -1,11 +1,11 @@
-const errorMessage = document.getElementById("error");
+const errorMessage = document.querySelector(".error");
 
 export function showError(message) {
-  errorMessage.textContent = message;
-  errorMessage.classList.add("show");
+    errorMessage.textContent = message;
+    errorMessage.classList.add("show");
 }
 
 export function hideError() {
-  errorMessage.textContent = "";
-  errorMessage.classList.remove("show");
+    errorMessage.textContent = "";
+    errorMessage.classList.remove("show");
 }
