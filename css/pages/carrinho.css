@@ -591,3 +591,17 @@ body {
         font-size: 16px;
     }
 }
+
+.carrinho-vazio {
+    padding: 36px;
+    border: 1px dashed #7132a1;
+    border-radius: 28px;
+    color: #b9a8c5;
+    text-align: center;
+}
+
+.finalizar-container.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}

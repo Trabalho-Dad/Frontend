@@ -2,6 +2,7 @@ import { loadPublicFigures } from "../api/figures.js";
 import { updateNavbar } from "../utils/header-update.js";
 import { isFavorite, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
 import { loading } from "../components/loading.js";
+import { requireLogin } from "../utils/auth-guard.js";
 
 const highlightsGrid = document.getElementById("highlights-grid");
 
@@ -69,12 +70,19 @@ function createFigure(product) {
   };
 
   setFavoriteButtonState(favoriteButton, isFavorite(product.id));
-  favoriteButton.addEventListener("click", event => {
+  favoriteButton.addEventListener("click", async event => {
     event.stopPropagation();
+    if (!await requireLogin()) return;
     setFavoriteButtonState(
       favoriteButton,
       toggleFavorite(favoriteProduct)
     );
+  });
+
+  buyButton.addEventListener("click", async event => {
+    event.preventDefault();
+    if (!await requireLogin()) return;
+    window.location.href = buyButton.href;
   });
 
   return card;

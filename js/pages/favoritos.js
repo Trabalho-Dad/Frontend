@@ -1,5 +1,6 @@
 import { getFavorites, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
 import { updateNavbar } from "../utils/header-update.js";
+import { requireLogin } from "../utils/auth-guard.js";
 
 const grid = document.getElementById("favorites-grid");
 const count = document.querySelector(".products-count");
@@ -12,6 +13,8 @@ function formatPrice(value) {
 }
 
 function createFavoriteCard(product) {
+  const figureId = product.figureId ?? String(product.id ?? "").replace(/^api-/, "");
+  const figureUrl = figureId ? `figure.html?id=${encodeURIComponent(figureId)}` : "catalogo.html";
   const card = document.createElement("article");
   card.className = "figure-card";
 
@@ -22,7 +25,7 @@ function createFavoriteCard(product) {
 
   const imageLink = document.createElement("a");
   imageLink.className = "card-image-wrapper";
-  imageLink.href = product.detailUrl ?? "verMais.html";
+  imageLink.href = figureUrl;
 
   const image = document.createElement("img");
   image.className = "card-img";
@@ -49,11 +52,13 @@ function createFavoriteCard(product) {
   buyButton.className = "btn-buy";
   buyButton.type = "button";
   buyButton.textContent = "Comprar";
-  buyButton.addEventListener("click", () => {
-    window.location.href = product.detailUrl ?? "verMais.html";
+  buyButton.addEventListener("click", async () => {
+    if (!await requireLogin()) return;
+    window.location.href = figureUrl;
   });
 
-  favoriteButton.addEventListener("click", () => {
+  favoriteButton.addEventListener("click", async () => {
+    if (!await requireLogin()) return;
     toggleFavorite(product);
     renderFavorites();
   });

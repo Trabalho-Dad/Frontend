@@ -2,6 +2,8 @@ import { loadPublicFigures } from "../api/figures.js";
 import { loadPublicCategories } from "../api/categories.js";
 import { updateNavbar } from "../utils/header-update.js";
 import { loading } from "../components/loading.js";
+import { requireLogin } from "../utils/auth-guard.js";
+import { isFavorite, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
 
 const grid = document.getElementById("catalog-grid");
 const clearFiltersBtn = document.getElementById("clear-filters-btn");
@@ -135,6 +137,28 @@ function renderFigures(list) {
 
     buyButton.appendChild(buyIcon);
     buyButton.append(" Comprar");
+
+    const favoriteProduct = {
+      id: product.id,
+      figureId: product.id,
+      name: product.name,
+      category: product.category ?? "Colecionável",
+      price: Number(product.price),
+      image: product?.mainImage?.url ?? "",
+    };
+
+    setFavoriteButtonState(favButton, isFavorite(product.id));
+    favButton.addEventListener("click", async event => {
+      event.stopPropagation();
+      if (!await requireLogin()) return;
+      setFavoriteButtonState(favButton, toggleFavorite(favoriteProduct));
+    });
+
+    buyButton.addEventListener("click", async event => {
+      event.preventDefault();
+      if (!await requireLogin()) return;
+      window.location.href = buyButton.href;
+    });
 
     footer.appendChild(price);
     footer.appendChild(buyButton);
