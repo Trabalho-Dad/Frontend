@@ -1,5 +1,6 @@
 import {
   findManyFiguresAdmin,
+  findFigureByIdAdmin,
   createFigure,
   updateFigure
 } from "../api/figures.js";
@@ -227,18 +228,20 @@ async function handleEditFigure(figure) {
   try {
     loading.show();
 
-    figureEditingId = figure.id;
+    const fullFigure = await findFigureByIdAdmin(figure.id);
+
+    figureEditingId = fullFigure.id;
     figureModalTitle.textContent = "Editar figura";
 
-    document.getElementById("figure-character").value = figure.characterId ?? figure.character?.id ?? "";
-    document.getElementById("figure-name").value = figure.name;
-    document.getElementById("figure-description").value = figure.description;
-    document.getElementById("figure-price").value = figure.price;
-    document.getElementById("figure-quantity").value = figure.quantity;
-    document.getElementById("figure-active").checked = figure.active;
+    document.getElementById("figure-character").value = fullFigure.characterId ?? fullFigure.character?.id ?? "";
+    document.getElementById("figure-name").value = fullFigure.name;
+    document.getElementById("figure-description").value = fullFigure.description;
+    document.getElementById("figure-price").value = fullFigure.price;
+    document.getElementById("figure-quantity").value = fullFigure.quantity;
+    document.getElementById("figure-active").checked = fullFigure.active;
 
     figureSelectedCategoryIds.clear();
-    (figure.categories ?? []).forEach(category => figureSelectedCategoryIds.add(category.id));
+    (fullFigure.categories ?? []).forEach(category => figureSelectedCategoryIds.add(category.id));
     renderFigureCategoriesChecklist();
 
     revokeFigurePreviewUrls();

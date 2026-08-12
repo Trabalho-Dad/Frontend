@@ -9,8 +9,10 @@ import { updateNavbar } from "../utils/header-update.js";
 import { loading } from "../components/loading.js";
 import { hideError, showError } from "../utils/error.js";
 import { openModal, closeModal } from "../utils/modal.js";
+import { renderPagination } from "../utils/pagination.js";
 
 const CATEGORY_MODAL_ID = "category-modal";
+const ITEMS_PER_PAGE = 5;
 
 const categoriesTableBody = document.getElementById("categories-table-body");
 const categoriesEmpty = document.getElementById("categories-empty");
@@ -19,7 +21,10 @@ const categoryForm = document.getElementById("category-form");
 const btnNewCategory = document.getElementById("btn-new-category");
 const categoryModalTitle = document.getElementById("category-modal-title");
 
+const categoriesPagination = document.getElementById("categories-pagination");
+
 let categoryEditingId = null;
+let currentPage = 1;
 
 function createTextCell(text, className) {
   const td = document.createElement("td");
@@ -79,15 +84,22 @@ function renderCategoriesTable(categories) {
   });
 }
 
-async function loadCategories() {
+async function loadCategories(page = 1) {
   try {
     loading.show();
     hideError();
 
-    const response = await findManyCategoriesAdmin();
+    const response = await findManyCategoriesAdmin({ page, take: ITEMS_PER_PAGE });
     const categories = response.categories ?? response ?? [];
+    const totalPages = response.totalPages;
 
+    currentPage = page;
     renderCategoriesTable(categories);
+    renderPagination(categoriesPagination, {
+      currentPage,
+      totalPages,
+      onPageChange: loadCategories
+    });
   } catch (error) {
     showError(error.message);
   } finally {
@@ -151,7 +163,7 @@ async function handleCategoryFormSubmit(event) {
     closeModal(CATEGORY_MODAL_ID);
     categoryForm.reset();
     categoryEditingId = null;
-    await loadCategories();
+    await loadCategories(1);
   } catch (error) {
     showError(error.message || "Erro ao salvar categoria.");
   } finally {
@@ -169,7 +181,7 @@ async function handleToggleStatus(categoryId, newStatus) {
     hideError();
 
     await toggleCategoryStatus(categoryId, newStatus);
-    await loadCategories();
+    await loadCategories(currentPage);
   } catch (error) {
     showError(error.message);
   } finally {
@@ -206,7 +218,7 @@ async function main() {
     setupModalClose();
 
     await updateNavbar();
-    await loadCategories();
+    await loadCategories(currentPage);
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") {
       window.location.href = "./../auth/login.html";

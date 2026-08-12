@@ -25,10 +25,10 @@ export async function createFigure({ name, description, price, quantity, active,
   });
 }
 
-export async function updateFigure(id, { name, description, price, active, characterId, accessoryIds, categoryIds, imageIds, images }) {
+export async function updateFigure(id, { name, description, price, quantity, active, characterId, accessoryIds, categoryIds, imageIds, images }) {
   return apiFetch(`/api/admin/figures/${id}`, {
     method: "PATCH",
-    body: { name, description, price, active, characterId, accessoryIds, categoryIds, imageIds, images }
+    body: { name, description, price, quantity, active, characterId, accessoryIds, categoryIds, imageIds, images }
   });
 }
 

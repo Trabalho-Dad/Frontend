@@ -7,7 +7,6 @@ const loginUrl = new URL("../../pages/auth/login.html", import.meta.url).href;
 const adminUrl = new URL("../../pages/admin/index.html", import.meta.url).href;
 const homeUrl = new URL("../../index.html", import.meta.url).href;
 const isAdminPage = window.location.pathname.includes("/pages/admin/");
-const ADMIN_EMAIL = "admin@system.com";
 
 function removeAdminLink() {
   navLinks?.querySelector("[data-admin-link]")?.remove();
@@ -17,7 +16,7 @@ function isAdminUser(user) {
   const role = String(user?.role ?? "").trim().toUpperCase();
   const email = String(user?.email ?? "").trim().toLowerCase();
 
-  return role === "ADMIN" && email === ADMIN_EMAIL;
+  return role === "ADMIN";
 }
 
 function renderAdmin(){
