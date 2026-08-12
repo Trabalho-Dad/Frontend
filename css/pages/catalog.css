@@ -1,5 +1,6 @@
 .catalog-container {
-  max-width: 100%;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   padding: var(--space-10) 20px var(--space-20) 20px;
 }
@@ -79,9 +80,13 @@
 
 .catalog-content {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: minmax(260px, 350px) minmax(0, 1fr);
   gap: var(--space-8);
   align-items: start;
+}
+
+.products-section {
+  min-width: 0;
 }
 
 #categoria {
@@ -97,6 +102,7 @@
   background-color: #7742AE66;
   border-radius: 20px;
   margin-left: 30px;
+  min-width: 0;
 }
 
 .filter-box {
@@ -182,9 +188,9 @@
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(2, 310px);
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 20px;
-  justify-content: start;
+  width: 100%;
 }
 
 .figure-card {
@@ -196,6 +202,7 @@
   flex-direction: column;
   transition: transform 0.2s ease, border-color 0.2s ease;
   margin-bottom: 30px;
+  min-width: 0;
 }
 
 .figure-card:hover {
@@ -245,6 +252,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
+  gap: 12px;
 }
 
 .card-price {
@@ -259,7 +267,7 @@
   border-radius: 40px;
   border: none;
   padding: 5px 10px;
-  min-width: 130px;
+  min-width: 112px;
   color: #FFFFFF;
   font-weight: 500;
   cursor: pointer;
@@ -269,6 +277,12 @@
   gap: 6px;
   white-space: nowrap;
   transition: transform 0.2s ease;
+}
+
+.btn-buy img {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .card-fav-btn {         
@@ -293,7 +307,22 @@
   background: #A78BFA;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1100px) {
+  .catalog-content {
+    grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  }
+
+  .filters-sidebar {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 820px) {
   .catalog-container {
     padding-inline: 16px;
   }
@@ -315,6 +344,22 @@
 
   .filters-sidebar {
     position: static;
+  }
+
+  .filter-box {
+    padding: 20px;
+  }
+
+  .tags-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .tag-btn[data-category="Dia dos Namorados"] {
+    grid-column: auto;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -338,5 +383,54 @@
 
   .tag-btn[data-category="Dia dos Namorados"] {
     grid-column: span 2;
+  }
+
+  .filter-box {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .figure-card {
+    margin-bottom: 0;
+  }
+
+  .card-image-wrapper {
+    aspect-ratio: 4 / 3;
+  }
+
+  .card-img {
+    object-fit: contain;
+  }
+
+  .card-footer {
+    flex-wrap: wrap;
+  }
+
+  .btn-buy {
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 350px) {
+  .tags-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tag-btn[data-category="Dia dos Namorados"] {
+    grid-column: auto;
+  }
+
+  .card-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-buy {
+    width: 100%;
   }
 }
