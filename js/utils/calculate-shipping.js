@@ -64,7 +64,8 @@ async function fetchShippingQuote(height, width, length, weight, value, cepDest)
 }
 
 export async function calculateShippingCost(cepDest, price) {
-  const destination = await lookupCep(cepDest);
+  const cleanCep = normalizeCep(cepDest);
+  const destination = await lookupCep(cleanCep);
 
   const response = await fetchShippingQuote(
     20,
@@ -72,7 +73,7 @@ export async function calculateShippingCost(cepDest, price) {
     10,
     0.5,
     price,
-    cepDest
+    cleanCep   // ← agora normalizado
   );
 
   return {

@@ -236,6 +236,52 @@
 .checkout-message--success {
   color: #86efac;
 }
+
+.form-group .cep-group {
+  display: flex;
+  gap: 8px;
+}
+
+.cep-group input {
+  flex: 1;
+  min-width: 0; /* evita que o input estoure o flex container */
+}
+
+.btn-buscar-cep {
+  flex-shrink: 0;
+  padding: 0 18px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(to right, #a612f6, #390079);
+  transition: 0.2s;
+}
+
+.btn-buscar-cep:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+}
+
+.btn-buscar-cep:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .cep-group {
+    flex-wrap: wrap;
+  }
+
+  .btn-buscar-cep {
+    width: 100%;
+    padding: 12px;
+  }
+}
   
 @media (max-width: 900px) {
   .checkout-grid {
