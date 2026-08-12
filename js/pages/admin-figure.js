@@ -10,6 +10,7 @@ import { hideError, showError } from "../utils/error.js";
 import { formatPrice } from "../utils/formatters.js";
 import { openModal, closeModal } from "../utils/modal.js";
 import { uploadImageToCloudinary } from "../api/images.js";
+import { updateNavbar } from "../utils/header-update.js";
 
 const FIGURE_MODAL_ID = "figure-modal";
 
@@ -411,6 +412,8 @@ async function main() {
   try {
     loading.show();
     hideError();
+
+    await updateNavbar();
 
     setupFilters();
     setupNewFigureButton();

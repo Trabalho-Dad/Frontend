@@ -1,4 +1,5 @@
 import { getFavorites, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
+import { updateNavbar } from "../utils/header-update.js";
 
 const grid = document.getElementById("favorites-grid");
 const count = document.querySelector(".products-count");
@@ -81,3 +82,4 @@ function renderFavorites() {
 }
 
 renderFavorites();
+updateNavbar();

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astra - Meu perfil</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../css/base/reset.css">
+  <link rel="stylesheet" href="../../css/base/variables.css">
+  <link rel="stylesheet" href="../../css/base/global.css">
+  <link rel="stylesheet" href="../../css/components/header.css">
+  <link rel="stylesheet" href="../../css/components/footer.css">
+  <link rel="stylesheet" href="../../css/components/loading.css">
+  <link rel="stylesheet" href="../../css/pages/profile.css">
+  <link rel="shortcut icon" href="../../assets/icons/logo.jpg" type="image/x-icon">
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../../index.html" class="brand-logo">
+        <img class="logo-icon" src="../../assets/images/logo.png" alt="Logo Astra">
+        <span class="logo-text">astra</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="../../index.html">Início</a>
+        <a href="../../catalogo.html">Catálogo</a>
+        <a href="../../sobre.html">Sobre nós</a>
+      </nav>
+
+      <nav class="nav-actions">
+        <a href="../../favorites.html" class="icon-btn" title="Favoritos">
+          <img src="../../assets/icons/favorito.svg" alt="Favoritos">
+        </a>
+        <a href="../../checkout.html" class="icon-btn cart-btn" title="Carrinho">
+          <img src="../../assets/icons/comprar.svg" alt="Carrinho">
+          <span id="cart-count" class="badge">0</span>
+        </a>
+        <a href="profile.html" class="btn-login profile-link" id="login-link">Perfil</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="profile-container">
+    <section class="profile-hero" aria-labelledby="profile-name">
+      <div class="profile-identity">
+        <div class="profile-avatar" id="profile-avatar" aria-hidden="true">A</div>
+        <div>
+          <p class="profile-eyebrow">Meu perfil</p>
+          <h1 id="profile-name">Carregando...</h1>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="edit-profile-btn" id="edit-profile-btn" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+          Editar perfil
+        </button>
+        <button class="logout-profile-btn" id="logout-profile-btn" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+          Sair
+        </button>
+      </div>
+    </section>
+
+    <p class="profile-message" id="profile-message" aria-live="polite"></p>
+
+    <section class="profile-section" aria-labelledby="personal-title">
+      <div class="section-heading">
+        <h2 id="personal-title">Dados pessoais</h2>
+        <p>Suas informações de cadastro</p>
+      </div>
+
+      <div class="personal-grid">
+        <article class="info-card">
+          <span class="info-icon material-symbols-outlined" aria-hidden="true">mail</span>
+          <div>
+            <span class="info-label">E-mail</span>
+            <strong id="profile-email">-</strong>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <span class="info-icon material-symbols-outlined" aria-hidden="true">phone</span>
+          <div>
+            <span class="info-label">Telefone</span>
+            <strong id="profile-phone">Não informado</strong>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <span class="info-icon material-symbols-outlined" aria-hidden="true">description</span>
+          <div>
+            <span class="info-label">Documento (CPF)</span>
+            <strong id="profile-cpf">-</strong>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <span class="info-icon material-symbols-outlined" aria-hidden="true">person</span>
+          <div>
+            <span class="info-label">Nome completo</span>
+            <strong id="profile-full-name">-</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="profile-section" aria-labelledby="addresses-title">
+      <div class="section-heading">
+        <h2 id="addresses-title">Endereços cadastrados</h2>
+        <p id="addresses-count">Carregando endereços...</p>
+      </div>
+      <div class="addresses-grid" id="addresses-list"></div>
+    </section>
+
+    <section class="profile-section" aria-labelledby="orders-title">
+      <div class="section-heading">
+        <h2 id="orders-title">Histórico de pedidos</h2>
+        <p id="orders-count">Carregando pedidos...</p>
+      </div>
+      <div class="orders-list" id="orders-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="../../index.html" class="brand-logo">
+          <img class="logo-icon" src="../../assets/images/logo.png" alt="Logo Astra">
+          <span class="logo-text">astra</span>
+        </a>
+        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e drops semanais.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Loja</h4>
+          <a href="../../catalogo.html">Catálogo</a>
+          <a href="../../favorites.html">Favoritos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ajuda</h4>
+          <a href="#">Entregas</a>
+          <a href="#">Trocas e devoluções</a>
+          <a href="#">Suporte</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../../js/pages/profile.js"></script>
+  <script type="module" src="../../js/utils/cart-header.js"></script>
+</body>
+
+</html>

@@ -28,6 +28,7 @@ async function handleLogin(event) {
 
   try {
     await login(emailValue, passwordValue);
+    sessionStorage.removeItem("logged");
 
     const redirect = sessionStorage.getItem("redirectAfterLogin");
 
