@@ -1,4 +1,4 @@
-export const API_ROUTE = "https://astra-37n1.onrender.com";
+export const API_ROUTE = "https://api-postgres-wu3t.onrender.com";
 export const FEEDBACK_API_ROUTE = "https://ms-user-engagement.onrender.com"
 
 export const CLOUDINARY_CLOUD_NAME = "dmab5ocrc";
