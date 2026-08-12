@@ -1,0 +1,24 @@
+.order-finished-page { background: radial-gradient(circle at 50% 36%, #21003f 0, #0d0317 58%, #09000f 100%); }
+.order-finished-header { width: min(100% - 48px, 1320px); margin: 0 auto; padding: 34px 0; }
+.order-finished-logo { display: inline-flex; align-items: center; gap: 10px; color: #fff; font-size: 1.35rem; font-weight: 700; }
+.order-finished-logo img { width: 40px; height: 40px; border-radius: 50%; }
+.order-finished-main { display: grid; min-height: 540px; padding: 60px 24px 120px; place-items: center; }
+.confirmation-card { width: min(100%, 720px); padding: 64px 48px 42px; border: 1px solid #7c3aed; border-radius: 48px; background: rgba(42, 0, 77, .68); text-align: center; box-shadow: 0 24px 80px rgba(8, 0, 18, .28); }
+.confirmation-check { display: grid; width: 66px; height: 66px; margin: 0 auto 24px; border: 5px solid #fff; border-radius: 50%; place-items: center; }
+.confirmation-check span { width: 27px; height: 15px; border-bottom: 5px solid #fff; border-left: 5px solid #fff; transform: translateY(-3px) rotate(-45deg); }
+.confirmation-card h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; }
+.confirmation-card h1 span { color: #b790eb; }
+.confirmation-message { color: #eee7f6; font-size: .9rem; }
+.order-number { width: fit-content; min-width: 190px; margin: 30px auto 22px; padding: 8px 22px; border: 1px solid rgba(196,181,253,.42); border-radius: 999px; background: rgba(255,255,255,.06); color: #d8c9eb; font-size: .78rem; }
+.continue-button { display: block; width: min(100%, 340px); margin: 0 auto; padding: 15px 24px; border-radius: 999px; background: linear-gradient(90deg, #4c00a3, #b300e7); color: #fff; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+.continue-button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(177,0,231,.3); }
+.redirect-message { margin-top: 18px; color: #b9aacb; font-size: .75rem; }
+.confirmation-error { min-height: 1.3em; margin-top: 8px; color: #fca5a5; font-size: .78rem; }
+.order-finished-page .footer { margin-top: 0; background: #090011; }
+.order-finished-page .footer-col h2 { margin-bottom: 16px; color: #fff; font-size: 15px; }
+@media (max-width: 600px) {
+  .order-finished-header { width: min(100% - 32px, 1320px); padding: 24px 0; }
+  .order-finished-main { min-height: 480px; padding: 40px 16px 80px; }
+  .confirmation-card { padding: 44px 20px 32px; border-radius: 30px; }
+  .confirmation-message { font-size: .82rem; }
+}

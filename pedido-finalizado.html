@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astra Store - Pedido confirmado</title>
+  <link rel="stylesheet" href="css/base/reset.css">
+  <link rel="stylesheet" href="css/base/variables.css">
+  <link rel="stylesheet" href="css/base/global.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  <link rel="stylesheet" href="css/pages/pedido-finalizado.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="shortcut icon" href="assets/icons/logo.jpg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="js/theme.js"></script>
+</head>
+<body class="order-finished-page">
+  <header class="order-finished-header">
+    <a href="index.html" class="order-finished-logo" aria-label="Ir para a página inicial">
+      <img src="assets/images/logo.png" alt=""><span>astra</span>
+    </a>
+  </header>
+  <main class="order-finished-main">
+    <section class="confirmation-card" aria-labelledby="confirmation-title">
+      <div class="confirmation-check" aria-hidden="true"><span></span></div>
+      <h1 id="confirmation-title">Pedido <span>confirmado</span></h1>
+      <p class="confirmation-message">Obrigada, <strong id="customer-name">cliente Astra</strong>! Enviamos os detalhes para <strong id="customer-email">seu e-mail</strong>.</p>
+      <p id="order-number" class="order-number">Nº do pedido: carregando...</p>
+      <a href="index.html" class="continue-button">Continuar comprando</a>
+      <p class="redirect-message">Você voltará ao início em <span id="redirect-countdown">8</span> segundos.</p>
+      <p id="confirmation-error" class="confirmation-error" role="alert"></p>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo"><img class="logo-icon" src="assets/images/logo.png" alt=""><span class="logo-text">astra</span></a>
+        <p>A loja definitiva para colecionadores.<br>Edições raras, exclusivas globais e drops semanais.</p>
+        <div class="social-links">
+          <a href="#" title="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp"></a>
+          <a href="#" title="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram"></a>
+          <a href="#" title="E-mail"><img src="assets/icons/gmail.svg" alt="E-mail"></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h2>Loja</h2><a href="catalogo.html">Catálogo</a><a href="catalogo.html">Lançamentos</a><a href="catalogo.html">Exclusivos</a><a href="catalogo.html">Raridades</a></div>
+        <div class="footer-col"><h2>Ajuda</h2><a href="#">Entregas</a><a href="#">Trocas e Devoluções</a><a href="#">FAQ</a><a href="#">Suporte</a></div>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="js/pages/pedido-finalizado.js"></script>
+</body>
+</html>
