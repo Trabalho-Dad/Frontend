@@ -23,6 +23,10 @@
     object-fit: cover;
 }
 
+#cart-items{
+  margin-bottom: 8px;
+}
+
 .logo span {
     color: #ffffff;
 
