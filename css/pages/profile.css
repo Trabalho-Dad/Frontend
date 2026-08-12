@@ -1,0 +1,372 @@
+.profile-container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 16px 0 88px;
+}
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 72px;
+}
+
+.profile-identity {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.profile-avatar {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: linear-gradient(145deg, #a855f7, #4c1d95);
+  border: 3px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 28px rgba(168, 85, 247, 0.3);
+}
+
+.profile-eyebrow {
+  margin-bottom: 4px;
+  color: #b58bd9;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.profile-identity h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.edit-profile-btn,
+.logout-profile-btn {
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  background: linear-gradient(90deg, #5b00b6, #a612f6);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.edit-profile-btn {
+  border: 0;
+}
+
+.logout-profile-btn {
+  border: 1px solid rgba(216, 180, 254, 0.55);
+  background: rgba(76, 29, 149, 0.3);
+}
+
+.edit-profile-btn:hover,
+.logout-profile-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(166, 18, 246, 0.45);
+}
+
+.edit-profile-btn .material-symbols-outlined,
+.logout-profile-btn .material-symbols-outlined {
+  font-size: 1.1rem;
+}
+
+.profile-message {
+  min-height: 24px;
+  margin: -46px 0 28px;
+  color: #d8b4fe;
+  font-size: 0.85rem;
+}
+
+.profile-message.error {
+  color: #fca5a5;
+}
+
+.profile-section + .profile-section {
+  margin-top: 64px;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  margin-bottom: 4px;
+  font-size: 1.45rem;
+}
+
+.section-heading p {
+  color: #a99bb8;
+  font-size: 0.82rem;
+}
+
+.personal-grid,
+.addresses-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 30px;
+}
+
+.info-card,
+.address-card {
+  min-width: 0;
+  border: 1px solid #7e22ce;
+  background: rgba(48, 4, 80, 0.58);
+}
+
+.info-card {
+  min-height: 88px;
+  padding: 16px 22px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.info-icon,
+.order-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #e9d5ff;
+  background: rgba(126, 34, 206, 0.3);
+  border: 1px solid rgba(216, 180, 254, 0.15);
+}
+
+.info-card > div,
+.order-main {
+  min-width: 0;
+}
+
+.info-label {
+  display: block;
+  margin-bottom: 3px;
+  color: #b9a8c7;
+  font-size: 0.75rem;
+}
+
+.info-card strong {
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.address-card {
+  min-height: 136px;
+  padding: 22px 26px;
+  border-radius: 28px;
+}
+
+.address-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  color: #f3e8ff;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.address-name .material-symbols-outlined {
+  font-size: 1.1rem;
+}
+
+.address-line {
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.address-location {
+  color: #b9a8c7;
+  font-size: 0.8rem;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 30px;
+  border: 1px dashed rgba(168, 85, 247, 0.55);
+  border-radius: 22px;
+  color: #b9a8c7;
+  text-align: center;
+}
+
+.orders-list {
+  overflow: hidden;
+  border: 1px solid #7e22ce;
+  border-radius: 30px;
+  background: rgba(48, 4, 80, 0.58);
+}
+
+.order-row {
+  min-height: 96px;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.order-row + .order-row {
+  border-top: 1px solid rgba(168, 85, 247, 0.45);
+}
+
+.order-content {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex: 1;
+}
+
+.order-title-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.order-meta {
+  margin-top: 4px;
+  color: #a99bb8;
+  font-size: 0.72rem;
+}
+
+.order-status {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  text-transform: capitalize;
+}
+
+.status-success {
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.18);
+}
+
+.status-progress {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.status-warning {
+  color: #f0abfc;
+  background: rgba(217, 70, 239, 0.18);
+}
+
+.status-danger {
+  color: #fda4af;
+  background: rgba(244, 63, 94, 0.18);
+}
+
+.status-default {
+  color: #ddd6fe;
+  background: rgba(139, 92, 246, 0.18);
+}
+
+.order-price {
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+@media (max-width: 760px) {
+  .profile-container {
+    width: min(100% - 28px, 620px);
+  }
+
+  .profile-hero {
+    align-items: flex-start;
+    margin-bottom: 56px;
+  }
+
+  .profile-avatar {
+    width: 88px;
+    height: 88px;
+    font-size: 2rem;
+  }
+
+  .personal-grid,
+  .addresses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-message {
+    margin-top: -34px;
+  }
+}
+
+@media (max-width: 520px) {
+  .profile-hero {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .profile-identity {
+    gap: 16px;
+  }
+
+  .edit-profile-btn {
+    align-self: flex-start;
+  }
+
+  .profile-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-actions button {
+    align-self: stretch;
+  }
+
+  .profile-message {
+    margin-top: -38px;
+  }
+
+  .info-card {
+    min-height: 82px;
+    padding-inline: 16px;
+  }
+
+  .order-row {
+    align-items: flex-start;
+    padding: 18px;
+  }
+
+  .order-content {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
