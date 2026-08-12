@@ -66,7 +66,8 @@ const TRANSLATIONS = new Map([
   ["desta semana", "this week"], ["Ver catálogo", "Browse catalog"],
   ["Conheça a Astra", "Discover Astra"], ["Todos os que você", "Everything you"],
   ["amou", "loved"], ["Finalize sua", "Complete your"], ["compra", "purchase"],
-  ["C A T A L O G O", "C A T A L O G"], ["Toda a Coleção", "The complete collection"],
+  ["C A T A L O G O", "C A T A L O G"], ["CATEGORIA", "CATEGORY"],
+  ["Toda a Coleção", "The Complete"],
   ["Construído por", "Built by"], ["colecionadores", "collectors"],
   [", para outros colecionadores.", ", for fellow collectors."],
   ["O astra nasceu da obsessão em transformar uma paixão geek em um espaço onde cada Funko Pop fosse tratado como uma peça rara. Aqui, colecionar é experiência.",
@@ -147,6 +148,9 @@ function translatePage(language) {
     const translated = TRANSLATIONS.get(trimmed);
     if (translated) node.nodeValue = original.replace(trimmed, translated);
   });
+
+  const catalogBrand = document.querySelector(".catalog-title .texto-roxo")?.firstChild;
+  if (catalogBrand && language !== "pt-BR") catalogBrand.nodeValue = "Astra Collection";
 
   document.querySelectorAll("[placeholder], [title], [aria-label]").forEach(element => {
     if (!originalAttributes.has(element)) {
