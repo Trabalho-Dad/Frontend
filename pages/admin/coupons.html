@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./../../css/components/header.css">
   <link rel="stylesheet" href="./../../css/components/loading.css">
   <link rel="stylesheet" href="./../../css/components/modal.css">
+  <link rel="stylesheet" href="./../../css/components/pagination.css">
   <link rel="stylesheet" href="./../../css/pages/admin-home.css">
 
   <link rel="shortcut icon" href="./../../assets/icons/logo.jpg" type="image/x-icon">
@@ -116,10 +117,12 @@
           </table>
           <div class="admin-empty" id="coupons-empty" style="display:none;">Nenhum cupom cadastrado ainda.</div>
         </div>
-      </section>
 
+        <div id="coupons-pagination" class="pagination"></div>
+      </section>
     </main>
   </div>
+
   <div id="coupon-modal" class="modal-overlay hidden">
     <div class="modal-content">
       <div class="modal-header">
@@ -152,12 +155,13 @@
             <input type="date" id="coupon-end" class="form-control" required>
           </div>
         </div>
+        <p class="error"></p>
         <button type="submit" class="btn-primary" style="width:100%;">Criar cupom</button>
       </form>
     </div>
   </div>
 
-  <script type="module" src="./../../js/pages/admin-home.js"></script>
+  <script type="module" src="./../../js/pages/admin-coupon.js"></script>
 </body>
 
 </html>

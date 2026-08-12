@@ -1,0 +1,34 @@
+#category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-name{
+  max-width: 150px;
+  width: 20vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-description {
+  max-width: 300px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-status{
+  max-width: 150px;
+  width: 4vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-actions{
+  max-width: 300px;
+  width: 5vw;
+}
