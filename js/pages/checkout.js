@@ -179,9 +179,9 @@ function validarFormulario() {
 }
 
 async function buscarDadosCep() {
-  const cepValue = cepInput?.value.trim() ?? "";
+  const cepValue = normalizeCep(cepInput?.value ?? "");
 
-  if (!cepValue || cepValue.length < 8) return;
+  if (cepValue.length !== 8) return;
 
   try {
     const dados = await lookupCep(cepValue);
@@ -197,10 +197,10 @@ async function buscarDadosCep() {
 }
 
 async function calcularFrete() {
-  const cepValue = cepInput?.value.trim() ?? "";
+  const cepValue = normalizeCep(cepInput?.value ?? "");
   const subtotal = Number(currentOrder?.price ?? 0);
 
-  if (!cepValue || subtotal === 0) return;
+  if (cepValue.length !== 8 || subtotal === 0) return;
 
   try {
     const resultado = await calculateShippingCost(cepValue, subtotal);
