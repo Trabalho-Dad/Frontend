@@ -141,7 +141,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
-button {
+form > button {
   width: 150px;
   margin: auto;
   display: block;
@@ -165,7 +165,7 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
+form > button:hover {
   transform: translateY(-3px);
 }
 
