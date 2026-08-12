@@ -9,7 +9,6 @@ import { updateNavbar } from "../utils/header-update.js";
 import { loading } from "../components/loading.js";
 import { requireLogin } from "../utils/auth-guard.js";
 import { calculateShippingCost, lookupCep, normalizeCep } from "../utils/calculate-shipping.js"
-import { showError, hideError } from "./../utils/error.js";
 
 const cartItemsEl = document.getElementById("cart-items");
 const subtotalEl = document.getElementById("subtotal");
@@ -24,7 +23,6 @@ const leftInputs = document.querySelectorAll(".checkout-left input");
 const [
   nomeInput,
   emailInput,
-  telefoneInput,
   cepInput,
   enderecoInput,
   numeroInput,
@@ -67,7 +65,6 @@ async function preencherDadosUsuario() {
 
     if (nomeInput) nomeInput.value = user?.name ?? "";
     if (emailInput) emailInput.value = user?.email ?? "";
-    if (telefoneInput) telefoneInput.value = user?.phone ?? "";
 
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") throw error;
@@ -75,9 +72,12 @@ async function preencherDadosUsuario() {
 }
 
 async function preencherEnderecoSalvo() {
+  const enderecoCard = cepInput?.closest(".checkout-card");
+  enderecoCard?.classList.add("is-loading");
+
   try {
-    const addresses = await findMyAddresses();
-    const address = addresses?.[0] ?? addresses?.addresses?.[0] ?? null;
+    const response = await findMyAddresses();
+    const address = response?.addresses?.[0] ?? null;
 
     if (!address) return;
 
@@ -92,7 +92,9 @@ async function preencherEnderecoSalvo() {
     if (estadoInput) estadoInput.value = address.state ?? "";
 
   } catch (error) {
-    showError(error);
+    showMessage(error.message ?? "Erro ao carregar endereço.");
+  } finally {
+    enderecoCard?.classList.remove("is-loading");
   }
 }
 
@@ -192,7 +194,7 @@ async function buscarDadosCep() {
     if (estadoInput) estadoInput.value = dados.state ?? "";
 
   } catch (error) {
-    console.error("Erro ao buscar CEP:", error);
+    showMessage("Erro ao buscar CEP:", error);
   }
 }
 
@@ -207,7 +209,7 @@ async function calcularFrete() {
     shippingCost = parseFloat(resultado.cost) ?? 0;
     renderResumo(currentOrder);
   } catch (error) {
-    console.error("Erro ao calcular frete:", error);
+    showMessage("Erro ao calcular frete:", error);
     shippingCost = 0;
   }
 }
@@ -225,7 +227,7 @@ async function verificarEnderecoExistente(novoEndereco) {
     );
 
   } catch (error) {
-    console.error("Erro ao verificar endereços existentes:", error);
+    showMessage(error);
     return null;
   }
 }
@@ -271,9 +273,7 @@ async function handlePagar() {
 
   const paymentType = getSelectedPaymentType();
 
-  const estimatedDeliveryTime = new Date(
-    Date.now() + 7 * 24 * 60 * 60 * 1000
-  ).toISOString();
+  const estimatedDeliveryTime = 7;
 
   const installmentsCount = 1;
 
@@ -305,7 +305,6 @@ async function handlePagar() {
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") return;
 
-    console.error("Erro ao finalizar pedido:", error);
     showMessage(error.message ?? "Não foi possível finalizar o pedido.");
 
   } finally {
@@ -336,7 +335,7 @@ async function fetchCarrinho() {
     renderCheckout(order);
 
   } catch (error) {
-    console.error("Erro ao carregar carrinho:", error);
+    showMessage("Erro ao carregar carrinho:", error);
 
     cartItemsEl.innerHTML = "";
 
@@ -360,15 +359,31 @@ if (btnPay) {
   });
 }
 
-if (cepInput) {
-  let timeoutId;
-  
-  cepInput.addEventListener("input", () => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      buscarDadosCep();
-      calcularFrete();
-    }, 500);
+const btnBuscarCep = document.getElementById("btn-buscar-cep");
+
+async function handleBuscarCep() {
+  showMessage("");
+
+  const cepValue = normalizeCep(cepInput?.value ?? "");
+
+  if (cepValue.length !== 8) {
+    showMessage("Informe um CEP válido.");
+    return;
+  }
+
+  try {
+    btnBuscarCep.disabled = true;
+    await buscarDadosCep();
+    await calcularFrete();
+  } finally {
+    btnBuscarCep.disabled = false;
+  }
+}
+
+if (btnBuscarCep) {
+  btnBuscarCep.addEventListener("click", event => {
+    event.preventDefault();
+    handleBuscarCep();
   });
 }
 
@@ -389,8 +404,7 @@ async function main() {
     await fetchCarrinho();
 
   } catch (error) {
-    console.error("Erro ao carregar checkout:", error);
-
+    showMessage(error);
   } finally {
     loading.hide();
   }

@@ -187,7 +187,6 @@ async function alterarQuantidade(figureId, delta) {
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") return;
 
-    console.error("Erro ao alterar quantidade:", error);
     showError(error.message ?? "Não foi possível atualizar a quantidade.");
 
   } finally {
@@ -208,9 +207,7 @@ async function removerProduto(figureId, quantity) {
   } catch (error) {
     if (error.message === "LOGIN_REQUIRED") return;
 
-    console.error("Erro ao remover produto:", error);
     showError(error.message ?? "Não foi possível remover o produto.");
-
   } finally {
     loading.hide();
   }
@@ -221,7 +218,6 @@ async function fetchCarrinho() {
     loading.show();
     showError("");
 
-    // 1. Lista os pedidos do usuário filtrando pelo status "em aberto"
     const response = await findMyOrders({ status: STATUS_CARRINHO, page: 1, take: 1 });
 
     const resumo = response?.orders?.[0] ?? null;
@@ -239,8 +235,6 @@ async function fetchCarrinho() {
     renderCarrinho(order);
 
   } catch (error) {
-    console.error("Erro ao carregar carrinho:", error);
-
     produtosSection.innerHTML = "";
 
     const errorMessage = document.createElement("p");
@@ -266,8 +260,7 @@ async function main() {
     await fetchCarrinho();
 
   } catch (error) {
-    console.error("Erro ao carregar carrinho:", error);
-
+    showError("Erro ao carregar carrinho:", error);
   } finally {
     loading.hide();
   }
