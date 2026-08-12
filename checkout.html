@@ -1,133 +1,137 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astra Store - Finalizar Pedido</title>
-  
+
   <link rel="stylesheet" href="css/base/reset.css">
   <link rel="stylesheet" href="css/base/variables.css">
   <link rel="stylesheet" href="css/base/global.css">
   <link rel="stylesheet" href="css/components/footer.css">
   <link rel="stylesheet" href="css/components/modal.css">
-  
+
   <link rel="stylesheet" href="css/pages/checkout.css">
   <link rel="shortcut icon" href="./assets/icons/logo.jpg" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="brand-logo">
-        <span class="logo-icon"><img src="assets/images/logo.png" alt=""></span>
-        <span class="logo-text">astra</span>
-      </a>
-    </div>
+  <header class="header">
+    <a href="#" class="logo">
+      <img src="./assets/icons/logo.jpg" alt="Logo Astra">
+      <span>astra</span>
+    </a>
   </header>
 
   <main class="checkout-container">
 
-    <a href="catalogo.html" class="checkout-back">← Continuar comprando</a>
-  
+    <a href="catalogo.html" class="checkout-back">
+      <span class="seta">‹</span>
+      Continuar comprando
+    </a>
+
     <h1 class="checkout-title">
       Finalize sua <span>compra</span>
     </h1>
-  
+
     <div class="checkout-grid">
-  
+
       <div class="checkout-left">
-  
+
         <section class="checkout-card">
           <h2>Dados pessoais</h2>
-  
+
           <div class="form-group">
             <label>Nome completo</label>
             <input type="text">
           </div>
-  
+
           <div class="form-row">
             <div class="form-group">
               <label>E-mail</label>
               <input type="email">
             </div>
-  
+
             <div class="form-group">
               <label>Telefone</label>
               <input type="text">
             </div>
           </div>
         </section>
-  
+
         <section class="checkout-card">
           <h2>Entrega</h2>
-  
+
           <div class="form-row">
             <div class="form-group">
               <label>CEP</label>
               <input type="text">
             </div>
-  
+
             <div class="form-group">
               <label>Endereço</label>
               <input type="text">
             </div>
           </div>
-  
+
           <div class="form-row">
             <div class="form-group">
               <label>Cidade</label>
               <input type="text">
             </div>
-  
+
             <div class="form-group">
               <label>Complemento</label>
               <input type="text">
             </div>
           </div>
         </section>
-  
+
       </div>
-  
+
       <div class="checkout-right">
-  
+
         <section class="checkout-card summary">
           <h3>Resumo do pedido</h3>
           <div id="cart-items"></div>
-        
+
           <div class="summary-line">
             <span>Subtotal</span>
             <span id="subtotal">R$ 0,00</span>
           </div>
-        
+
           <div class="summary-line">
             <span>Frete</span>
             <span id="shipping">R$ 0,00</span>
           </div>
-        
+
           <div class="summary-total">
             <span>Total</span>
             <span id="total">R$ 0,00</span>
           </div>
         </section>
-        
+
         <section class="checkout-card payment">
           <h3>Selecione a forma de pagamento</h3>
-        
+
           <label class="payment-option">
             <input type="radio" name="payment" checked>
             <span>Pix</span>
           </label>
-        
+
           <label class="payment-option">
             <input type="radio" name="payment">
             <span>Cartão crédito/débito</span>
           </label>
-        
+
           <button id="btn-pay" class="btn-pay">Pagar</button>
           <p id="checkout-message" class="checkout-message" role="status" aria-live="polite"></p>
-        </section>  
+        </section>
       </div>
-  
+
     </div>
   </main>
 
@@ -169,4 +173,5 @@
 
   <script type="module" src="js/pages/checkout.js"></script>
 </body>
+
 </html>
