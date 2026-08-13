@@ -5,7 +5,6 @@ import { getMyUser } from "../api/profile.js";
 import { loading } from "../components/loading.js";
 import { formatCep, formatCpf, formatDate, formatPrice } from "../utils/formatters.js";
 import { updateNavbar } from "../utils/header-update.js";
-import { logoutUser } from "../api/profile.js";
 
 const profileName = document.getElementById("profile-name");
 const profileAvatar = document.getElementById("profile-avatar");
@@ -254,7 +253,6 @@ logoutProfileButton.addEventListener("click", async () => {
 
   try {
     await logout();
-    logoutUser;
     sessionStorage.removeItem("logged");
     sessionStorage.removeItem("redirectAfterLogin");
     window.location.href = "../../index.html";
