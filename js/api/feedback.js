@@ -6,23 +6,18 @@ export async function getFeedbacksByFigureId(idFigure, page = 1) {
   });
 }
 
-export async function getFeedbackSummary() {
-  return apiFeedbackFetch("/ms-feedback/summary");
+export async function getFeedbackSummary(idFigure) {
+  return apiFeedbackFetch(`/ms-feedback/summary/${idFigure}`);
 }
 
-/**
- * CreateFeedback
- * POST /ms-feedback
- */
-export async function createFeedback({ customerId, rating, description, idFigure, idUser }) {
+export async function createFeedback({ rating, description, idFigure, idUser }) {
   return apiFeedbackFetch("/ms-feedback", {
     method: "POST",
     body: {
-      customer_id: customerId,
       rating,
       description,
-      id_figure: idFigure,
-      id_user: idUser
+      idFigure,
+      idUser: idUser
     }
   });
 }

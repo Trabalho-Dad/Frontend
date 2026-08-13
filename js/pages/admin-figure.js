@@ -220,7 +220,7 @@ function resetFigureForm() {
 
 function openNewFigureModal() {
   resetFigureForm();
-  figureModalTitle.textContent = "Nova figura";
+  figureModalTitle.textContent = "Novo boneco";
   openModal(FIGURE_MODAL_ID);
 }
 
@@ -231,7 +231,7 @@ async function handleEditFigure(figure) {
     const fullFigure = await findFigureByIdAdmin(figure.id);
 
     figureEditingId = fullFigure.id;
-    figureModalTitle.textContent = "Editar figura";
+    figureModalTitle.textContent = "Editar boneco";
 
     document.getElementById("figure-character").value = fullFigure.characterId ?? fullFigure.character?.id ?? "";
     document.getElementById("figure-name").value = fullFigure.name;
@@ -303,7 +303,11 @@ async function handleFigureFormSubmit(event) {
     };
 
     if (isEditing) {
-      await updateFigure(figureEditingId, { ...payload, images });
+      const updatePayload = { ...payload };
+      if (images !== undefined) {
+        updatePayload.images = images;
+      }
+      await updateFigure(figureEditingId, updatePayload);
     } else {
       await createFigure({ ...payload, imageIds: [], images });
     }
