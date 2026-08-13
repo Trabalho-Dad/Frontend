@@ -1,4 +1,4 @@
-import { findById } from "../api/figures.js";
+import { findById, loadPublicFigures } from "../api/figures.js";
 import { loading } from "../components/loading.js";
 import { showError, hideError } from "../utils/error.js";
 import { updateNavbar } from "../utils/header-update.js";
@@ -22,10 +22,10 @@ function renderProduct(product) {
   document.getElementById("product-title").textContent = product.name;
 
   document.getElementById("product-category").textContent =
-    product.category ?? "COLECIONÁVEL";
+    product.categories[0].name ?? "COLECIONÁVEL";
 
   document.getElementById("product-category").textContent =
-    product.category ?? "Colecionável";
+    product.categories[0].name ?? "Colecionável";
 
   price = product.price;
 
@@ -105,6 +105,92 @@ function setupQuantity(figureQuantity) {
 }
 
 
+function renderRelatedProducts(products) {
+  const grid = document.querySelector(".verMais-grid");
+  
+  if (!grid) return;
+  
+  grid.replaceChildren();
+  
+  if (!Array.isArray(products) || products.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "catalog-empty";
+    empty.textContent = "Nenhum produto relacionado encontrado.";
+    grid.appendChild(empty);
+    return;
+  }
+  
+  const fragment = document.createDocumentFragment();
+  
+  products.forEach(product => {
+    const card = document.createElement("article");
+    card.className = "figure-card";
+    
+    const favBtn = document.createElement("button");
+    favBtn.className = "card-fav-btn";
+    favBtn.textContent = "❤";
+    
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "card-image-wrapper";
+    
+    const img = document.createElement("img");
+    img.src = product.mainImage?.url ?? './assets/images/placeholder.png';
+    img.alt = product.name;
+    img.className = "card-img";
+    
+    imageWrapper.appendChild(favBtn);
+    imageWrapper.appendChild(img);
+    
+    const category = document.createElement("p");
+    category.className = "card-category";
+    category.textContent = product.category ?? "Colecionável";
+    
+    const title = document.createElement("h3");
+    title.className = "card-title";
+    title.textContent = product.name;
+    
+    const footer = document.createElement("div");
+    footer.className = "card-footer";
+    
+    const price = document.createElement("p");
+    price.className = "card-price";
+    
+    const priceSpan = document.createElement("span");
+    priceSpan.textContent = "R$";
+    price.appendChild(priceSpan);
+    price.appendChild(document.createTextNode(" " + formatPrice(product.price)));
+    
+    const buyBtn = document.createElement("button");
+    buyBtn.className = "btn-buy";
+    buyBtn.textContent = "🛒 Comprar";
+    buyBtn.addEventListener("click", () => {
+      window.location.href = `verMais.html?id=${product.id}`;
+    });
+    
+    footer.appendChild(price);
+    footer.appendChild(buyBtn);
+    
+    card.appendChild(imageWrapper);
+    card.appendChild(category);
+    card.appendChild(title);
+    card.appendChild(footer);
+    
+    fragment.appendChild(card);
+  });
+  
+  grid.appendChild(fragment);
+}
+
+async function loadRelatedProducts(category, currentProductId) {
+  try {
+    const products = await loadPublicFigures(category.id);
+    
+    renderRelatedProducts(products);
+  } catch (error) {
+    showError(error);
+  }
+}
+
 async function main() {
   loading.show();
 
@@ -118,12 +204,14 @@ async function main() {
 
     await updateNavbar();
 
+    const product = await findById(id);
+
     const responses = await Promise.all([
-      findById(id),
+      Promise.resolve(product),
+      loadRelatedProducts(product.categories[0], product.id)
     ]);
 
     renderProduct(responses[0]);
-
     setupQuantity(responses[0].quantity);
   } catch (error) {
     showError(error.message)

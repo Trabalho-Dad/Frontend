@@ -1,6 +1,8 @@
 import { getFavorites, setFavoriteButtonState, toggleFavorite } from "../utils/favorites.js";
 import { updateNavbar } from "../utils/header-update.js";
 import { requireLogin } from "../utils/auth-guard.js";
+import { showError } from "../utils/error.js";
+import { loading } from "../components/loading.js";
 
 const grid = document.getElementById("favorites-grid");
 const count = document.querySelector(".products-count");
@@ -86,5 +88,17 @@ function renderFavorites() {
   grid.appendChild(fragment);
 }
 
-renderFavorites();
-updateNavbar();
+async function main(){
+  try{
+    loading.show()
+
+    await renderFavorites();
+    await updateNavbar();
+  } catch (error){
+    showError(error)
+  } finally {
+    loading.hide()
+  }
+}
+
+main();

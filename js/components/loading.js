@@ -1,11 +1,12 @@
 export const loading = (() => {
   const overlay = document.createElement("div");
-
-  overlay.innerHTML = `
-    <div class="loading-spinner"></div>
-  `;
-
   overlay.className = "loading-overlay";
+  overlay.id = "loading-overlay";
+
+  const spinner = document.createElement("div");
+  spinner.className = "loading-spinner";
+
+  overlay.appendChild(spinner);
 
   document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(overlay);
