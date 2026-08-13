@@ -1,7 +1,8 @@
 import {
   findMyOrders,
   findOrderById,
-  finishOrder
+  finishOrder,
+  addCoupon
 } from "../api/order.js";
 import { findMyAddresses, createAddress, updateAddress } from "../api/addresses.js";
 import { getMyUser } from "../api/profile.js";
@@ -17,7 +18,21 @@ const totalEl = document.getElementById("total");
 const btnPay = document.getElementById("btn-pay");
 const messageEl = document.getElementById("checkout-message");
 
+const couponInput = document.getElementById("coupon-input");
+const btnCoupon = document.getElementById("btn-coupon");
+const couponMessageEl = document.getElementById("coupon-message");
+
 const paymentRadios = document.querySelectorAll('input[name="payment"]');
+
+
+function showCouponMessage(message, isError = true) {
+  if (!couponMessageEl) return;
+
+  couponMessageEl.textContent = message ?? "";
+
+  couponMessageEl.classList.toggle("error", isError);
+  couponMessageEl.classList.toggle("success", !isError);
+}
 
 const leftInputs = document.querySelectorAll(".checkout-left input");
 const [
@@ -214,12 +229,67 @@ async function calcularFrete() {
   }
 }
 
+async function handleAdicionarCupom() {
+  showCouponMessage("");
+
+  if (!currentOrder?.id) {
+    showCouponMessage("Não foi possível identificar o pedido.");
+    return;
+  }
+
+  const code = couponInput?.value.trim().toUpperCase();
+
+  if (!code) {
+    showCouponMessage("Digite um cupom.");
+    couponInput?.focus();
+    return;
+  }
+
+  try {
+    btnCoupon.disabled = true;
+
+    const response = await addCoupon(currentOrder.id, code);
+
+    const updatedOrder =
+      response?.order ??
+      response;
+
+    if (updatedOrder?.id) {
+      currentOrder = updatedOrder;
+      renderCheckout(currentOrder);
+    } else {
+
+      const refreshedOrder = await findOrderById(currentOrder.id);
+
+      currentOrder = refreshedOrder;
+      renderCheckout(currentOrder);
+    }
+
+    showCouponMessage("Cupom aplicado com sucesso!", false);
+
+    couponInput.value = "";
+    couponInput.disabled = true;
+
+  } catch (error) {
+    if (error.message === "LOGIN_REQUIRED") {
+      return;
+    }
+
+    showCouponMessage(
+      error.message ?? "Não foi possível aplicar o cupom."
+    );
+
+  } finally {
+    btnCoupon.disabled = false;
+  }
+}
+
 async function verificarEnderecoExistente(novoEndereco) {
   try {
     const addresses = await findMyAddresses();
     const lista = addresses?.[0] ? addresses : addresses?.addresses ?? [];
 
-    return lista.find(addr => 
+    return lista.find(addr =>
       addr.cep === novoEndereco.cep &&
       addr.street === novoEndereco.street &&
       addr.number === novoEndereco.number &&
@@ -384,6 +454,22 @@ if (btnBuscarCep) {
   btnBuscarCep.addEventListener("click", event => {
     event.preventDefault();
     handleBuscarCep();
+  });
+}
+
+if (btnCoupon) {
+  btnCoupon.addEventListener("click", event => {
+    event.preventDefault();
+    handleAdicionarCupom();
+  });
+}
+
+if (couponInput) {
+  couponInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleAdicionarCupom();
+    }
   });
 }
 
