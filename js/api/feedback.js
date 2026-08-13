@@ -10,14 +10,14 @@ export async function getFeedbackSummary(idFigure) {
   return apiFeedbackFetch(`/ms-feedback/summary/${idFigure}`);
 }
 
-export async function createFeedback({ rating, description, idFigure, idUser }) {
+export async function createFeedback({ rating, description, id_figure, id_user }) {
   return apiFeedbackFetch("/ms-feedback", {
     method: "POST",
     body: {
       rating,
       description,
-      idFigure,
-      idUser: idUser
+      id_figure,
+      id_user
     }
   });
 }
