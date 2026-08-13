@@ -184,8 +184,10 @@ function renderRelatedProducts(products) {
 async function loadRelatedProducts(category, currentProductId) {
   try {
     const products = await loadPublicFigures(category.id);
+
+    const filtered = products.filter(p => p.id != currentProductId).slice(0, 4);
     
-    renderRelatedProducts(products);
+    renderRelatedProducts(filtered);
   } catch (error) {
     showError(error);
   }
